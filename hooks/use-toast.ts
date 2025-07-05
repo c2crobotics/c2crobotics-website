@@ -3,13 +3,10 @@
 // Inspired by react-hot-toast library
 import * as React from "react"
 
-import type {
-  ToastActionElement,
-  ToastProps,
-} from "@/components/ui/toast"
+import type { ToastActionElement, ToastProps } from "@/components/ui/toast"
 
 const TOAST_LIMIT = 1
-const TOAST_REMOVE_DELAY = 1000000
+const TOAST_REMOVE_DELAY = 5000
 
 type ToasterToast = ToastProps & {
   id: string
@@ -85,9 +82,7 @@ export const reducer = (state: State, action: Action): State => {
     case "UPDATE_TOAST":
       return {
         ...state,
-        toasts: state.toasts.map((t) =>
-          t.id === action.toast.id ? { ...t, ...action.toast } : t
-        ),
+        toasts: state.toasts.map((t) => (t.id === action.toast.id ? { ...t, ...action.toast } : t)),
       }
 
     case "DISMISS_TOAST": {
@@ -111,7 +106,7 @@ export const reducer = (state: State, action: Action): State => {
                 ...t,
                 open: false,
               }
-            : t
+            : t,
         ),
       }
     }
@@ -134,10 +129,14 @@ const listeners: Array<(state: State) => void> = []
 let memoryState: State = { toasts: [] }
 
 function dispatch(action: Action) {
-  memoryState = reducer(memoryState, action)
-  listeners.forEach((listener) => {
-    listener(memoryState)
-  })
+  try {
+    memoryState = reducer(memoryState, action)
+    listeners.forEach((listener) => {
+      listener(memoryState)
+    })
+  } catch (error) {
+    console.error("Toast dispatch error:", error)
+  }
 }
 
 type Toast = Omit<ToasterToast, "id">

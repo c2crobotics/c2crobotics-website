@@ -1,17 +1,20 @@
+"use client"
+
 import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
+import type { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { toast } from "@/components/ui/use-toast"
+import { useToast } from "@/hooks/use-toast"
 import { formSchema } from "@/lib/schemas"
 import { send } from "@/lib/email"
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { toast } = useToast()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -25,21 +28,27 @@ export default function ContactForm() {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    send(values) // Server-side logging
-    console.log("Form submitted with values:", values); // Client-side logging
     setIsSubmitting(true)
+
     try {
-      form.reset()
+      await send(values)
+      // Success toast
       toast({
-        title: "Message sent!",
-        description: "Thank you for contacting us. We'll get back to you soon.",
+        title: "Message sent successfully!",
+        description: `Thank you ${values.firstName}! We'll get back to you soon.`,
+        variant: "default",
       })
+      // Reset form on success
+      form.reset()
     } catch (error) {
+      // Error toast
       toast({
-        title: "Something went wrong.",
-        description: "Your message couldn't be sent. Please try again later.",
+        title: "Failed to send message",
+        description: "Something went wrong. Please try again later.",
         variant: "destructive",
       })
+
+      console.error("Error sending email:", error)
     } finally {
       setIsSubmitting(false)
     }
@@ -84,7 +93,7 @@ export default function ContactForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="your.email@example.com" {...field} />
+                  <Input type="email" placeholder="your.email@example.com" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -97,7 +106,7 @@ export default function ContactForm() {
               <FormItem>
                 <FormLabel>Phone</FormLabel>
                 <FormControl>
-                  <Input placeholder="(123) 456-7890" {...field} />
+                  <Input type="tel" placeholder="(123) 456-7890" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -121,7 +130,7 @@ export default function ContactForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full" disabled={isSubmitting} variant={"destructive"}>
+        <Button type="submit" className="w-full" disabled={isSubmitting} variant="destructive">
           {isSubmitting ? "Sending..." : "Send Message"}
         </Button>
       </form>
