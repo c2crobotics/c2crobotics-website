@@ -66,7 +66,7 @@ const infoVariants = {
   },
 }
 
-export default function Page() {
+export default function Contact() {
   return (
     <motion.main
       className="container mx-auto py-12 px-4 md:px-6"
