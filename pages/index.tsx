@@ -31,7 +31,6 @@ const sponsors = [
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isClient, setIsClient] = useState(false);
-  const [isAchievementsOpen, setIsAchievementsOpen] = useState(false);
 
   useEffect(() => {
     setIsClient(true);

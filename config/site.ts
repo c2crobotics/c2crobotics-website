@@ -11,6 +11,18 @@ export type SiteConfig = {
     links: {
         [key: string]: string;
     };
+    siteURLs: {
+        label: string;
+        href: string;
+        color: Color;
+    }[];
+    history: {
+        label: string;
+        href: string;
+        color: Color;
+    }[];
+    
+    
 };
 
 export const siteConfig: SiteConfig = {
@@ -39,12 +51,12 @@ export const siteConfig: SiteConfig = {
         },
         {
             label: "Gallery",
-            href: "/b",
+            href: "/privacy-policy",
             color: "foreground"
         },
         {
             label: "Gallery",
-            href: "/a",
+            href: "/terms-of-service",
             color: "foreground"
         },
         {
@@ -60,4 +72,93 @@ export const siteConfig: SiteConfig = {
         twitter: "https://x.com/c2c_robotics",
         youtube: "https://www.youtube.com/channel/UCgZzPysyfr9m7b-pOD_6Yng",
     },
+    siteURLs: [
+        {
+            label: "Teams",
+            href: "/teams",
+            color: "foreground"
+        },
+        {
+            label: "Classes & Camps",
+            href: "/courses",
+            color: "foreground"
+        },
+        {
+            label: "Register",
+            href: "/register",
+            color: "foreground"
+        },
+        {
+            label: "Gallery",
+            href: "/gallery",
+            color: "foreground"
+        },
+        {
+            label: "Gallery",
+            href: "/privacy-policy",
+            color: "foreground"
+        },
+        {
+            label: "Gallery",
+            href: "/a",
+            color: "foreground"
+        },
+        {
+            label: "Contact",
+            href: "/contact",
+            color: "foreground"
+        },
+        {
+            label: "Terms of Service",
+            href: "/terms-of-service",
+            color: "foreground"
+        },
+        {
+            label: "Privacy Policy",
+            href: "/privacy-policy",
+            color: "foreground"
+        },
+    ],
+    history: [
+        {
+            label: "2025",
+            href: "/teams/2025",
+            color: "foreground"
+        },
+        {
+            label: "2024",
+            href: "/teams/2024",
+            color: "foreground"
+        },
+        {
+            label: "2023",
+            href: "/teams/2023",
+            color: "foreground"
+        },
+        {
+            label: "2022",
+            href: "/teams/2022",
+            color: "foreground"
+        },
+        {
+            label: "2021",
+            href: "/teams/2021",
+            color: "foreground"
+        },
+        {
+            label: "2020",
+            href: "/teams/2020",
+            color: "foreground"
+        },
+        {
+            label: "2019",
+            href: "/teams/2019",
+            color: "foreground"
+        },
+        {
+            label: "2018",
+            href: "/teams/2018",
+            color: "foreground"
+        },
+    ]
 };
