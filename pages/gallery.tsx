@@ -210,7 +210,21 @@ export default function Gallery() {
   const generateDropdownOptions = () => {
     const options: JSX.Element[] = []
 
+    // Helper function to calculate total images in an album (including subcategories)
+    const getTotalImageCount = (album: any) => {
+      if (album.subcategories && Object.keys(album.subcategories).length > 0) {
+        let total = 0
+        Object.values(album.subcategories).forEach((subcategory: any) => {
+          total += subcategory.images.length
+        })
+        return total
+      } else {
+        return album.images.length
+      }
+    }
+
     Object.entries(albums).forEach(([albumKey, album]) => {
+      const totalImages = getTotalImageCount(album)
       // Add main album option
       options.push(
         <SelectItem
@@ -220,7 +234,7 @@ export default function Gallery() {
         >
           <div className="flex justify-between items-center w-full">
             <span className="font-semibold">{album.name}</span>
-            <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full ml-2">{album.images.length}</span>
+            <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full ml-2">{totalImages}</span>
           </div>
         </SelectItem>,
       )
