@@ -142,8 +142,7 @@ export default function PrivacyPolicy() {
                         {/* Information Collection and Use */}
                         <section id="information-collection" className="mb-8">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                                <span className="font-bold">1.</span>
-                                Information Collection and Use
+                                1. Information Collection and Use
                             </h2>
                             <div className="space-y-4">
                                 <div className="flex items-center gap-3 mb-4">
@@ -277,8 +276,7 @@ export default function PrivacyPolicy() {
                         {/* Use of Data */}
                         <section id="use-of-data" className="mb-8">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                                <span className="font-bold">2.</span>
-                                Use of Data
+                                2. Use of Data
                             </h2>
                             <div className=" prose-gray max-w-none">
                                 <div className="space-y-4">
@@ -312,8 +310,7 @@ export default function PrivacyPolicy() {
                         {/* Transfer of Data */}
                         <section id="transfer-of-data" className="mb-8">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                                <span className="font-bold">3.</span>
-                                Transfer of Data
+                                3. Transfer of Data
                             </h2>
                             <div className=" prose-gray max-w-none">
                                 <div className="space-y-4">
@@ -338,8 +335,7 @@ export default function PrivacyPolicy() {
                         {/* Data Retention */}
                         <section id="data-retention" className="mb-8">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                                <span className="font-bold">4.</span>
-                                Data Retention
+                                4. Data Retention
                             </h2>
                             <div className="prose prose-gray max-w-none">
                                 <div>
@@ -353,8 +349,7 @@ export default function PrivacyPolicy() {
                         {/* Disclosure of Data */}
                         <section id="disclosure-of-data" className="mb-8">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                                <span className="font-bold">5.</span>
-                                Disclosure of Data
+                                5. Disclosure of Data
                             </h2>
                             <div className="prose-gray max-w-none">
                                 <div className="space-y-4">
@@ -386,8 +381,7 @@ export default function PrivacyPolicy() {
                         {/* Security of Data */}
                         <section id="security-of-data" className="mb-8">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                                <span className="font-bold">6.</span>
-                                Security of Data
+                                6. Security of Data
                             </h2>
                             <div className="prose prose-gray max-w-none">
                                 <div className="space-y-4">
@@ -401,8 +395,7 @@ export default function PrivacyPolicy() {
                         {/* Service Providers */}
                         <section id="service-providers" className="mb-8">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                                <span className="font-bold">7.</span>
-                                Service Providers
+                                7. Service Providers
                             </h2>
                             <div className="prose-gray max-w-none">
                                 <div className="space-y-4">
@@ -419,8 +412,7 @@ export default function PrivacyPolicy() {
                         {/* Analytics */}
                         <section id="analytics" className="mb-8">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                                <span className="font-bold">8.</span>
-                                Analytics
+                                8. Analytics
                             </h2>
                             <div className="prose-gray max-w-none">
                                 <div className="space-y-4">
@@ -455,8 +447,7 @@ export default function PrivacyPolicy() {
                         {/* Links to Other Sites */}
                         <section id="links-to-other-sites" className="mb-8">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                                <span className="font-bold">9.</span>
-                                Links to Other Sites
+                                9. Links to Other Sites
                             </h2>
                             <div className="prose prose-gray max-w-none">
                                 <div className="space-y-4">
@@ -473,8 +464,7 @@ export default function PrivacyPolicy() {
                         {/* Children's Privacy */}
                         <section id="childrens-privacy" className="mb-8">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                                <span className="font-bold">10.</span>
-                                Children's Privacy
+                                10. Children's Privacy
                             </h2>
                             <div className="prose prose-gray max-w-none">
                                 <div className="space-y-4">
@@ -488,8 +478,7 @@ export default function PrivacyPolicy() {
                         {/* Changes to This Privacy Policy */}
                         <section id="changes-to-policy" className="mb-8">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                                <span className="font-bold">11.</span>
-                                Changes to This Privacy Policy
+                                11. Changes to This Privacy Policy
                             </h2>
                             <div className="prose prose-gray max-w-none">
                                 <div className="space-y-4">
@@ -506,8 +495,7 @@ export default function PrivacyPolicy() {
                         {/* Contact Us */}
                         <section id="contact-us" className="mb-8">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                                <span className="font-bold">12.</span>
-                                Contact Us
+                                12. Contact Us
                             </h2>
                                 <div>
                                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
