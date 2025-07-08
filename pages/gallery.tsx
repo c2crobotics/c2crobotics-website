@@ -7,111 +7,8 @@ import { Suspense, useState, useEffect } from "react"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { EmptyImageIcon } from "@/components/icons";
-
-const carouselImages = [
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-  "/gallery/placeholder.webp",
-];
-
-const albumImages = {
-  year_2025: {
-    name: "2025",
-    images: [
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-    ],
-  },
-  year_2024: {
-    name: "2024",
-    images: [
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-    ],
-  },
-  year_2023: {
-    name: "2023",
-    images: [
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-    ],
-  },
-  year_2022: {
-    name: "2022",
-    images: [
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-      "/gallery/placeholder.webp",
-    ],
-  },
-}
+import { siteConfig } from "@/config/site";
+import type { JSX } from "react"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -214,54 +111,101 @@ export default function Gallery() {
   const [containerHeight, setContainerHeight] = useState<number>(0)
   const containerRef = React.useRef<HTMLDivElement>(null)
 
+  const { carouselImages, albums } = siteConfig.gallery
+
   // Calculate container height based on current album
   useEffect(() => {
     if (containerRef.current && selectedAlbum) {
-      const currentAlbum = albumImages[selectedAlbum as keyof typeof albumImages]
-      if (currentAlbum) {
-        // Calculate approximate height based on grid layout
-        const imageCount = currentAlbum.images.length
-        const cols = {
-          base: 1,
-          xs: 2,
-          sm: 2,
-          md: 3,
-          lg: 4,
-          xl: 5,
+      const [albumKey, subcategoryKey] = selectedAlbum.split(".")
+      const album = albums[albumKey]
+      let imageCount = 0
+
+      if (album) {
+        if (subcategoryKey && album.subcategories?.[subcategoryKey]) {
+          imageCount = album.subcategories?.[subcategoryKey].images.length
+        } else {
+          imageCount = album.images.length
         }
-
-        const rows = Math.ceil(imageCount / 4)
-        const itemHeight = 200 // Approximate height of each grid item
-        const gap = 4 // Gap between items
-        const calculatedHeight = rows * itemHeight + (rows - 1) * gap
-
-        setContainerHeight(Math.max(calculatedHeight, 400))
       }
+
+      const rows = Math.ceil(imageCount / 4)
+      const itemHeight = 200
+      const gap = 4
+      const height = rows * itemHeight + (rows - 1) * gap
+      setContainerHeight(height)
     } else {
       setContainerHeight(400)
     }
-  }, [selectedAlbum])
+  }, [selectedAlbum, albums])
 
   // Handle album change with smooth transition
   const handleAlbumChange = async (newAlbum: string) => {
     if (newAlbum === selectedAlbum) return
-
     setIsTransitioning(true)
-
-    // Small delay to allow exit animation to start
-    await new Promise((resolve) => setTimeout(resolve, 100))
-
     setSelectedAlbum(newAlbum)
-
-    // Allow time for content to load and animate in
-    await new Promise((resolve) => setTimeout(resolve, 300))
-
     setIsTransitioning(false)
   }
 
-  // Get current album data
-  const currentAlbum = selectedAlbum ? albumImages[selectedAlbum as keyof typeof albumImages] : null
+  const getCurrentAlbumData = () => {
+    if (!selectedAlbum) return null
+    const [albumKey, subcategoryKey] = selectedAlbum.split(".")
+    const album = albums[albumKey]
+    if (!album) return null
+    if (subcategoryKey && album.subcategories?.[subcategoryKey]) {
+      return {
+        name: `${album.name} - ${album.subcategories[subcategoryKey].name}`,
+        images: album.subcategories[subcategoryKey].images,
+      }
+    }
+
+    return {
+      name: album.name,
+      images: album.images,
+    }
+  }
+  const currentAlbum = getCurrentAlbumData()
   const currentImages = currentAlbum?.images || []
+
+  // Generate dropdown options with subcategories
+  const generateDropdownOptions = () => {
+    const options: JSX.Element[] = []
+
+    Object.entries(albums).forEach(([albumKey, album]) => {
+      // Add main album option
+      options.push(
+        <SelectItem
+          key={albumKey}
+          value={albumKey}
+          className="text-base sm:text-sm py-3 sm:py-2 cursor-pointer hover:bg-gray-50 font-semibold"
+        >
+          <div className="flex justify-between items-center w-full">
+            <span className="font-semibold">{album.name}</span>
+            <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full ml-2">{album.images.length}</span>
+          </div>
+        </SelectItem>,
+      )
+
+      // Add subcategory options if they exist
+      if (album.subcategories) {
+        Object.entries(album.subcategories).forEach(([subKey, subcategory]) => {
+          options.push(
+            <SelectItem
+              key={`${albumKey}.${subKey}`}
+              value={`${albumKey}.${subKey}`}
+              className="text-base sm:text-sm py-2 sm:py-1 cursor-pointer hover:bg-gray-50 pl-6"
+            >
+              <div className="flex justify-between items-center w-full">
+                <span className="text-gray-600">↳ {subcategory.name}</span>
+                <span className="text-xs bg-gray-100 px-2 py-1 rounded-full ml-2">{subcategory.images.length}</span>
+              </div>
+            </SelectItem>,
+          )
+        })
+      }
+    })
+
+    return options
+  }
 
   return (
     <Suspense
@@ -370,18 +314,7 @@ export default function Gallery() {
                   align="end"
                   sideOffset={4}
                 >
-                  {Object.entries(albumImages).map(([key, album]) => (
-                    <SelectItem
-                      key={key}
-                      value={key}
-                      className="text-base sm:text-sm py-3 sm:py-2 cursor-pointer hover:bg-gray-50"
-                    >
-                      <div className="flex justify-between items-center w-full">
-                        <span className="font-medium">{album.name}</span>
-                        <span className="text-xs bg-gray-100 px-2 py-1 rounded-full ml-2">{album.images.length}</span>
-                      </div>
-                    </SelectItem>
-                  ))}
+                  {generateDropdownOptions()}
                 </SelectContent>
               </Select>
             </motion.div>

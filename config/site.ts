@@ -276,4 +276,3 @@ export const siteConfig: SiteConfig = {
         },
     },
 };
-
