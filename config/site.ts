@@ -2,7 +2,6 @@ type Color = "foreground" | "background" | "primary" | "secondary" | "accent"
 
 export type GalleryAlbum = {
     name: string
-    images: string[]
     subcategories?: {
         [key: string]: {
             name: string
@@ -171,33 +170,11 @@ export const siteConfig: SiteConfig = {
             "/gallery/placeholder.webp",
             "/gallery/placeholder.webp",
             "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
         ],
         albums: {
             "2024-2025": {
                 name: "2024-2025",
-                images: [
-                    "/gallery/placeholder.webp",
-                    "/gallery/placeholder.webp",
-                    "/gallery/placeholder.webp",
-                    "/gallery/placeholder.webp",
-                    "/gallery/placeholder.webp",
-                    "/gallery/placeholder.webp",
-                ],
                 subcategories: {
-                    competitions: {
-                        name: "Competitions",
-                        images: [
-                            "/gallery/placeholder.webp",
-                            "/gallery/placeholder.webp",
-                            "/gallery/placeholder.webp",
-                            "/gallery/placeholder.webp",
-                        ],
-                    },
                     team_photos: {
                         name: "Team Photos",
                         images: ["/gallery/placeholder.webp", "/gallery/placeholder.webp", "/gallery/placeholder.webp"],
@@ -214,20 +191,8 @@ export const siteConfig: SiteConfig = {
                     },
                 },
             },
-            "2024": {
-                name: "2024",
-                images: [
-                    "/gallery/placeholder.webp",
-                    "/gallery/placeholder.webp",
-                    "/gallery/placeholder.webp",
-                    "/gallery/placeholder.webp",
-                    "/gallery/placeholder.webp",
-                    "/gallery/placeholder.webp",
-                    "/gallery/placeholder.webp",
-                    "/gallery/placeholder.webp",
-                    "/gallery/placeholder.webp",
-                    "/gallery/placeholder.webp",
-                ],
+            "2023-2024": {
+                name: "2023-2024",
                 subcategories: {
                     competitions: {
                         name: "Competitions",

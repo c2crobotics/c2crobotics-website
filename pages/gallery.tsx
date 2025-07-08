@@ -162,7 +162,11 @@ export default function Gallery() {
     if (subcategoryKey && album.subcategories?.[subcategoryKey]) {
       imageCount = album.subcategories[subcategoryKey].images.length
     } else {
-      imageCount = album.images.length
+      if (album.subcategories) {
+        Object.values(album.subcategories).forEach((subcategory) => {
+          imageCount += subcategory.images.length
+        })
+      }
     }
 
     const columns = getGridColumns()
@@ -191,6 +195,7 @@ export default function Gallery() {
     const [albumKey, subcategoryKey] = selectedAlbum.split(".")
     const album = albums[albumKey]
     if (!album) return null
+
     if (subcategoryKey && album.subcategories?.[subcategoryKey]) {
       return {
         name: `${album.name} - ${album.subcategories[subcategoryKey].name}`,
@@ -198,9 +203,20 @@ export default function Gallery() {
       }
     }
 
+    // If main album selected, combine all subcategory images
+    if (album.subcategories) {
+      const allImages: string[] = []
+      Object.values(album.subcategories).forEach((subcategory) => {
+        allImages.push(...subcategory.images)
+      })
+      return {
+        name: album.name,
+        images: allImages,
+      }
+    }
+
     return {
       name: album.name,
-      images: album.images,
     }
   }
   const currentAlbum = getCurrentAlbumData()
@@ -210,37 +226,37 @@ export default function Gallery() {
   const generateDropdownOptions = () => {
     const options: JSX.Element[] = []
 
-    // Helper function to calculate total images in an album (including subcategories)
+    // Helper function to calculate total images in an album (only subcategories now)
     const getTotalImageCount = (album: any) => {
-      if (album.subcategories && Object.keys(album.subcategories).length > 0) {
+      if (album.subcategories) {
         let total = 0
         Object.values(album.subcategories).forEach((subcategory: any) => {
           total += subcategory.images.length
         })
         return total
-      } else {
-        return album.images.length
       }
+      return 0
     }
 
     Object.entries(albums).forEach(([albumKey, album]) => {
       const totalImages = getTotalImageCount(album)
-      // Add main album option
-      options.push(
-        <SelectItem
-          key={albumKey}
-          value={albumKey}
-          className="text-base sm:text-sm py-3 sm:py-2 cursor-pointer hover:bg-gray-50 font-semibold"
-        >
-          <div className="flex justify-between items-center w-full">
-            <span className="font-semibold">{album.name}</span>
-            <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full ml-2">{totalImages}</span>
-          </div>
-        </SelectItem>,
-      )
 
-      // Add subcategory options if they exist
-      if (album.subcategories) {
+      // Only show main album option if it has subcategories
+      if (album.subcategories && Object.keys(album.subcategories).length > 0) {
+        options.push(
+          <SelectItem
+            key={albumKey}
+            value={albumKey}
+            className="text-base sm:text-sm py-3 sm:py-2 cursor-pointer hover:bg-gray-50 font-semibold"
+          >
+            <div className="flex justify-between items-center w-full">
+              <span className="font-semibold">{album.name}</span>
+              <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full ml-2">{totalImages}</span>
+            </div>
+          </SelectItem>,
+        )
+
+        // Add subcategory options
         Object.entries(album.subcategories).forEach(([subKey, subcategory]) => {
           options.push(
             <SelectItem
