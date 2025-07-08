@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Shield, Scale, AlertTriangle, Mail, FileText, List, Users, Globe, Lock, Ban, RefreshCw, Gavel, ShoppingCart, CreditCard, Package, Eye, UserCheck, MessageSquare, ExternalLink, AlertCircle, XCircle } from 'lucide-react';
+import { Scale, AlertTriangle, Mail, List, } from 'lucide-react';
 
 const containerVariants = {
     hidden: { opacity: 0 },
