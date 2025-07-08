@@ -304,7 +304,7 @@ export default function Gallery() {
               >
                 <CarouselContent className="-ml-2 md:-ml-4">
                   {carouselImages.map((src, index) => (
-                    <CarouselItem key={index} className="pl-2 md:pl-4 basis-4/5 sm:basis-full">
+                    <CarouselItem key={index} className="pl-2 md:pl-4 sm:basis-full">
                       <div className="relative">
                         <img
                           src={src || "/placeholder.svg"}
@@ -398,7 +398,7 @@ export default function Gallery() {
               {selectedAlbum && currentImages.length > 0 && (
                 <motion.div
                   key={selectedAlbum}
-                  className="absolute inset-0 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6 content-start"
+                  className="absolute grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6 content-start"
                   variants={gridVariants}
                   initial="initial"
                   animate="animate"

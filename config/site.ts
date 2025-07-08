@@ -1,5 +1,16 @@
 type Color = "foreground" | "background" | "primary" | "secondary" | "accent";
 
+export type GallberyAlbum = {
+    name: string
+    images: string[]
+    subcategories?: {
+        [key:string]: {
+            name: string
+            image: string[]
+        }
+    }
+}
+
 export type SiteConfig = {
     name: string;
     description: string;
@@ -50,12 +61,12 @@ export const siteConfig: SiteConfig = {
             color: "foreground"
         },
         {
-            label: "Gallery",
+            label: "test",
             href: "/privacy-policy",
             color: "foreground"
         },
         {
-            label: "Gallery",
+            label: "test",
             href: "/terms-of-service",
             color: "foreground"
         },
@@ -94,12 +105,12 @@ export const siteConfig: SiteConfig = {
             color: "foreground"
         },
         {
-            label: "Gallery",
-            href: "/privacy-policy",
+            label: "test",
+            href: "/b",
             color: "foreground"
         },
         {
-            label: "Gallery",
+            label: "test",
             href: "/a",
             color: "foreground"
         },
@@ -162,3 +173,4 @@ export const siteConfig: SiteConfig = {
         },
     ]
 };
+
