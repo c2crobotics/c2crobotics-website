@@ -1,9 +1,9 @@
-type Color = "foreground" | "background" | "primary" | "secondary" | "accent";
+type Color = "foreground" | "background" | "primary" | "secondary" | "accent"
 
 export type GalleryAlbum = {
     name: string
     images: string[]
-    subcategories: {
+    subcategories?: {
         [key: string]: {
             name: string
             images: string[]
@@ -12,33 +12,33 @@ export type GalleryAlbum = {
 }
 
 export type SiteConfig = {
-    name: string;
-    description: string;
+    name: string
+    description: string
     navItems: {
-        label: string;
-        href: string;
-        color: Color;
-    }[];
+        label: string
+        href: string
+        color: Color
+    }[]
     links: {
-        [key: string]: string;
-    };
+        [key: string]: string
+    }
     siteURLs: {
-        label: string;
-        href: string;
-        color: Color;
-    }[];
+        label: string
+        href: string
+        color: Color
+    }[]
     history: {
-        label: string;
-        href: string;
-        color: Color;
-    }[];
+        label: string
+        href: string
+        color: Color
+    }[]
     gallery: {
         carouselImages: string[]
         albums: {
             [key: string]: GalleryAlbum
         }
     }
-};
+}
 
 export const siteConfig: SiteConfig = {
     name: "Coast 2 Coast",
@@ -47,38 +47,38 @@ export const siteConfig: SiteConfig = {
         {
             label: "Teams",
             href: "/teams",
-            color: "foreground"
+            color: "foreground",
         },
         {
             label: "Classes & Camps",
             href: "/courses",
-            color: "foreground"
+            color: "foreground",
         },
         {
             label: "Register",
             href: "/register",
-            color: "foreground"
+            color: "foreground",
         },
         {
             label: "Gallery",
             href: "/gallery",
-            color: "foreground"
+            color: "foreground",
         },
         {
-            label: "test",
+            label: "Privacy Policy",
             href: "/privacy-policy",
-            color: "foreground"
+            color: "foreground",
         },
         {
-            label: "test",
+            label: "Terms of Service",
             href: "/terms-of-service",
-            color: "foreground"
+            color: "foreground",
         },
         {
             label: "Contact",
             href: "/contact",
-            color: "foreground"
-        }
+            color: "foreground",
+        },
     ],
     links: {
         github: "",
@@ -91,93 +91,87 @@ export const siteConfig: SiteConfig = {
         {
             label: "Teams",
             href: "/teams",
-            color: "foreground"
+            color: "foreground",
         },
         {
             label: "Classes & Camps",
             href: "/courses",
-            color: "foreground"
+            color: "foreground",
         },
         {
             label: "Register",
             href: "/register",
-            color: "foreground"
+            color: "foreground",
         },
         {
             label: "Gallery",
             href: "/gallery",
-            color: "foreground"
-        },
-        {
-            label: "test",
-            href: "/b",
-            color: "foreground"
-        },
-        {
-            label: "test",
-            href: "/a",
-            color: "foreground"
-        },
-        {
-            label: "Contact",
-            href: "/contact",
-            color: "foreground"
-        },
-        {
-            label: "Terms of Service",
-            href: "/terms-of-service",
-            color: "foreground"
+            color: "foreground",
         },
         {
             label: "Privacy Policy",
             href: "/privacy-policy",
-            color: "foreground"
+            color: "foreground",
+        },
+        {
+            label: "Terms of Service",
+            href: "/terms-of-service",
+            color: "foreground",
+        },
+        {
+            label: "Contact",
+            href: "/contact",
+            color: "foreground",
         },
     ],
     history: [
         {
             label: "2025",
             href: "/teams/2025",
-            color: "foreground"
+            color: "foreground",
         },
         {
             label: "2024",
             href: "/teams/2024",
-            color: "foreground"
+            color: "foreground",
         },
         {
             label: "2023",
             href: "/teams/2023",
-            color: "foreground"
+            color: "foreground",
         },
         {
             label: "2022",
             href: "/teams/2022",
-            color: "foreground"
+            color: "foreground",
         },
         {
             label: "2021",
             href: "/teams/2021",
-            color: "foreground"
+            color: "foreground",
         },
         {
             label: "2020",
             href: "/teams/2020",
-            color: "foreground"
+            color: "foreground",
         },
         {
             label: "2019",
             href: "/teams/2019",
-            color: "foreground"
+            color: "foreground",
         },
         {
             label: "2018",
             href: "/teams/2018",
-            color: "foreground"
+            color: "foreground",
         },
     ],
     gallery: {
         carouselImages: [
+            "/gallery/placeholder.webp",
+            "/gallery/placeholder.webp",
+            "/gallery/placeholder.webp",
+            "/gallery/placeholder.webp",
             "/gallery/placeholder.webp",
             "/gallery/placeholder.webp",
             "/gallery/placeholder.webp",
@@ -206,11 +200,7 @@ export const siteConfig: SiteConfig = {
                     },
                     team_photos: {
                         name: "Team Photos",
-                        images: [
-                            "/gallery/placeholder.webp",
-                            "/gallery/placeholder.webp",
-                            "/gallery/placeholder.webp"
-                        ],
+                        images: ["/gallery/placeholder.webp", "/gallery/placeholder.webp", "/gallery/placeholder.webp"],
                     },
                     events: {
                         name: "Events",
@@ -224,9 +214,16 @@ export const siteConfig: SiteConfig = {
                     },
                 },
             },
-            "2023-2024": {
-                name: "2023-2024",
+            "2024": {
+                name: "2024",
                 images: [
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
                     "/gallery/placeholder.webp",
                     "/gallery/placeholder.webp",
                     "/gallery/placeholder.webp",
@@ -235,6 +232,10 @@ export const siteConfig: SiteConfig = {
                     competitions: {
                         name: "Competitions",
                         images: [
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
                             "/gallery/placeholder.webp",
                             "/gallery/placeholder.webp",
                         ],
@@ -246,7 +247,52 @@ export const siteConfig: SiteConfig = {
                             "/gallery/placeholder.webp",
                             "/gallery/placeholder.webp",
                             "/gallery/placeholder.webp",
+                        ],
+                    },
+                    workshops: {
+                        name: "Workshops",
+                        images: ["/gallery/placeholder.webp", "/gallery/placeholder.webp", "/gallery/placeholder.webp"],
+                    },
+                },
+            },
+            "2023": {
+                name: "2023",
+                images: [
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                ],
+                subcategories: {
+                    competitions: {
+                        name: "Competitions",
+                        images: [
                             "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                        ],
+                    },
+                    team_photos: {
+                        name: "Team Photos",
+                        images: [
                             "/gallery/placeholder.webp",
                             "/gallery/placeholder.webp",
                             "/gallery/placeholder.webp",
@@ -261,6 +307,41 @@ export const siteConfig: SiteConfig = {
                             "/gallery/placeholder.webp",
                             "/gallery/placeholder.webp",
                             "/gallery/placeholder.webp",
+                        ],
+                    },
+                },
+            },
+            "2022": {
+                name: "2022",
+                images: [
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                ],
+                subcategories: {
+                    competitions: {
+                        name: "Competitions",
+                        images: [
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
                             "/gallery/placeholder.webp",
                             "/gallery/placeholder.webp",
                             "/gallery/placeholder.webp",
@@ -271,8 +352,29 @@ export const siteConfig: SiteConfig = {
                             "/gallery/placeholder.webp",
                         ],
                     },
-                }
-            }
+                    team_photos: {
+                        name: "Team Photos",
+                        images: [
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                        ],
+                    },
+                    workshops: {
+                        name: "Workshops",
+                        images: [
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                        ],
+                    },
+                },
+            },
         },
     },
-};
+}

@@ -3,7 +3,7 @@
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { motion, AnimatePresence } from "framer-motion"
-import { Suspense, useState, useEffect } from "react"
+import { Suspense, useState, useEffect, useCallback } from "react"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { EmptyImageIcon } from "@/components/icons";
@@ -103,40 +103,80 @@ const emptyStateVariants = {
   },
 }
 
+const useWindowSizeHook = () => {
+  const [windowSize, setWindowSize] = useState({
+    width: typeof window !== "undefined" ? window.innerWidth : 0,
+    height: typeof window !== "undefined" ? window.innerHeight : 0,
+  })
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      })
+    }
+
+    window.addEventListener("resize", handleResize)
+    handleResize()
+
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
+
+  return windowSize
+}
+
 export default function Gallery() {
   const plugin = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true }))
   const [selectedAlbum, setSelectedAlbum] = useState<string>("")
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [carouselApi, setCarouselApi] = React.useState<any>()
-  const [containerHeight, setContainerHeight] = useState<number>(0)
-  const containerRef = React.useRef<HTMLDivElement>(null)
+  const [gridHeight, setGridHeight] = useState<number>(0)
+  const gridRef = React.useRef<HTMLDivElement>(null)
+  const windowSize = useWindowSizeHook()
 
   const { carouselImages, albums } = siteConfig.gallery
 
+  const getGridColumns = useCallback(() => {
+    const width = windowSize.width
+    if (width < 640) return 1 // xs
+    if (width < 768) return 2 // sm
+    if (width < 1024) return 3 // md
+    if (width < 1280) return 4 // lg
+    return 5 // xl
+  }, [windowSize.width])
+
   // Calculate container height based on current album
   useEffect(() => {
-    if (containerRef.current && selectedAlbum) {
-      const [albumKey, subcategoryKey] = selectedAlbum.split(".")
-      const album = albums[albumKey]
-      let imageCount = 0
-
-      if (album) {
-        if (subcategoryKey && album.subcategories?.[subcategoryKey]) {
-          imageCount = album.subcategories?.[subcategoryKey].images.length
-        } else {
-          imageCount = album.images.length
-        }
-      }
-
-      const rows = Math.ceil(imageCount / 4)
-      const itemHeight = 200
-      const gap = 4
-      const height = rows * itemHeight + (rows - 1) * gap
-      setContainerHeight(height)
-    } else {
-      setContainerHeight(400)
+    if (!selectedAlbum) {
+      setGridHeight(400)
+      return
     }
-  }, [selectedAlbum, albums])
+
+    const [albumKey, subcategoryKey] = selectedAlbum.split(".")
+    const album = albums[albumKey]
+
+    let imageCount = 0
+    if (subcategoryKey && album.subcategories?.[subcategoryKey]) {
+      imageCount = album.subcategories[subcategoryKey].images.length
+    } else {
+      imageCount = album.images.length
+    }
+
+    const columns = getGridColumns()
+    const rows = Math.ceil(imageCount / columns)
+
+    // Calculate item size based on available width
+    const containerWidth = gridRef.current?.clientWidth || windowSize.width
+    const itemWidth = (containerWidth - (columns - 1) * 16) / columns
+    const itemHeight = itemWidth
+    const gap = 4
+    const calculatedHeight = rows * itemHeight + (rows - 1) * gap
+
+    setGridHeight(Math.max(calculatedHeight, 400))
+  }, [selectedAlbum, albums, windowSize, getGridColumns])
 
   // Handle album change with smooth transition
   const handleAlbumChange = async (newAlbum: string) => {
@@ -195,7 +235,7 @@ export default function Gallery() {
               className="text-base sm:text-sm py-2 sm:py-1 cursor-pointer hover:bg-gray-50 pl-6"
             >
               <div className="flex justify-between items-center w-full">
-                <span className="text-gray-600">↳ {subcategory.name}</span>
+                <span className="text-gray-600">{subcategory.name}</span>
                 <span className="text-xs bg-gray-100 px-2 py-1 rounded-full ml-2">{subcategory.images.length}</span>
               </div>
             </SelectItem>,
@@ -322,15 +362,15 @@ export default function Gallery() {
 
           {/* Images Grid Container*/}
           <div
-            ref={containerRef}
-            className="relative transition-all duration-500 ease-out"
-            style={{ height: `${containerHeight}px` }}
+            ref={gridRef}
+            className="relative w-full mb-8"
+            style={{ minHeight: selectedAlbum ? `${gridHeight}px` : "400px" }}
           >
             <AnimatePresence mode="wait">
               {selectedAlbum && currentImages.length > 0 && (
                 <motion.div
                   key={selectedAlbum}
-                  className="absolute grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6 content-start"
+                  className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6 w-full"
                   variants={gridVariants}
                   initial="initial"
                   animate="animate"
@@ -339,7 +379,7 @@ export default function Gallery() {
                   {currentImages.map((src, index) => (
                     <motion.div
                       key={`${selectedAlbum}-${index}`}
-                      className="overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+                      className="overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 aspect-square"
                       variants={itemVariants}
                     >
                       <img
@@ -355,7 +395,7 @@ export default function Gallery() {
               {selectedAlbum === "" && (
                 <motion.div
                   key="empty"
-                  className="absolute inset-0 flex items-center justify-center"
+                  className="flex items-center justify-center h-[400px]"
                   variants={emptyStateVariants}
                   initial="initial"
                   animate="animate"
