@@ -293,7 +293,7 @@ export default function Gallery() {
       >
         {/* Header Section */}
         <div className="text-center sm:text-left mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold mb-4">Gallery</h1>
+          <h1 className="text-2xl sm:text-4xl font-bold mb-4">Gallery</h1>
           <p className="text-base sm:text-lg text-gray-700 mb-6 sm:mb-8">Explore our collection of images.</p>
         </div>
 

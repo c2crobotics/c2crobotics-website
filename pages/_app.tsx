@@ -73,7 +73,7 @@ export default function App({ Component, pageProps }: AppProps) {
               <Link href="/contact" className="uppercase font-semibold tracking-wide text-gray-300 hover:text-[#ffb347] transition">Contact Us</Link>
             </nav>
             <div className="text-center text-gray-400 text-base mt-8">
-              ©Copyright Coast 2 Coast Robotics
+              © 2025 Coast 2 Coast Robotics. All rights reserved.
             </div>
           </div>
         </footer>
