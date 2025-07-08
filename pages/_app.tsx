@@ -20,9 +20,9 @@ const SocialLinks = ({className = ""}: { className?: string }) => (
         <a href={siteConfig.links.youtube} aria-label="Youtube" className="hover:scale-110 transition" target="_blank" rel="noopener noreferrer">
             <YoutubeIcon/>
         </a>
-        <a href={siteConfig.links.github} aria-label="Github" className="hover:scale-110 transition" target="_blank" rel="noopener noreferrer">
+        {/* <a href={siteConfig.links.github} aria-label="Github" className="hover:scale-110 transition" target="_blank" rel="noopener noreferrer">
             <GithubIcon/>
-        </a>
+        </a> */}
     </div>
 );
 
