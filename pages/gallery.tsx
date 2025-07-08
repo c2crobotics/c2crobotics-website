@@ -9,108 +9,108 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { EmptyImageIcon } from "@/components/icons";
 
 const carouselImages = [
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
-    "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
+  "/gallery/placeholder.webp",
 ];
 
 const albumImages = {
-    year_2025: {
-        name: "2025",
-        images: [
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-        ],
-    },
-    year_2024: {
-        name: "2024",
-        images: [
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-        ],
-    },
-    year_2023: {
-        name: "2023",
-        images: [
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-        ],
-    },
-    year_2022: {
-        name: "2022",
-        images: [
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-        ],
-    },
+  year_2025: {
+    name: "2025",
+    images: [
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+    ],
+  },
+  year_2024: {
+    name: "2024",
+    images: [
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+    ],
+  },
+  year_2023: {
+    name: "2023",
+    images: [
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+    ],
+  },
+  year_2022: {
+    name: "2022",
+    images: [
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+      "/gallery/placeholder.webp",
+    ],
+  },
 }
 
 const containerVariants = {
@@ -230,10 +230,9 @@ export default function Gallery() {
           xl: 5,
         }
 
-        // Use lg breakpoint as reference (4 columns)
         const rows = Math.ceil(imageCount / 4)
         const itemHeight = 200 // Approximate height of each grid item
-        const gap = 24 // Gap between items
+        const gap = 4 // Gap between items
         const calculatedHeight = rows * itemHeight + (rows - 1) * gap
 
         setContainerHeight(Math.max(calculatedHeight, 400))
@@ -298,7 +297,7 @@ export default function Gallery() {
                 opts={{
                   align: "start",
                   loop: true,
-                  dragFree: true,
+                  dragFree: false,
                   containScroll: "trimSnaps",
                 }}
               >
@@ -307,7 +306,7 @@ export default function Gallery() {
                     <CarouselItem key={index} className="pl-2 md:pl-4 sm:basis-full">
                       <div className="relative">
                         <img
-                          src={src || "/placeholder.svg"}
+                          src={src}
                           alt={`Gallery image ${index + 1}`}
                           className="w-full h-48 sm:h-64 md:h-auto object-cover rounded-lg shadow-lg"
                         />
@@ -431,7 +430,7 @@ export default function Gallery() {
                 >
                   <div className="text-center">
                     <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
-                      <EmptyImageIcon/>
+                      <EmptyImageIcon />
                     </div>
                     <p className="text-gray-500 text-base sm:text-lg font-medium mb-2">No album selected</p>
                     <p className="text-gray-400 text-sm sm:text-base">Please select an album above to view images</p>

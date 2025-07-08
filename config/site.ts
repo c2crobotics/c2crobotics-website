@@ -1,12 +1,12 @@
 type Color = "foreground" | "background" | "primary" | "secondary" | "accent";
 
-export type GallberyAlbum = {
+export type GalleryAlbum = {
     name: string
     images: string[]
-    subcategories?: {
-        [key:string]: {
+    subcategories: {
+        [key: string]: {
             name: string
-            image: string[]
+            images: string[]
         }
     }
 }
@@ -32,8 +32,12 @@ export type SiteConfig = {
         href: string;
         color: Color;
     }[];
-    
-    
+    gallery: {
+        carouselImages: string[]
+        albums: {
+            [key: string]: GalleryAlbum
+        }
+    }
 };
 
 export const siteConfig: SiteConfig = {
@@ -171,6 +175,105 @@ export const siteConfig: SiteConfig = {
             href: "/teams/2018",
             color: "foreground"
         },
-    ]
+    ],
+    gallery: {
+        carouselImages: [
+            "/gallery/placeholder.webp",
+            "/gallery/placeholder.webp",
+            "/gallery/placeholder.webp",
+            "/gallery/placeholder.webp",
+        ],
+        albums: {
+            "2024-2025": {
+                name: "2024-2025",
+                images: [
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                ],
+                subcategories: {
+                    competitions: {
+                        name: "Competitions",
+                        images: [
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                        ],
+                    },
+                    team_photos: {
+                        name: "Team Photos",
+                        images: [
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp"
+                        ],
+                    },
+                    events: {
+                        name: "Events",
+                        images: [
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                        ],
+                    },
+                },
+            },
+            "2023-2024": {
+                name: "2023-2024",
+                images: [
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                    "/gallery/placeholder.webp",
+                ],
+                subcategories: {
+                    competitions: {
+                        name: "Competitions",
+                        images: [
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                        ],
+                    },
+                    team_photos: {
+                        name: "Team Photos",
+                        images: [
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                        ],
+                    },
+                    events: {
+                        name: "Events",
+                        images: [
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                            "/gallery/placeholder.webp",
+                        ],
+                    },
+                }
+            }
+        },
+    },
 };
 
