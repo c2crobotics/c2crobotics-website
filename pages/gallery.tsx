@@ -175,6 +175,26 @@ const itemVariants = {
     },
 }
 
+const loadingVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.3,
+      ease: "easeOut",
+    },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.9,
+    transition: {
+      duration: 0.2,
+      ease: "easeIn",
+    },
+  },
+}
+
 const LazyImage = ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isInView, setIsInView] = useState(false)
@@ -207,7 +227,7 @@ const LazyImage = ({ src, alt, className }: { src: string; alt: string; classNam
       )}
       {isInView && (
         <img
-          src={src}
+          src={src || "/placeholder.svg"}
           alt={alt}
           loading="lazy"
           className={`w-full h-auto object-cover transition-all duration-300 ${
@@ -220,12 +240,36 @@ const LazyImage = ({ src, alt, className }: { src: string; alt: string; classNam
   )
 }
 
+// Loading skeleton
+const LoadingSkeleton = () => (
+  <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
+    {Array.from({ length: 8 }).map((_, index) => (
+      <div key={index} className="aspect-square rounded-lg bg-gray-200 animate-pulse" />
+    ))}
+  </div>
+)
+
 export default function Gallery() {
-    const plugin = React.useRef(Autoplay({delay: 2000, stopOnInteraction: true}));
-    const [selectedAlbum, setSelectedAlbum] = useState<string>("");
+    const plugin = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true }))
+    const [selectedAlbum, setSelectedAlbum] = useState<string>("")
+    const [isLoading, setIsLoading] = useState(false)
+    const [displayedAlbum, setDisplayedAlbum] = useState<string>("")
     const [carouselApi, setCarouselApi] = React.useState<any>()
 
-    const currentAlbum = selectedAlbum ? albumImages[selectedAlbum as keyof typeof albumImages] : null
+    const handleAlbumChange = async (newAlbum: string) => {
+        if (newAlbum === selectedAlbum) return
+
+        setIsLoading(true)
+        setSelectedAlbum(newAlbum)
+
+        // Add a small delay to make the transition feel more natural
+        await new Promise((resolve) => setTimeout(resolve, 400))
+
+        setDisplayedAlbum(newAlbum)
+        setIsLoading(false)
+    }
+
+    const currentAlbum = displayedAlbum ? albumImages[displayedAlbum as keyof typeof albumImages] : null
     const currentImages = currentAlbum?.images || []
 
     return (
