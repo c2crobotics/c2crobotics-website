@@ -49,7 +49,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
 
-        <div className="flex-grow">
+        <div className="flex-grow bg-gradient-to-br from-slate-50 to-blue-50">
           <Component {...pageProps} />
         </div>
 

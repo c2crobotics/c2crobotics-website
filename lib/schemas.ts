@@ -46,6 +46,13 @@ export const formRSchema = z.object({
     .string()
     .min(10, { message: "Please enter a valid phone number." })
     .max(15, { message: "Phone number is too long." }),
+  studentDOB: z.date(),
+  studentGrade: z.string(),
+  allergies: z.string(),
+  category: z.string(),
+
   
+
+
 })
 
