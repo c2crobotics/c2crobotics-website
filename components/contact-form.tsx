@@ -9,15 +9,15 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
-import { formSchema } from "@/lib/schemas"
+import { formCSchema } from "@/lib/schemas"
 import { send } from "@/lib/email"
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof formCSchema>>({
+    resolver: zodResolver(formCSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -27,7 +27,7 @@ export default function ContactForm() {
     },
   })
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formCSchema>) {
     setIsSubmitting(true)
 
     try {

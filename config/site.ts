@@ -37,6 +37,11 @@ export type SiteConfig = {
             [key: string]: GalleryAlbum
         }
     }
+    sponsors: {
+        title: string
+        link: string
+        url: string
+    }[]
 }
 
 export const siteConfig: SiteConfig = {
@@ -44,8 +49,8 @@ export const siteConfig: SiteConfig = {
     description: "The official website for the C2C Robotics.",
     navItems: [
         {
-            label: "Teams",
-            href: "/teams",
+            label: "History",
+            href: "/history",
             color: "foreground",
         },
         {
@@ -63,16 +68,16 @@ export const siteConfig: SiteConfig = {
             href: "/gallery",
             color: "foreground",
         },
-        {
-            label: "Privacy Policy",
-            href: "/privacy-policy",
-            color: "foreground",
-        },
-        {
-            label: "Terms of Service",
-            href: "/terms-of-service",
-            color: "foreground",
-        },
+        // {
+        //     label: "Privacy Policy",
+        //     href: "/privacy-policy",
+        //     color: "foreground",
+        // },
+        // {
+        //     label: "Terms of Service",
+        //     href: "/terms-of-service",
+        //     color: "foreground",
+        // },
         {
             label: "Contact",
             href: "/contact",
@@ -126,42 +131,42 @@ export const siteConfig: SiteConfig = {
     history: [
         {
             label: "2025",
-            href: "/teams/2025",
+            href: "/history/2025",
             color: "foreground",
         },
         {
-            label: "2024",
-            href: "/teams/2024",
+            label: "2023-24",
+            href: "/history/2023-24",
             color: "foreground",
         },
         {
-            label: "2023",
-            href: "/teams/2023",
+            label: "2022-23",
+            href: "/history/2022-23",
             color: "foreground",
         },
         {
-            label: "2022",
-            href: "/teams/2022",
+            label: "2021-22",
+            href: "/history/2021-22",
             color: "foreground",
         },
         {
-            label: "2021",
-            href: "/teams/2021",
+            label: "2021-22",
+            href: "/history/2021-22",
             color: "foreground",
         },
         {
-            label: "2020",
-            href: "/teams/2020",
+            label: "2020-21",
+            href: "/history/2020-21",
             color: "foreground",
         },
         {
-            label: "2019",
-            href: "/teams/2019",
+            label: "2019-20",
+            href: "/history/2019-20",
             color: "foreground",
         },
         {
-            label: "2018",
-            href: "/teams/2018",
+            label: "2018-19",
+            href: "/history/2018-19",
             color: "foreground",
         },
     ],
@@ -223,4 +228,21 @@ export const siteConfig: SiteConfig = {
 
         },
     },
+    sponsors: [
+        {
+            title: "Vex Robotics Competition",
+            link: "/sponsors/Vex.webp",
+            url: "https://www.vexrobotics.com/competition"
+        },
+        {
+            title: "Vex IQ Robotics Competition",
+            link: "/sponsors/VexIQ.webp",
+            url: "https://www.vexrobotics.com/iq"
+        },
+        {
+            title: "Whimsy Tech",
+            link: "/sponsors/WhimsyTech.webp",
+            url: "https://www.whimsytech.net/"
+        },
+    ]
 }

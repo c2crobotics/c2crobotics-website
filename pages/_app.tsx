@@ -3,27 +3,27 @@ import type { AppProps } from "next/app";
 import Link from "next/link";
 import Head from "next/head";
 import Navbar from "@/components/navbar";
-import {siteConfig} from "@/config/site";
+import { siteConfig } from "@/config/site";
 import { InstagramIcon, FacebookIcon, TwitterIcon, YoutubeIcon, GithubIcon } from "@/components/icons";
 
-const SocialLinks = ({className = ""}: { className?: string }) => (
-    <div className={`flex gap-6 ${className}`}>
-        <a href={siteConfig.links.instagram} aria-label="Instagram" className="hover:scale-110 transition" target="_blank" rel="noopener noreferrer">
-            <InstagramIcon/>
-        </a>
-        <a href={siteConfig.links.facebook} aria-label="Facebook" className="hover:scale-110 transition" target="_blank" rel="noopener noreferrer">
-            <FacebookIcon/>
-        </a>
-        <a href={siteConfig.links.twitter} aria-label="Twitter" className="hover:scale-110 transition" target="_blank" rel="noopener noreferrer">
-            <TwitterIcon/>
-        </a>
-        <a href={siteConfig.links.youtube} aria-label="Youtube" className="hover:scale-110 transition" target="_blank" rel="noopener noreferrer">
-            <YoutubeIcon/>
-        </a>
-        {/* <a href={siteConfig.links.github} aria-label="Github" className="hover:scale-110 transition" target="_blank" rel="noopener noreferrer">
+const SocialLinks = ({ className = "" }: { className?: string }) => (
+  <div className={`flex gap-6 ${className}`}>
+    <a href={siteConfig.links.instagram} aria-label="Instagram" className="hover:scale-110 transition" target="_blank" rel="noopener noreferrer">
+      <InstagramIcon />
+    </a>
+    <a href={siteConfig.links.facebook} aria-label="Facebook" className="hover:scale-110 transition" target="_blank" rel="noopener noreferrer">
+      <FacebookIcon />
+    </a>
+    <a href={siteConfig.links.twitter} aria-label="Twitter" className="hover:scale-110 transition" target="_blank" rel="noopener noreferrer">
+      <TwitterIcon />
+    </a>
+    <a href={siteConfig.links.youtube} aria-label="Youtube" className="hover:scale-110 transition" target="_blank" rel="noopener noreferrer">
+      <YoutubeIcon />
+    </a>
+    {/* <a href={siteConfig.links.github} aria-label="Github" className="hover:scale-110 transition" target="_blank" rel="noopener noreferrer">
             <GithubIcon/>
         </a> */}
-    </div>
+  </div>
 );
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -34,19 +34,19 @@ export default function App({ Component, pageProps }: AppProps) {
         <Head>
           <title>Coast 2 Coast Robotics</title>
           <meta name="description"
-                content="The official website for the C2C Robotics."/>
+            content="The official website for the C2C Robotics." />
 
-          <link rel="icon" href="/logo.png" type="image/png"/>
-          <link rel="shortcut icon" href="/logo.png" type="image/png"/>
-          <link rel="apple-touch-icon" href="/logo.png" type="image/png"/>
+          <link rel="icon" href="/logo.png" type="image/png" />
+          <link rel="shortcut icon" href="/logo.png" type="image/png" />
+          <link rel="apple-touch-icon" href="/logo.png" type="image/png" />
 
-          <meta property="og:title" content="C2C Robotics"/>
+          <meta property="og:title" content="C2C Robotics" />
           <meta property="og:description"
-                content="The official website for the C2C Robotics."/>
-          <meta property="og:image" content="/logo.png"/>
-          <meta property="og:url" content="https://c2crobotics.com"/>
+            content="The official website for the C2C Robotics." />
+          <meta property="og:image" content="/logo.png" />
+          <meta property="og:url" content="https://c2crobotics.com" />
 
-          <meta name="viewport" content="initial-scale=1, width=device-width"/>
+          <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
 
         <div className="flex-grow">
@@ -75,6 +75,11 @@ export default function App({ Component, pageProps }: AppProps) {
             <div className="text-center text-gray-400 text-base mt-8">
               © 2025 Coast 2 Coast Robotics. All rights reserved.
             </div>
+            <nav className="flex justify-center gap-2 text-center text-gray-400 text-base mt-2">
+              <Link href="/terms-of-service" className="tracking-wide hover:text-[#ffb347] transition">Terms of Service</Link>
+              |
+              <Link href="/privacy-policy" className="tracking-wide hover:text-[#ffb347] transition ">Privacy Policy</Link>
+            </nav>
           </div>
         </footer>
       </div>
