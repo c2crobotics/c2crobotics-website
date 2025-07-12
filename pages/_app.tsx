@@ -76,9 +76,9 @@ export default function App({ Component, pageProps }: AppProps) {
               © 2025 Coast 2 Coast Robotics. All rights reserved.
             </div>
             <nav className="flex justify-center gap-2 text-center text-gray-400 text-base mt-2">
-              <Link href="/terms-of-service" className="tracking-wide hover:text-[#ffb347] transition">Terms of Service</Link>
+              <Link href={siteConfig.siteURLs.tos} className="tracking-wide hover:text-[#ffb347] transition">Terms of Service</Link>
               |
-              <Link href="/privacy-policy" className="tracking-wide hover:text-[#ffb347] transition ">Privacy Policy</Link>
+              <Link href={siteConfig.siteURLs.pp} className="tracking-wide hover:text-[#ffb347] transition ">Privacy Policy</Link>
             </nav>
           </div>
         </footer>

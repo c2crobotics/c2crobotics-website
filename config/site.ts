@@ -1,13 +1,40 @@
 type Color = "foreground" | "background" | "primary" | "secondary" | "accent"
 
+import { Trophy, Calendar, Users, Award } from "lucide-react"
+
+export type GallerySubcategory = {
+  name: string
+  images: string[]
+}
+
 export type GalleryAlbum = {
   name: string
-  subcategories?: {
-    [key: string]: {
-      name: string
-      images: string[]
-    }
+  subcategories: {
+    [key: string]: GallerySubcategory
   }
+}
+
+export type GalleryData = {
+  carouselImages: string[]
+  albums: {
+    [key: string]: GalleryAlbum
+  }
+}
+
+export type NavItem = {
+  label: string
+  href: string
+  dropdown?: {
+    label: string
+    href: string
+    description?: string
+  }[]
+}
+
+export type Sponsor = {
+  title: string
+  link: string
+  url: string
 }
 
 export type TeamAchievement = {
@@ -40,43 +67,32 @@ export type TeamsData = {
   [year: string]: Team[]
 }
 
+export type StatItem = {
+  icon: any
+  label: string
+  value: number
+  suffix: string
+  color: string
+  bgColor: string
+}
+
 export type SiteConfig = {
   name: string
   description: string
-  navItems: {
-    label: string
-    href: string
-    color: Color
-  }[]
+  navItems: NavItem[]
   links: {
     [key: string]: string
   }
   siteURLs: {
-    label: string
-    href: string
-    color: Color
-  }[]
-  history: {
-    label: string
-    href: string
-    color: Color
-  }[]
-  gallery: {
-    carouselImages: string[]
-    albums: {
-      [key: string]: GalleryAlbum
-    }
+    [key: string]: string
   }
-  sponsors: {
-    title: string
-    link: string
-    url: string
-  }[]
+  gallery: GalleryData
+  sponsors: Sponsor[]
   teams: TeamsData
+  stats: StatItem[]
 }
 
-// Abstracted data objects
-export const teamsData: TeamsData = {
+export const teamsData = {
   2024: [
     {
       id: 1,
@@ -138,9 +154,16 @@ export const teamsData: TeamsData = {
 
 export const navItemsData = [
   {
-    label: "History",
-    href: "/history",
+    label: "Teams",
+    href: "/teams",
     color: "foreground" as Color,
+    dropdown: [
+      {
+        label: "Team History",
+        href: "/teams/history",
+        description: "Learn about our journey and achievements",
+      },
+    ],
   },
   {
     label: "Gallery",
@@ -151,6 +174,28 @@ export const navItemsData = [
     label: "Classes & Camps",
     href: "/courses",
     color: "foreground" as Color,
+    dropdown: [
+      {
+        label: "Winter Courses",
+        href: "/courses/winter",
+        description: "January - March programs",
+      },
+      {
+        label: "Spring Courses",
+        href: "/courses/spring",
+        description: "April - June programs",
+      },
+      {
+        label: "Summer Courses",
+        href: "/courses/summer",
+        description: "July - August programs",
+      },
+      {
+        label: "Fall Courses",
+        href: "/courses/fall",
+        description: "September - December programs",
+      },
+    ],
   },
   {
     label: "Register",
@@ -172,83 +217,7 @@ export const linksData = {
   youtube: "https://www.youtube.com/channel/UCgZzPysyfr9m7b-pOD_6Yng",
 }
 
-export const siteURLsData = [
-  {
-    label: "Teams",
-    href: "/teams",
-    color: "foreground" as Color,
-  },
-  {
-    label: "Classes & Camps",
-    href: "/courses",
-    color: "foreground" as Color,
-  },
-  {
-    label: "Register",
-    href: "/register",
-    color: "foreground" as Color,
-  },
-  {
-    label: "Gallery",
-    href: "/gallery",
-    color: "foreground" as Color,
-  },
-  {
-    label: "Privacy Policy",
-    href: "/privacy-policy",
-    color: "foreground" as Color,
-  },
-  {
-    label: "Terms of Service",
-    href: "/terms-of-service",
-    color: "foreground" as Color,
-  },
-  {
-    label: "Contact",
-    href: "/contact",
-    color: "foreground" as Color,
-  },
-]
-
-export const historyData = [
-  {
-    label: "2025",
-    href: "/history/2025",
-    color: "foreground" as Color,
-  },
-  {
-    label: "2023-24",
-    href: "/history/2023-24",
-    color: "foreground" as Color,
-  },
-  {
-    label: "2022-23",
-    href: "/history/2022-23",
-    color: "foreground" as Color,
-  },
-  {
-    label: "2021-22",
-    href: "/history/2021-22",
-    color: "foreground" as Color,
-  },
-  {
-    label: "2020-21",
-    href: "/history/2020-21",
-    color: "foreground" as Color,
-  },
-  {
-    label: "2019-20",
-    href: "/history/2019-20",
-    color: "foreground" as Color,
-  },
-  {
-    label: "2018-19",
-    href: "/history/2018-19",
-    color: "foreground" as Color,
-  },
-]
-
-export const galleryData = {
+const galleryData: GalleryData = {
   carouselImages: ["/gallery/placeholder.webp", "/gallery/placeholder.webp", "/gallery/placeholder.webp"],
   albums: {
     "2024-2025": {
@@ -302,7 +271,7 @@ export const galleryData = {
   },
 }
 
-export const sponsorsData = [
+const sponsorsData: Sponsor[] = [
   {
     title: "Vex Robotics Competition",
     link: "/sponsors/Vex.webp",
@@ -320,15 +289,65 @@ export const sponsorsData = [
   },
 ]
 
-// Simple, clean main config
+const statsData: StatItem[] = [
+  {
+    icon: Trophy,
+    label: "Awards Won",
+    value: 0,
+    suffix: "+",
+    color: "text-yellow-500",
+    bgColor: "bg-yellow-100",
+  },
+  {
+    icon: Calendar,
+    label: "Robotics Competitions",
+    value: 0,
+    suffix: "+",
+    color: "text-blue-500",
+    bgColor: "bg-blue-100",
+  },
+  {
+    icon: Users,
+    label: "VRC/VIQRC Teams",
+    value: 6,
+    suffix: "",
+    color: "text-green-500",
+    bgColor: "bg-green-100",
+  },
+  {
+    icon: Award,
+    label: "Years of Innovation",
+    value: 6,
+    suffix: "+",
+    color: "text-purple-500",
+    bgColor: "bg-purple-100",
+  },
+]
+
+const siteURLsData = {
+  home: "/",
+  teams: "/teams",
+  history: "/teams/history",
+  gallery: "/gallery",
+  courses: "/courses",
+  winter: "/courses/winter",
+  spring: "/courses/spring",
+  summer: "/courses/summer",
+  fall: "/courses/fall",
+  register: "/register",
+  contact: "/contact",
+  tos: "/terms-of-service",
+  pp: "/privacy-policy",
+}
+
 export const siteConfig: SiteConfig = {
-  name: "Coast 2 Coast",
+  name: "Coast 2 Coast Robotics",
   description: "The official website for the C2C Robotics.",
   navItems: navItemsData,
   links: linksData,
-  siteURLs: siteURLsData,
-  history: historyData,
   gallery: galleryData,
   sponsors: sponsorsData,
   teams: teamsData,
+  stats: statsData,
+  siteURLs: siteURLsData,
 }

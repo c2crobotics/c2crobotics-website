@@ -4,7 +4,6 @@ import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { AnimatedCounter } from "@/components/animated-counter"
-import { Trophy, Users, Calendar, Award } from "lucide-react"
 import Link from "next/link"
 import { siteConfig } from "@/config/site"
 
@@ -30,42 +29,7 @@ const itemVariants = {
   },
 }
 
-const stats = [
-  {
-    icon: Trophy,
-    label: "Awards Won",
-    value: 0,
-    suffix: "+",
-    color: "text-yellow-500",
-    bgColor: "bg-yellow-50",
-  },
-  {
-    icon: Calendar,
-    label: "Robotics Competitions",
-    value: 0,
-    suffix: "+",
-    color: "text-blue-500",
-    bgColor: "bg-blue-50",
-  },
-  {
-    icon: Users,
-    label: "VRC/VIQRC Teams",
-    value: 6,
-    suffix: "",
-    color: "text-green-500",
-    bgColor: "bg-green-50",
-  },
-  {
-    icon: Award,
-    label: "Years of Innovation",
-    value: 6,
-    suffix: "+",
-    color: "text-purple-500",
-    bgColor: "bg-purple-50",
-  },
-]
-
-export default function History() {
+export default function Teams() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-6">
       <div className="max-w-4xl mx-auto space-y-8">
@@ -88,7 +52,7 @@ export default function History() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          {stats.map((stat, index) => (
+          {siteConfig.stats.map((stat, index) => (
             <Card
               key={stat.label}
               className="text-center p-6 bg-white shadow-lg border-0 hover:shadow-xl transition-all duration-300"
@@ -140,7 +104,7 @@ export default function History() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          <Link href="/history/teams">
+          <Link href={siteConfig.siteURLs.history}>
             <Button size="lg" className="bg-[#1a1a1f] hover:bg-gray-800 text-white font-bold px-8 py-4">
               View Team History
             </Button>
