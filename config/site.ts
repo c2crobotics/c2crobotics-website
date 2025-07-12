@@ -54,6 +54,11 @@ export const siteConfig: SiteConfig = {
             color: "foreground",
         },
         {
+            label: "Gallery",
+            href: "/gallery",
+            color: "foreground",
+        },
+        {
             label: "Classes & Camps",
             href: "/courses",
             color: "foreground",
@@ -64,28 +69,13 @@ export const siteConfig: SiteConfig = {
             color: "foreground",
         },
         {
-            label: "Gallery",
-            href: "/gallery",
-            color: "foreground",
-        },
-        // {
-        //     label: "Privacy Policy",
-        //     href: "/privacy-policy",
-        //     color: "foreground",
-        // },
-        // {
-        //     label: "Terms of Service",
-        //     href: "/terms-of-service",
-        //     color: "foreground",
-        // },
-        {
             label: "Contact",
             href: "/contact",
             color: "foreground",
         },
     ],
     links: {
-        github: "",
+        github: "https://github.com/c2crobotics",
         instagram: "https://www.instagram.com/c2crobotics/",
         facebook: "https://www.facebook.com/profile.php?id=100063715805638",
         twitter: "https://x.com/c2c_robotics",

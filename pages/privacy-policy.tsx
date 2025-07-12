@@ -115,7 +115,7 @@ export default function PrivacyPolicy() {
                 </header>
 
                 {/* Main Content */}
-                <main className="max-w-4xl mx-auto px-6 py-12">
+                <main className="max-w-6xl mx-auto px-6 py-12">
                     <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
                         {/* Introduction */}
                         <div className="mb-12">

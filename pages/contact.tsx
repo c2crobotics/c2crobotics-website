@@ -71,7 +71,7 @@ export default function Contact() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <motion.main
-        className="container mx-auto py-12 px-4 md:px-6 bg-gradient-to-br from-slate-50 to-blue-50"
+        className="container mx-auto py-12 px-4 md:px-6 bg-gradient-to-br from-slate-50 to-blue-50 max-w-6xl"
         variants={containerVariants}
         initial="hidden"
         animate="visible"

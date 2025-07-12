@@ -286,7 +286,7 @@ export default function Gallery() {
       }
     >
       <motion.main
-        className="container mx-auto py-6 sm:py-12 px-4 sm:px-6 bg-gradient-to-br from-slate-50 to-blue-50"
+        className="container mx-auto py-6 sm:py-12 px-4 sm:px-6 bg-gradient-to-br from-slate-50 to-blue-50 max-w-7xl"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
@@ -365,7 +365,7 @@ export default function Gallery() {
         </div>
 
         {/* Albums Section */}
-        <div className="space-y-6">
+        <div className="space-y-6 bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
           {/* Albums Header and Select */}
           <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between">
             <h1 className="text-2xl sm:text-3xl font-bold text-center sm:text-left">Albums</h1>
