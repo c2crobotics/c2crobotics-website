@@ -177,7 +177,7 @@ const mobileSidebarVariants = {
   },
 }
 
-export default function History() {
+export default function Teams() {
   const [selectedYear, setSelectedYear] = useState(2024)
   const [selectedTeam, setSelectedTeam] = useState<number | null>(null)
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -219,7 +219,7 @@ export default function History() {
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <Link
-              href="/"
+              href="/history"
               className="mr-2 inline-flex items-center px-2 py-1 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -242,7 +242,7 @@ export default function History() {
         >
           <div className="p-6 border-b border-gray-200">
             <Link
-              href="/"
+              href="/history"
               className="mb-4 w-full justify-start inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -329,7 +329,7 @@ export default function History() {
                     <h1 className="text-xl font-bold text-[#1a1a1f] uppercase tracking-wide">Team History</h1>
                   </div>
                   <Link
-                    href="/"
+                    href="/history"
                     className="w-full justify-start inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
