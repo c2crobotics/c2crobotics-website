@@ -296,7 +296,7 @@ const statsData: StatItem[] = [
     value: 0,
     suffix: "+",
     color: "text-yellow-500",
-    bgColor: "bg-yellow-100",
+    bgColor: "bg-yellow-50",
   },
   {
     icon: Calendar,
@@ -304,7 +304,7 @@ const statsData: StatItem[] = [
     value: 0,
     suffix: "+",
     color: "text-blue-500",
-    bgColor: "bg-blue-100",
+    bgColor: "bg-blue-50",
   },
   {
     icon: Users,
@@ -312,7 +312,7 @@ const statsData: StatItem[] = [
     value: 6,
     suffix: "",
     color: "text-green-500",
-    bgColor: "bg-green-100",
+    bgColor: "bg-green-50",
   },
   {
     icon: Award,
@@ -320,7 +320,7 @@ const statsData: StatItem[] = [
     value: 6,
     suffix: "+",
     color: "text-purple-500",
-    bgColor: "bg-purple-100",
+    bgColor: "bg-purple-50",
   },
 ]
 
@@ -341,7 +341,7 @@ const siteURLsData = {
 }
 
 export const siteConfig: SiteConfig = {
-  name: "Coast 2 Coast Robotics",
+  name: "Coast 2 Coast",
   description: "The official website for the C2C Robotics.",
   navItems: navItemsData,
   links: linksData,

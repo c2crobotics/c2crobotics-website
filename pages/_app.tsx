@@ -5,6 +5,7 @@ import Head from "next/head";
 import Navbar from "@/components/navbar";
 import { siteConfig } from "@/config/site";
 import { InstagramIcon, FacebookIcon, TwitterIcon, YoutubeIcon, GithubIcon } from "@/components/icons";
+import { useRouter } from "next/router";
 
 const SocialLinks = ({ className = "" }: { className?: string }) => (
   <div className={`flex gap-6 ${className}`}>
@@ -27,6 +28,14 @@ const SocialLinks = ({ className = "" }: { className?: string }) => (
 );
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  const handleFooterNavClick = (e: React.MouseEvent, href: string) => {
+    if (router.asPath === href) {
+      e.preventDefault();
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+  };
+
   return (
     <main className="">
       <div className="">
@@ -67,18 +76,24 @@ export default function App({ Component, pageProps }: AppProps) {
           {/* Nav Links */}
           <div className="py-10 bg-[#1a1a1f]">
             <nav className="flex justify-center gap-8 mb-2">
-              <Link href="/sponsors" className="uppercase font-semibold tracking-wide text-gray-300 hover:text-[#ffb347] transition">Sponsors</Link>
-              <Link href="/gallery" className="uppercase font-semibold tracking-wide text-gray-300 hover:text-[#ffb347] transition">Gallery</Link>
-              <Link href="/about" className="uppercase font-semibold tracking-wide text-gray-300 hover:text-[#ffb347] transition">About</Link>
-              <Link href="/contact" className="uppercase font-semibold tracking-wide text-gray-300 hover:text-[#ffb347] transition">Contact Us</Link>
+              {siteConfig.navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="uppercase font-semibold tracking-wide text-gray-300 hover:text-[#ffb347] transition"
+                  onClick={(e) => handleFooterNavClick(e, item.href)}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </nav>
             <div className="text-center text-gray-400 text-base mt-8">
               © 2025 Coast 2 Coast Robotics. All rights reserved.
             </div>
             <nav className="flex justify-center gap-2 text-center text-gray-400 text-base mt-2">
-              <Link href={siteConfig.siteURLs.tos} className="tracking-wide hover:text-[#ffb347] transition">Terms of Service</Link>
+              <Link href={siteConfig.siteURLs.tos} onClick={(e) => handleFooterNavClick(e, siteConfig.siteURLs.tos)} className="tracking-wide hover:text-[#ffb347] transition" >Terms of Service</Link>
               |
-              <Link href={siteConfig.siteURLs.pp} className="tracking-wide hover:text-[#ffb347] transition ">Privacy Policy</Link>
+              <Link href={siteConfig.siteURLs.pp} onClick={(e) => handleFooterNavClick(e, siteConfig.siteURLs.pp)} className="tracking-wide hover:text-[#ffb347] transition ">Privacy Policy</Link>
             </nav>
           </div>
         </footer>

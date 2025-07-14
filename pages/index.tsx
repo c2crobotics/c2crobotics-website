@@ -1,7 +1,8 @@
 import React, { Suspense, useEffect, useState } from "react";
 import {ImagesSlider} from "@/components/aceternity/ui/page-hero";
 import {motion} from "framer-motion";
-import {siteConfig, SiteConfig} from "@/config/site"
+import {siteConfig} from "@/config/site"
+import Sponsors from "@/components/sponsor";
 
 const images = [
   "/2023mall.webp",
@@ -71,32 +72,10 @@ export default function Home() {
 
         {/* Sponsors Section */}
         <Suspense fallback={<div>Loading sponsors...</div>}>
-          <div className="py-12 md:py-20 px-4">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold main mb-6 md:mb-8 text-center">Our Sponsors</h2>
-            <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-              {siteConfig.sponsors.map((sponsor, index) => (
-              <motion.a 
-                key={index}
-                href={sponsor.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center p-4 md:p-6 hover:bg-gray-700 transition-colors"
-                initial={{opacity: 0, y: 20}}
-                animate={{opacity: 1, y: 0}}
-                transition={{delay: index * 0.1, duration: 0.5}}
-                style={{flex: "0 1 220px", maxWidth: 260}}
-                >
-                <img 
-                  src={sponsor.link} 
-                  alt={sponsor.title} 
-                  className="w-full h-28 md:h-32 object-contain mb-2"
-                />
-              </motion.a>
-              ))}
-            </div>
+          <div className="max-w-4xl mx-auto py-12 px-4">
+            <Sponsors/>
           </div>
         </Suspense>
-
       </Suspense>
     </section>
   );
