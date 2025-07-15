@@ -27,12 +27,12 @@ const itemVariants = {
 export default function Sponsors() {
   return (
     <motion.div
-      className="pt-8 border-t border-gray-200"
+      className="bg-gray-50"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, delay: 0.8 }}
     >
-      <h3 className="text-lg font-bold text-[#1a1a1f] mb-6 text-center">Our Proud Sponsors</h3>
+      <h1 className="text-4xl font-bold text-[#1a1a1f] mb-6 text-center">Our Partners & Sponsors</h1>
       <motion.div
         className="grid grid-cols-2 md:grid-cols-3 gap-6"
         variants={containerVariants}

@@ -286,7 +286,7 @@ export default function Gallery() {
       }
     >
       <motion.main
-        className="container mx-auto py-6 sm:py-12 px-4 sm:px-6 bg-gradient-to-br from-slate-50 to-blue-50 max-w-7xl"
+        className="container mx-auto py-6 sm:py-12 px-4 sm:px-6 bg-gray-50 max-w-7xl"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
