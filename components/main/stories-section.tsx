@@ -1,5 +1,7 @@
+import { siteConfig } from "@/config/site"
 import { motion } from "framer-motion"
 import { Quote, Star } from "lucide-react"
+import Link from "next/link"
 
 const testimonials = [
   {
@@ -98,9 +100,11 @@ export default function StoriesSection() {
             <p className="text-gray-600 mb-6 max-w-3xl mx-auto">
               Join hundreds of students who have discovered their passion for robotics and engineering at Coast 2 Coast.
             </p>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-lg transition-colors duration-200">
-              Explore Programs
-            </button>
+            <Link href={siteConfig.siteURLs.courses}>
+              <button className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-lg transition-colors duration-200">
+                Explore Programs
+              </button>
+            </Link>
           </div>
         </motion.div>
       </div>

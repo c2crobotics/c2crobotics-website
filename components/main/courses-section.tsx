@@ -2,6 +2,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { BarChart3, Cog, Trophy, Clock, Users, Star } from "lucide-react"
 import Link from "next/link"
+import { siteConfig } from "@/config/site"
 
 const courses = {
   learn: {
@@ -105,7 +106,7 @@ export default function CoursesSection() {
           </p>
         </motion.div>
 
-        {/* Custom Tab Navigation */}
+        {/* Tab Navigation */}
         <div className="mb-8">
           <div className="grid lg:grid-cols-3 md:grid-cols-3 gap-6">
             {Object.entries(courses).map(([key, section]) => (
@@ -178,8 +179,8 @@ export default function CoursesSection() {
                   </ul>
                 </div>
 
-                {/* Button pushed to bottom */}
-                <Link href="/courses">
+                {/* Button */}
+                <Link href={siteConfig.siteURLs.courses}>
                   <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 mt-auto">
                     Learn More
                   </button>

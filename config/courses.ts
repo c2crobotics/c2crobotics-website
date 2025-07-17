@@ -1,3 +1,5 @@
+// Disable Tags: soldOut, notAvaliable
+
 export const siteConfig = {
   title: "Course Catalog",
   subtitle: "A list of all STEM courses offered for students of all ages",
@@ -67,6 +69,7 @@ export const janAprilCourses = [
     dates: "Jan 6 - Apr 13, 2025",
     time: "Green - Tue/Thu/Sun",
     category: "Beginner Robotics",
+    
     tags: ["robotics", "beginner", "vex-iq"],
     imageUrl: "/gallery/placeholder.webp?height=200&width=300",
     skills: ["VEX IQ basics", "Robot construction", "Simple programming", "Problem-solving"],
