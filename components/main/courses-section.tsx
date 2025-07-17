@@ -1,14 +1,13 @@
-"use client"
-
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { BarChart3, Cog, Trophy, Clock, Users, Star } from "lucide-react"
+import Link from "next/link"
 
 const courses = {
   learn: {
     icon: BarChart3,
     title: "Learn",
-    description: "Master robotics fundamentals through hands-on experience and expert mentorship.",
+    description: "Master robotics fundamentals through hands-on experience and mentorship.",
     courses: [
       {
         title: "Robotics Foundations",
@@ -37,7 +36,7 @@ const courses = {
   create: {
     icon: Cog,
     title: "Create",
-    description: "Transform your ideas into reality through innovative design and manufacturing.",
+    description: "Transform your ideas into reality through design and manufacturing.",
     courses: [
       {
         title: "test",
@@ -102,7 +101,7 @@ export default function CoursesSection() {
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-4">Learn, Create, Compete</h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-            Get an immersive, practical experience - where students learn by doing. <br/> Using various design and development processes, develop and create your ideas. <br/> Show off your creations in competitions at the States and World Championships.
+            Get an immersive, practical experience - where students learn by doing. <br /> Using various design and development processes, develop and create your ideas. <br /> Show off your creations in competitions at the States and World Championships.
           </p>
         </motion.div>
 
@@ -113,11 +112,10 @@ export default function CoursesSection() {
               <button
                 key={key}
                 onClick={() => setActiveTab(key)}
-                className={`flex items-center justify-center gap-3 px-6 py-2 rounded-lg transition-all duration-200 ${
-                  activeTab === key
+                className={`flex items-center justify-center gap-3 px-6 py-2 rounded-lg transition-all duration-200 ${activeTab === key
                     ? "bg-blue-600 text-white shadow-lg transform scale-105"
                     : "bg-white text-gray-600 hover:bg-gray-50 shadow-md"
-                }`}
+                  }`}
               >
                 <section.icon className="w-5 h-5" />
                 <div className="text-center">
@@ -147,11 +145,10 @@ export default function CoursesSection() {
               {/* Card Header */}
               <div className="p-6 pb-4">
                 <div className="flex justify-between items-start gap-3 mb-3">
-                  <h3 className="text-xl font-bold text-gray-900 flex-1 min-w-0">{course.title}</h3>
+                  <h3 className="text-xl text-gray-900 flex-1 min-w-0">{course.title}</h3>
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 ${
-                      levelColors[course.level as keyof typeof levelColors]
-                    }`}
+                    className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 ${levelColors[course.level as keyof typeof levelColors]
+                      }`}
                   >
                     {course.level}
                   </span>
@@ -166,7 +163,7 @@ export default function CoursesSection() {
                     <Clock className="w-4 h-4" />
                     <span>{course.duration}</span>
                   </div>
-                  
+
                 </div>
 
                 <div className="space-y-2 mb-6 flex-grow">
@@ -182,9 +179,11 @@ export default function CoursesSection() {
                 </div>
 
                 {/* Button pushed to bottom */}
-                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 mt-auto">
-                  Learn More
-                </button>
+                <Link href="/courses">
+                  <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 mt-auto">
+                    Learn More
+                  </button>
+                </Link>
               </div>
             </motion.div>
           ))}

@@ -27,6 +27,7 @@ export type NavItem = {
   dropdown?: {
     label: string
     href: string
+    tabId: string
     description?: string
   }[]
 }
@@ -161,6 +162,7 @@ export const navItemsData = [
       {
         label: "Team History",
         href: "/teams/history",
+        tabId: "",
         description: "Learn about our journey and achievements",
       },
     ],
@@ -177,22 +179,26 @@ export const navItemsData = [
     dropdown: [
       {
         label: "Winter Courses",
-        href: "/courses/winter",
+        href: "/courses",
+        tabId: "jan-april",
         description: "January - March programs",
       },
       {
-        label: "Spring Courses",
-        href: "/courses/spring",
+        label: "Holiday Courses",
+        href: "/courses",
+        tabId: "holiday",
         description: "April - June programs",
       },
       {
         label: "Summer Courses",
-        href: "/courses/summer",
+        href: "/courses",
+        tabId: "summer",
         description: "July - August programs",
       },
       {
         label: "Fall Courses",
-        href: "/courses/fall",
+        href: "/courses",
+        tabId: "fall",
         description: "September - December programs",
       },
     ],
@@ -322,6 +328,7 @@ const statsData: StatItem[] = [
     color: "text-purple-500",
     bgColor: "bg-purple-50",
   },
+  
 ]
 
 const siteURLsData = {
@@ -330,10 +337,6 @@ const siteURLsData = {
   history: "/teams/history",
   gallery: "/gallery",
   courses: "/courses",
-  winter: "/courses/winter",
-  spring: "/courses/spring",
-  summer: "/courses/summer",
-  fall: "/courses/fall",
   register: "/register",
   contact: "/contact",
   tos: "/terms-of-service",

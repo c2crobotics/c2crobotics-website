@@ -174,7 +174,11 @@ export default function Navbar() {
                             {link.dropdown.map((item) => (
                               <Link
                                 key={item.href}
-                                href={item.href}
+                                href={
+                                  link.label === "Classes & Camps"
+                                    ? `/courses?tab=${item.tabId || item.href.split("/").pop()}`
+                                    : item.href
+                                }
                                 className="block px-4 py-3 text-white hover:bg-white/10 hover:text-blue-400 transition-all duration-200 group/item"
                               >
                                 <div className="font-medium">{item.label}</div>
@@ -310,7 +314,11 @@ export default function Navbar() {
                               {link.dropdown.map((item, subIndex) => (
                                 <Link
                                   key={item.href}
-                                  href={item.href}
+                                  href={
+                                    link.label === "Classes & Camps"
+                                      ? `/courses?tab=${item.tabId || item.href.split("/").pop()}`
+                                      : item.href
+                                  }
                                   className="block px-4 py-3 text-gray-300 hover:text-blue-400 hover:bg-white/5 rounded-lg transition-all duration-200 active:scale-95"
                                   onClick={handleMobileLinkClick}
                                   style={{
@@ -349,7 +357,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <div className="h-20"/>
+      <div className="h-20" />
     </>
   )
 }

@@ -3,9 +3,9 @@ import  ImagesSlider from "@/components/page-hero";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/config/site"
 import Sponsors from "@/components/sponsor";
-import AboutSection from "@/components/about-section"
-import StoriesSection from "@/components/stories-section"
-import CoursesSection from "@/components/courses-section"
+import AboutSection from "@/components/main/about-section"
+import StoriesSection from "@/components/main/stories-section"
+import CoursesSection from "@/components/main/courses-section"
 import { ChevronDown } from "lucide-react"
 
 const images = [
