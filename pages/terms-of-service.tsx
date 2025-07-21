@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Scale, AlertTriangle, Mail, List, } from 'lucide-react';
+import React from 'react';
 
 const containerVariants = {
     hidden: { opacity: 0 },

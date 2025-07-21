@@ -10,6 +10,7 @@ import { siteConfig, janAprilConfig, holidayConfig, fallConfig, summerConfig, ja
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
+import React from 'react';
 
 const containerVariants = {
   hidden: { opacity: 0 },

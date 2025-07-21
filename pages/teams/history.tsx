@@ -8,6 +8,7 @@ import { Trophy, Calendar, MapPin, Menu, X, Camera, ArrowLeft } from "lucide-rea
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { siteConfig } from "@/config/site"
+import React from 'react';
 
 const placeColors = {
   "1st": "bg-[#d4af37] text-white font-bold",

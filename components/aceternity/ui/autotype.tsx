@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { motion, useAnimate, useInView } from "framer-motion";
 import { cn } from "@/components/cn";
+import React from 'react';
 
 export const TextGenerateEffect = ({
     words,

@@ -7,6 +7,7 @@ import { AnimatedCounter } from "@/components/animated-counter"
 import Link from "next/link"
 import { siteConfig } from "@/config/site"
 import Sponsors from "@/components/sponsor"
+import React from 'react';
 
 export default function Teams() {
   return (

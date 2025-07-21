@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Shield, Eye, Users, Globe, AlertTriangle, Mail, Cookie, List } from 'lucide-react';
+import React from 'react';
 
 const containerVariants = {
     hidden: { opacity: 0 },

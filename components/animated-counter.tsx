@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import React from 'react';
 
 interface AnimatedCounterProps {
   end: number

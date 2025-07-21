@@ -6,6 +6,7 @@ import Navbar from "@/components/navbar";
 import { siteConfig } from "@/config/site";
 import { InstagramIcon, FacebookIcon, TwitterIcon, YoutubeIcon, GithubIcon } from "@/components/icons";
 import { useRouter } from "next/router";
+import React from 'react';
 
 const SocialLinks = ({ className = "" }: { className?: string }) => (
   <div className={`flex gap-6 ${className}`}>

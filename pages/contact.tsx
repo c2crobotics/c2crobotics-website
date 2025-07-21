@@ -5,6 +5,7 @@ import ContactForm from "@/components/contact-form"
 import ContactInfo from "@/components/contact-info"
 import { Toaster } from "@/components/ui/toaster"
 import { Suspense } from "react"
+import React from 'react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
