@@ -7,24 +7,39 @@ import { AnimatedCounter } from "@/components/animated-counter"
 import Link from "next/link"
 import { siteConfig } from "@/config/site"
 import Sponsors from "@/components/sponsor"
-import React from 'react';
 
 export default function Teams() {
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-4xl mx-auto space-y-8">
-        {/* Header */}
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h1 className="text-4xl lg:text-5xl font-bold text-[#1a1a1f] mb-4 uppercase tracking-wide">
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <motion.div
+        className="bg-[#1a1a1f] text-primary-foreground py-6 w-full"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="text-center">
+          <motion.h1
+            className="text-2xl font-bold text-center mb-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Our Robotics Teams
-          </h1>
-        </motion.div>
+          </motion.h1>
+          <motion.p
+            className="text-sm text-center opacity-90 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            Inspiring the next generation of engineers
+          </motion.p>
+        </div>
+      </motion.div>
 
+      {/* Content container */}
+      <div className="max-w-4xl mx-auto space-y-8 p-6">
         {/* Stats Grid */}
         <motion.div
           className="grid grid-cols-2 lg:grid-cols-4 gap-6"
@@ -92,7 +107,7 @@ export default function Teams() {
         </motion.div>
 
         {/* Sponsors Section */}
-        <Sponsors/>
+        <Sponsors />
       </div>
     </div>
   )

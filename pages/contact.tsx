@@ -1,11 +1,10 @@
 "use client"
 
-import { motion, Variants } from "framer-motion"
+import { motion, type Variants } from "framer-motion"
 import ContactForm from "@/components/contact-form"
 import ContactInfo from "@/components/contact-info"
 import { Toaster } from "@/components/ui/toaster"
 import { Suspense } from "react"
-import React from 'react';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -25,18 +24,6 @@ const itemVariants: Variants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: "easeOut",
-    },
-  },
-}
-
-const headerVariants: Variants = {
-  hidden: { opacity: 0, y: -20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
       ease: "easeOut",
     },
   },
@@ -70,34 +57,52 @@ const infoVariants: Variants = {
 
 export default function Contact() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <motion.main
-        className="container mx-auto py-12 px-4 md:px-6 bg-gray-50 max-w-6xl"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <motion.div
+        className="bg-[#1a1a1f] text-primary-foreground py-6 w-full"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
       >
-        <div className="max-w-2xl mx-auto">
-          <motion.div className="space-y-2 text-center mb-8" variants={headerVariants}>
-            <motion.h1 className="text-3xl font-bold tracking-tighter sm:text-4xl" variants={itemVariants}>
-              Contact Us
-            </motion.h1>
-            <motion.p className="text-gray-500 dark:text-gray-400" variants={itemVariants}>
-              We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.
-            </motion.p>
-          </motion.div>
-
-          <motion.div variants={formVariants}>
-            <ContactForm />
-          </motion.div>
-
-          <Toaster />
+        <div className="text-center">
+          <motion.h1
+            className="text-2xl font-bold text-center mb-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Contact Us
+          </motion.h1>
+          <motion.p
+            className="text-sm text-center opacity-90 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.
+          </motion.p>
         </div>
+      </motion.div>
 
-        <motion.div variants={infoVariants}>
-          <ContactInfo />
-        </motion.div>
-      </motion.main>
-    </Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
+        <motion.main
+          className="container mx-auto py-12 px-4 md:px-6 max-w-6xl"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <div className="max-w-2xl mx-auto">
+            <motion.div variants={formVariants}>
+              <ContactForm />
+            </motion.div>
+            <Toaster />
+          </div>
+          <motion.div variants={infoVariants}>
+            <ContactInfo />
+          </motion.div>
+        </motion.main>
+      </Suspense>
+    </div>
   )
 }

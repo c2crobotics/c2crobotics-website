@@ -109,9 +109,9 @@ export default function PrivacyPolicy() {
         >
             <div className="min-h-screen bg-gray-50">
                 {/* Header */}
-                <header className="bg-white border-b border-gray-200 shadow-sm">
+                <header className="bg-[#1a1a1f] border-b border-gray-200 shadow-sm">
                     <div className="max-w-4xl mx-auto px-6 py-8">
-                        <h1 className="text-4xl font-bold text-gray-900 text-center">Privacy Policy</h1>
+                        <h1 className="text-4xl font-bold text-white text-center">Privacy Policy</h1>
                     </div>
                 </header>
 

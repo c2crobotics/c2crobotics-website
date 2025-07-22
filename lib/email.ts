@@ -1,10 +1,10 @@
 "use server"
 import type { z } from "zod"
-import type { formCSchema } from "./schemas"
+import type { formSchema } from "./schemas"
 
 // const resend = new Resend(process.env.RESEND_API_KEY);
 
-export const send = async (emailFormData: z.infer<typeof formCSchema>) => {
+export const send = async (emailFormData: z.infer<typeof formSchema>) => {
   // Simulate email sending with a delay
   await new Promise((resolve) => setTimeout(resolve, 1000))
 

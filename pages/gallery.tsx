@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import Autoplay from "embla-carousel-autoplay";
-import { motion, AnimatePresence, Variants } from "framer-motion"
+import * as React from "react"
+import Autoplay from "embla-carousel-autoplay"
+import { motion, AnimatePresence, type Variants } from "framer-motion"
 import { Suspense, useState, useEffect, useCallback } from "react"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { EmptyImageIcon } from "@/components/icons";
-import { siteConfig } from "@/config/site";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { EmptyImageIcon } from "@/components/icons"
+import { siteConfig } from "@/config/site"
 import type { JSX } from "react"
 
 const containerVariants: Variants = {
@@ -285,165 +285,189 @@ export default function Gallery() {
         </div>
       }
     >
-      <motion.main
-        className="container mx-auto py-6 sm:py-12 px-4 sm:px-6 bg-gray-50 max-w-7xl"
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-      >
-        {/* Header Section */}
-        <div className="text-center sm:text-left mb-8">
-          <h1 className="text-2xl sm:text-4xl font-bold mb-4">Gallery</h1>
-          <p className="text-base sm:text-lg text-gray-700 mb-6 sm:mb-8">Explore our collection of images.</p>
-        </div>
+      <div className="min-h-screen bg-gray-50">
+        {/* Header */}
+        <motion.div
+          className="bg-[#1a1a1f] text-white py-6 "
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="text-center">
+            <motion.h1
+              className="text-2xl font-bold text-center mb-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              Gallery
+            </motion.h1>
+            <motion.p
+              className="text-sm text-center opacity-90 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              Explore our collection of images
+            </motion.p>
+          </div>
+        </motion.div>
 
-        {/* Featured Images Section */}
-        <div className="mb-8 sm:mb-12">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-center sm:text-left">Featured Images</h2>
-          <motion.div className="max-w-full sm:max-w-2xl mx-auto touch-pan-x" variants={carouselVariants}>
-            <div className="relative">
-              <Carousel
-                plugins={[Autoplay({ delay: 2000, stopOnInteraction: true })]}
-                className="mb-2"
-                onMouseEnter={plugin.current.stop}
-                onMouseLeave={plugin.current.reset}
-                setApi={setCarouselApi}
-                opts={{
-                  align: "start",
-                  loop: true,
-                  dragFree: false,
-                  containScroll: "trimSnaps",
-                }}
-              >
-                <CarouselContent className="-ml-2 md:-ml-4">
-                  {carouselImages.map((src, index) => (
-                    <CarouselItem key={index} className="pl-2 md:pl-4 sm:basis-full">
-                      <div className="relative">
-                        <img
-                          src={src}
-                          alt={`Gallery image ${index + 1}`}
-                          className="w-full h-48 sm:h-64 md:h-auto object-cover rounded-lg shadow-lg"
-                        />
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-
-                {/* Desktop Navigation */}
-                <CarouselPrevious className="hidden sm:flex -left-12" />
-                <CarouselNext className="hidden sm:flex -right-12" />
-              </Carousel>
-
-              {/* Mobile Navigation Controls */}
-              <div className="flex sm:hidden justify-center items-center gap-4 mt-4 mb-2">
-                <button
-                  onClick={() => carouselApi?.scrollPrev()}
-                  className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md border border-gray-200 hover:bg-gray-50 active:bg-gray-100 transition-colors"
-                  aria-label="Previous image"
+        {/* Content container */}
+        <motion.main
+          className="container mx-auto py-6 sm:py-12 px-4 sm:px-6 max-w-7xl"
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+        >
+          {/* Featured Images Section */}
+          <div className="mb-8 sm:mb-12">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-center sm:text-left">Featured Images</h2>
+            <motion.div className="max-w-full sm:max-w-2xl mx-auto touch-pan-x" variants={carouselVariants}>
+              <div className="relative">
+                <Carousel
+                  plugins={[Autoplay({ delay: 2000, stopOnInteraction: true })]}
+                  className="mb-2"
+                  onMouseEnter={plugin.current.stop}
+                  onMouseLeave={plugin.current.reset}
+                  setApi={setCarouselApi}
+                  opts={{
+                    align: "start",
+                    loop: true,
+                    dragFree: false,
+                    containScroll: "trimSnaps",
+                  }}
                 >
-                  <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
+                  <CarouselContent className="-ml-2 md:-ml-4">
+                    {carouselImages.map((src, index) => (
+                      <CarouselItem key={index} className="pl-2 md:pl-4 sm:basis-full">
+                        <div className="relative">
+                          <img
+                            src={src || "/placeholder.svg"}
+                            alt={`Gallery image ${index + 1}`}
+                            className="w-full h-48 sm:h-64 md:h-auto object-cover rounded-lg shadow-lg"
+                          />
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
 
-                <div className="flex items-center text-xs text-gray-500 px-3">
-                  <span>Swipe or tap</span>
+                  {/* Desktop Navigation */}
+                  <CarouselPrevious className="hidden sm:flex -left-12" />
+                  <CarouselNext className="hidden sm:flex -right-12" />
+                </Carousel>
+
+                {/* Mobile Navigation Controls */}
+                <div className="flex sm:hidden justify-center items-center gap-4 mt-4 mb-2">
+                  <button
+                    onClick={() => carouselApi?.scrollPrev()}
+                    className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md border border-gray-200 hover:bg-gray-50 active:bg-gray-100 transition-colors"
+                    aria-label="Previous image"
+                  >
+                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+
+                  <div className="flex items-center text-xs text-gray-500 px-3">
+                    <span>Swipe or tap</span>
+                  </div>
+
+                  <button
+                    onClick={() => carouselApi?.scrollNext()}
+                    className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md border border-gray-200 hover:bg-gray-50 active:bg-gray-100 transition-colors"
+                    aria-label="Next image"
+                  >
+                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
                 </div>
-
-                <button
-                  onClick={() => carouselApi?.scrollNext()}
-                  className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md border border-gray-200 hover:bg-gray-50 active:bg-gray-100 transition-colors"
-                  aria-label="Next image"
-                >
-                  <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
               </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Albums Section */}
-        <div className="space-y-6 bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
-          {/* Albums Header and Select */}
-          <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between">
-            <h1 className="text-2xl sm:text-3xl font-semibold text-center sm:text-left">Albums</h1>
-            <motion.div className="w-full sm:w-auto sm:min-w-[280px] sm:max-w-[320px]" variants={selectVariants}>
-              <Select value={selectedAlbum} onValueChange={handleAlbumChange}>
-                <SelectTrigger
-                  className="w-full h-12 text-base sm:text-sm bg-white border-2 hover:border-gray-400 focus:border-blue-500 transition-colors"
-                  disabled={isTransitioning}
-                >
-                  <SelectValue placeholder="Select an album" />
-                </SelectTrigger>
-                <SelectContent
-                  className="w-full max-w-[calc(100vw-2rem)] sm:max-w-[320px]"
-                  position="popper"
-                  side="bottom"
-                  align="end"
-                  sideOffset={4}
-                >
-                  {generateDropdownOptions()}
-                </SelectContent>
-              </Select>
             </motion.div>
           </div>
 
-          {/* Images Grid Container*/}
-          <div
-            ref={gridRef}
-            className="relative w-full mb-8"
-            style={{ minHeight: selectedAlbum ? `${gridHeight}px` : "400px" }}
-          >
-            <AnimatePresence mode="wait">
-              {selectedAlbum && currentImages.length > 0 && (
-                <motion.div
-                  key={selectedAlbum}
-                  className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6 w-full"
-                  variants={gridVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  {currentImages.map((src, index) => (
-                    <motion.div
-                      key={`${selectedAlbum}-${index}`}
-                      className="overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 aspect-square"
-                      variants={itemVariants}
-                    >
-                      <img
-                        src={src}
-                        alt={currentAlbum ? `${currentAlbum.name} image ${index + 1}` : `Album image ${index + 1}`}
-                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
-                      />
-                    </motion.div>
-                  ))}
-                </motion.div>
-              )}
+          {/* Albums Section */}
+          <div className="space-y-6 bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+            {/* Albums Header and Select */}
+            <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between">
+              <h1 className="text-2xl sm:text-3xl font-semibold text-center sm:text-left">Albums</h1>
+              <motion.div className="w-full sm:w-auto sm:min-w-[280px] sm:max-w-[320px]" variants={selectVariants}>
+                <Select value={selectedAlbum} onValueChange={handleAlbumChange}>
+                  <SelectTrigger
+                    className="w-full h-12 text-base sm:text-sm bg-white border-2 hover:border-gray-400 focus:border-blue-500 transition-colors"
+                    disabled={isTransitioning}
+                  >
+                    <SelectValue placeholder="Select an album" />
+                  </SelectTrigger>
+                  <SelectContent
+                    className="w-full max-w-[calc(100vw-2rem)] sm:max-w-[320px]"
+                    position="popper"
+                    side="bottom"
+                    align="end"
+                    sideOffset={4}
+                  >
+                    {generateDropdownOptions()}
+                  </SelectContent>
+                </Select>
+              </motion.div>
+            </div>
 
-              {selectedAlbum === "" && (
-                <motion.div
-                  key="empty"
-                  className="flex items-center justify-center h-[400px]"
-                  variants={emptyStateVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <div className="text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
-                      <EmptyImageIcon />
+            {/* Images Grid Container*/}
+            <div
+              ref={gridRef}
+              className="relative w-full mb-8"
+              style={{ minHeight: selectedAlbum ? `${gridHeight}px` : "400px" }}
+            >
+              <AnimatePresence mode="wait">
+                {selectedAlbum && currentImages.length > 0 && (
+                  <motion.div
+                    key={selectedAlbum}
+                    className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6 w-full"
+                    variants={gridVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    {currentImages.map((src, index) => (
+                      <motion.div
+                        key={`${selectedAlbum}-${index}`}
+                        className="overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 aspect-square"
+                        variants={itemVariants}
+                      >
+                        <img
+                          src={src || "/placeholder.svg"}
+                          alt={currentAlbum ? `${currentAlbum.name} image ${index + 1}` : `Album image ${index + 1}`}
+                          className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                        />
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                )}
+
+                {selectedAlbum === "" && (
+                  <motion.div
+                    key="empty"
+                    className="flex items-center justify-center h-[400px]"
+                    variants={emptyStateVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <div className="text-center">
+                      <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                        <EmptyImageIcon />
+                      </div>
+                      <p className="text-gray-500 text-base sm:text-lg font-medium mb-2">No album selected</p>
+                      <p className="text-gray-400 text-sm sm:text-base">Please select an album above to view images</p>
                     </div>
-                    <p className="text-gray-500 text-base sm:text-lg font-medium mb-2">No album selected</p>
-                    <p className="text-gray-400 text-sm sm:text-base">Please select an album above to view images</p>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
-        </div>
-      </motion.main>
+        </motion.main>
+      </div>
     </Suspense>
   )
 }

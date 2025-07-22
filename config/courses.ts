@@ -2,7 +2,7 @@
 
 export const siteConfig = {
   title: "Course Catalog",
-  subtitle: "A list of all STEM courses offered for students of all ages",
+  subtitle: "A list of all STEM courses offered for students in grades K-12",
   scheduleImage: {
     height: 200,
     width: 600,
