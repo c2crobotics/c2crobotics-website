@@ -24,6 +24,7 @@
     "@react-three/fiber": "^9.2.0",
     "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/typography": "^0.5.16",
+    "autoprefixer": "^10.4.21",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "critters": "^0.0.25",
@@ -63,6 +64,7 @@
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.178.0",
     "three-globe": "^2.43.0",
+    "tw-animate-css": "^1.3.5",
     "zod": "^4.0.5"
   },
   "devDependencies": {

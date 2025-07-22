@@ -75,7 +75,7 @@ export default function Home() {
                 Coast 2 Coast Robotics
               </motion.p>
 
-              {/* Animated tagline with gradient */}
+              {/* Taglines */}
               <div className="h-16 flex items-center justify-center mb-8">
                 <AnimatePresence mode="wait">
                   <motion.span

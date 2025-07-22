@@ -4,17 +4,16 @@ import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Trophy, Calendar, MapPin, Menu, X, Camera, ArrowLeft } from "lucide-react"
+import { Trophy, Calendar, MapPin, Menu, X, Camera, ArrowLeft } from 'lucide-react'
 import Link from "next/link"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, cubicBezier } from "framer-motion"
 import { siteConfig } from "@/config/site"
-import React from 'react';
 
 const placeColors = {
   "1st": "bg-[#d4af37] text-white font-bold",
   "2nd": "bg-[#c0c0c0] text-white font-bold",
   "3rd": "bg-[#cd7f32] text-white font-bold",
-  "Xth": "bg-[#D9D9D9] text-white font=bold",
+  Xth: "bg-[#D9D9D9] text-white font-bold",
 }
 
 const scrollVariants = {
@@ -25,7 +24,7 @@ const scrollVariants = {
       x: 0,
       transition: {
         duration: 0.7,
-        ease: "easeOut",
+        ease: cubicBezier(0.25, 0.46, 0.45, 0.94),
       },
     },
   },
@@ -36,7 +35,7 @@ const scrollVariants = {
       x: 0,
       transition: {
         duration: 0.7,
-        ease: "easeOut",
+        ease: cubicBezier(0.25, 0.46, 0.45, 0.94),
       },
     },
   },
@@ -47,7 +46,7 @@ const scrollVariants = {
       y: 0,
       transition: {
         duration: 0.7,
-        ease: "easeOut",
+        ease: cubicBezier(0.25, 0.46, 0.45, 0.94),
       },
     },
   },
@@ -60,7 +59,7 @@ const contentVariants = {
     y: 0,
     transition: {
       duration: 0.4,
-      ease: "easeOut",
+      ease: cubicBezier(0.25, 0.46, 0.45, 0.94),
     },
   },
 }
@@ -93,7 +92,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.4,
-      ease: "easeOut",
+      ease: cubicBezier(0.25, 0.46, 0.45, 0.94),
     },
   },
 }
@@ -102,18 +101,18 @@ const mobileSidebarVariants = {
   hidden: {
     x: "-100%",
     transition: {
-      type: "tween",
+      type: "tween" as const,
       duration: 0.3,
     },
   },
   visible: {
     x: 0,
     transition: {
-      type: "tween",
+      type: "tween" as const,
       duration: 0.3,
     },
   },
-}
+} as const
 
 const teamsData = siteConfig.teams
 
@@ -178,7 +177,7 @@ export default function History() {
           className="hidden lg:block w-64 bg-white shadow-lg border-r border-gray-200"
           initial={{ x: -256 }}
           animate={{ x: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: cubicBezier(0.25, 0.46, 0.45, 0.94) }}
         >
           <div className="p-6 border-b border-gray-200">
             <Link
@@ -489,7 +488,7 @@ export default function History() {
                             whileHover={{ scale: 1.05, y: -5 }}
                           >
                             <img
-                              src={photo.url || "/placeholder.svg"}
+                              src={photo.url}
                               alt={photo.caption}
                               className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                             />
@@ -513,7 +512,7 @@ export default function History() {
                   <CardContent className="text-center py-16">
                     <motion.div
                       animate={{ y: [0, -10, 0] }}
-                      transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                      transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: [0.42, 0, 0.58, 1] }}
                     >
                       <Trophy className="w-16 h-16 mx-auto text-gray-400 mb-6" />
                     </motion.div>

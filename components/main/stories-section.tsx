@@ -8,7 +8,7 @@ const testimonials = [
     name: "test",
     role: "test",
     program: "Competition Team",
-    image: "/placeholder.svg?height=300&width=300&text=john+doe",
+    image: "gallery/placeholder.webp?height=300&width=300&text=john+doe",
     rating: 5,
     quote:
       "test",

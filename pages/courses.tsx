@@ -5,14 +5,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Calendar, Clock, Users, Filter } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, Variants } from "framer-motion"
 import { siteConfig, janAprilConfig, holidayConfig, fallConfig, summerConfig, janAprilCourses, holidayCourses, fallCourses, summerCourses } from "../config/courses"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import React from 'react';
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -23,7 +23,7 @@ const containerVariants = {
   },
 }
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -35,7 +35,7 @@ const itemVariants = {
   },
 }
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 30, scale: 0.95 },
   visible: {
     opacity: 1,
@@ -56,7 +56,7 @@ const cardVariants = {
   },
 }
 
-const imageVariants = {
+const imageVariants: Variants = {
   hover: {
     scale: 1.05,
     transition: {
@@ -66,7 +66,7 @@ const imageVariants = {
   },
 }
 
-const buttonVariants = {
+const buttonVariants: Variants = {
   hover: {
     scale: 1.05,
     transition: {
@@ -82,7 +82,7 @@ const buttonVariants = {
   },
 }
 
-const detailsVariants = {
+const detailsVariants: Variants = {
   hidden: {
     opacity: 0,
     height: 0,

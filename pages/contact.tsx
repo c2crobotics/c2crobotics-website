@@ -1,13 +1,13 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 import ContactForm from "@/components/contact-form"
 import ContactInfo from "@/components/contact-info"
 import { Toaster } from "@/components/ui/toaster"
 import { Suspense } from "react"
 import React from 'react';
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -18,7 +18,7 @@ const containerVariants = {
   },
 }
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -30,7 +30,7 @@ const itemVariants = {
   },
 }
 
-const headerVariants = {
+const headerVariants: Variants = {
   hidden: { opacity: 0, y: -20 },
   visible: {
     opacity: 1,
@@ -42,7 +42,7 @@ const headerVariants = {
   },
 }
 
-const formVariants = {
+const formVariants: Variants = {
   hidden: { opacity: 0, scale: 0.95 },
   visible: {
     opacity: 1,
@@ -55,7 +55,7 @@ const formVariants = {
   },
 }
 
-const infoVariants = {
+const infoVariants: Variants = {
   hidden: { opacity: 0, x: -30 },
   visible: {
     opacity: 1,

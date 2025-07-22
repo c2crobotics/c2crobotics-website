@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, Variants } from "framer-motion"
 import { Suspense, useState, useEffect, useCallback } from "react"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -10,7 +10,7 @@ import { EmptyImageIcon } from "@/components/icons";
 import { siteConfig } from "@/config/site";
 import type { JSX } from "react"
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -21,7 +21,7 @@ const containerVariants = {
   },
 }
 
-const carouselVariants = {
+const carouselVariants: Variants = {
   hidden: { opacity: 0, scale: 0.95 },
   visible: {
     opacity: 1,
@@ -34,7 +34,7 @@ const carouselVariants = {
   },
 }
 
-const selectVariants = {
+const selectVariants: Variants = {
   hidden: { opacity: 0, y: -10 },
   visible: {
     opacity: 1,
@@ -47,7 +47,7 @@ const selectVariants = {
   },
 }
 
-const gridVariants = {
+const gridVariants: Variants = {
   initial: {
     opacity: 0,
   },
@@ -68,7 +68,7 @@ const gridVariants = {
   },
 }
 
-const itemVariants = {
+const itemVariants: Variants = {
   initial: {
     opacity: 0,
     y: 10,
@@ -83,7 +83,7 @@ const itemVariants = {
   },
 }
 
-const emptyStateVariants = {
+const emptyStateVariants: Variants = {
   initial: { opacity: 0, y: 20 },
   animate: {
     opacity: 1,
@@ -368,7 +368,7 @@ export default function Gallery() {
         <div className="space-y-6 bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
           {/* Albums Header and Select */}
           <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between">
-            <h1 className="text-2xl sm:text-3xl font-bold text-center sm:text-left">Albums</h1>
+            <h1 className="text-2xl sm:text-3xl font-semibold text-center sm:text-left">Albums</h1>
             <motion.div className="w-full sm:w-auto sm:min-w-[280px] sm:max-w-[320px]" variants={selectVariants}>
               <Select value={selectedAlbum} onValueChange={handleAlbumChange}>
                 <SelectTrigger

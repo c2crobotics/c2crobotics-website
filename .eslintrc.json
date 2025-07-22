@@ -3,9 +3,6 @@
   "rules": {
     "@next/next/no-typos": "off",
     "react/no-unescaped-entities": "off",
-    "@next/next/no-page-custom-font": "off",
-    "react/react-in-jsx-scope": "off",
-    "rules": { "react/no-unescaped-entities": 0 },
-    "@typescript-eslint/no-explicit-any": "error"
+    "@next/next/no-page-custom-font": "off"
   }
 }

@@ -1,10 +1,10 @@
 import React from 'react';
-import { motion } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -15,7 +15,7 @@ const containerVariants = {
   },
 }
 
-const headingVariants = {
+const headingVariants: Variants = {
   hidden: { opacity: 0, y: -50, scale: 0.8 },
   visible: {
     opacity: 1,
@@ -30,7 +30,7 @@ const headingVariants = {
   },
 }
 
-const textVariants = {
+const textVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -43,7 +43,7 @@ const textVariants = {
   },
 }
 
-const buttonVariants = {
+const buttonVariants: Variants = {
   hidden: { opacity: 0, y: 30, scale: 0.9 },
   visible: {
     opacity: 1,
@@ -72,7 +72,7 @@ const buttonVariants = {
   },
 }
 
-const floatingVariants = {
+const floatingVariants: Variants = {
   animate: {
     y: [-10, 10, -10],
     transition: {
