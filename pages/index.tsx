@@ -34,7 +34,7 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setTaglineIndex((prev) => (prev + 1) % taglines.length)
-    }, 3000) // Change every 3 seconds
+    }, 3000)
     return () => clearInterval(interval)
   }, [])
 

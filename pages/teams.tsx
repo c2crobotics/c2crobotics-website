@@ -100,7 +100,7 @@ export default function Teams() {
           transition={{ duration: 0.6, delay: 0.6 }}
         >
           <Link href={siteConfig.siteURLs.history}>
-            <Button size="lg" className="bg-[#1a1a1f] hover:bg-gray-800 text-white font-bold px-8 py-4">
+            <Button size="lg" className="bg-[#1a1a1f] hover:bg-gray-600 text-white font-bold px-8 py-4">
               View Team History
             </Button>
           </Link>

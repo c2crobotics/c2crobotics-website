@@ -1,8 +1,10 @@
-import { motion, Variants } from "framer-motion"
-import { Card, CardContent, } from "@/components/ui/card"
+"use client"
+
+import { motion, type Variants } from "framer-motion"
+import { Card, CardContent } from "@/components/ui/card"
 import { siteConfig } from "@/config/site"
 
-const containerVariants: Variants= {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -34,22 +36,29 @@ export default function Sponsors() {
     >
       <h1 className="text-4xl font-bold text-[#1a1a1f] mb-6 text-center">Our Partners & Sponsors</h1>
       <motion.div
-        className="grid grid-cols-2 md:grid-cols-3 gap-6"
+        className="flex flex-wrap justify-center gap-6"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         {siteConfig.sponsors.map((sponsor, index) => (
           <motion.div key={index} variants={itemVariants} whileHover={{ scale: 1.05, y: -5 }} className="group">
-            <Card className="p-4 border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-white">
-              <CardContent className="text-center space-y-3">
-                <a href={sponsor.url} target="_blank" rel="noopener noreferrer" className="block">
-                  <img
-                    src={sponsor.link}
-                    alt={sponsor.title}
-                    className="w-full h-12 object-contain mx-auto grayscale group-hover:grayscale-0 transition-all duration-300"
-                  />
-                  <p className="font-bold text-sm text-[#1a1a1f] mt-2">{sponsor.title}</p>
+            <Card className="p-6 border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-white w-48 h-32">
+              <CardContent className="flex flex-col items-center justify-center text-center h-full p-0">
+                <a
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center justify-center h-full w-full"
+                >
+                  <div className="flex items-center justify-center h-12 mb-2">
+                    <img
+                      src={sponsor.link || "/placeholder.svg"}
+                      alt={sponsor.title}
+                      className="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                    />
+                  </div>
+                  <p className="font-bold text-xs text-[#1a1a1f] leading-tight">{sponsor.title}</p>
                 </a>
               </CardContent>
             </Card>

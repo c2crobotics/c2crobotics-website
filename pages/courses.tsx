@@ -5,12 +5,21 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Calendar, Clock, Users, Filter } from "lucide-react"
-import { motion, AnimatePresence, Variants } from "framer-motion"
-import { siteConfig, janAprilConfig, holidayConfig, fallConfig, summerConfig, janAprilCourses, holidayCourses, fallCourses, summerCourses } from "../config/courses"
+import { motion, AnimatePresence, type Variants } from "framer-motion"
+import {
+  siteConfig,
+  janAprilConfig,
+  holidayConfig,
+  fallConfig,
+  summerConfig,
+  janAprilCourses,
+  holidayCourses,
+  fallCourses,
+  summerCourses,
+} from "../config/courses"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
-import React from 'react';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -103,7 +112,11 @@ const detailsVariants: Variants = {
   },
 }
 
-function ScheduleImage() {
+function ScheduleImage({ category }: { category: string }) {
+  const imageConfig = siteConfig.scheduleImages[category as keyof typeof siteConfig.scheduleImages]
+
+  if (!imageConfig) return null
+
   return (
     <motion.div variants={itemVariants}>
       <Card className="mb-4">
@@ -115,8 +128,8 @@ function ScheduleImage() {
         </CardHeader>
         <CardContent>
           <img
-            src={`/gallery/placeholder.webp?height=${siteConfig.scheduleImage.height}&width=${siteConfig.scheduleImage.width}`}
-            alt={siteConfig.scheduleImage.alt}
+            src={`${imageConfig.src}?height=${imageConfig.height}&width=${imageConfig.width}`}
+            alt={imageConfig.alt}
             className="w-full h-auto max-h-48 rounded-lg border object-contain"
           />
         </CardContent>
@@ -184,20 +197,27 @@ function CompactCourseCard({ course, index }: { course: any; index: number }) {
             <div className="space-y-1 mb-3">
               <h5 className="font-medium text-xs">Available Sessions:</h5>
               <div className="grid gap-1">
-                {course.sessions
-                  .filter((session: any) => session.available !== false)
-                  .map((session: any, sessionIndex: number) => (
-                    <motion.div
-                      key={sessionIndex}
-                      className="bg-muted p-2 rounded text-xs"
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: sessionIndex * 0.1 }}
-                    >
-                      <div className="font-medium">{session.name}</div>
-                      <div className="text-muted-foreground">{session.dates}</div>
-                    </motion.div>
-                  ))}
+                {course.sessions.map((session: any, sessionIndex: number) => (
+                  <motion.div
+                    key={sessionIndex}
+                    className="bg-muted p-2 rounded text-xs relative"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: sessionIndex * 0.1 }}
+                  >
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1">
+                        <div className="font-medium">{session.name}</div>
+                        <div className="text-muted-foreground">{session.dates}</div>
+                      </div>
+                      {session.available === false && (
+                        <Badge variant="destructive" className="text-xs ml-2">
+                          Full
+                        </Badge>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
           )}
@@ -487,11 +507,11 @@ export default function CoursesPage() {
               <TabsTrigger value="holiday" className="text-xs">
                 Holiday
               </TabsTrigger>
-              <TabsTrigger value="fall" className="text-xs">
-                Fall
-              </TabsTrigger>
               <TabsTrigger value="summer" className="text-xs">
                 Summer
+              </TabsTrigger>
+              <TabsTrigger value="fall" className="text-xs">
+                Fall
               </TabsTrigger>
             </TabsList>
           </motion.div>
@@ -505,7 +525,7 @@ export default function CoursesPage() {
                 </motion.div>
 
                 <ClassDatesCard config={janAprilConfig.classDates} />
-                <ScheduleImage />
+                <ScheduleImage category="jan-april" />
                 <FilterTags courses={janAprilCourses} selectedTags={janAprilTags} onTagChange={setJanAprilTags} />
 
                 <motion.div
@@ -538,7 +558,7 @@ export default function CoursesPage() {
                 </motion.div>
               </motion.div>
             </TabsContent>
-            
+
             <TabsContent value="fall">
               <motion.div variants={containerVariants} initial="hidden" animate="visible" exit="hidden">
                 <motion.div variants={itemVariants}>
@@ -547,7 +567,7 @@ export default function CoursesPage() {
                 </motion.div>
 
                 <ClassDatesCard config={fallConfig.classDates} />
-                <ScheduleImage />
+                <ScheduleImage category="fall" />
                 <FilterTags courses={fallCourses} selectedTags={fallTags} onTagChange={setFallTags} />
 
                 <motion.div
@@ -581,7 +601,6 @@ export default function CoursesPage() {
                 </motion.div>
               </motion.div>
             </TabsContent>
-
           </AnimatePresence>
         </Tabs>
       </div>

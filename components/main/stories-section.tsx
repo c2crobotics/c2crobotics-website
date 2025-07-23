@@ -8,7 +8,7 @@ const testimonials = [
     name: "test",
     role: "test",
     program: "Competition Team",
-    image: "gallery/placeholder.webp?height=300&width=300&text=john+doe",
+    image: "gallery/placeholder.webp?height=300&width=300&text=jane+doe",
     rating: 5,
     quote:
       "test",
@@ -44,7 +44,7 @@ export default function StoriesSection() {
               viewport={{ once: true }}
             >
               <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden h-full border border-gray-100">
-                {/* Header with student info */}
+                {/* Header  */}
                 <div className="p-6 pb-4">
                   <div className="flex items-start gap-4">
                     <div className="relative">

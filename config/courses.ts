@@ -3,10 +3,31 @@
 export const siteConfig = {
   title: "Course Catalog",
   subtitle: "A list of all STEM courses offered for students in grades K-12",
-  scheduleImage: {
-    height: 200,
-    width: 600,
-    alt: "Course Schedule Overview",
+  scheduleImages: {
+    "jan-april": {
+      height: 200,
+      width: 600,
+      alt: "Winter Course Schedule Overview",
+      src: "/gallery/placeholder.webp"
+    },
+    holiday: {
+      height: 200,
+      width: 600,
+      alt: "Holiday Camp Schedule Overview",
+      src: "/gallery/placeholder.webp"
+    },
+    fall: {
+      height: 200,
+      width: 600,
+      alt: "Fall Course Schedule Overview",
+      src: "/gallery/placeholder.webp"
+    },
+    summer: {
+      height: 200,
+      width: 600,
+      alt: "Summer Program Schedule Overview",
+      src: "/gallery/placeholder.webp"
+    },
   },
 }
 
@@ -69,7 +90,7 @@ export const janAprilCourses = [
     dates: "Jan 6 - Apr 13, 2025",
     time: "Green - Tue/Thu/Sun",
     category: "Beginner Robotics",
-    
+
     tags: ["robotics", "beginner", "vex-iq"],
     imageUrl: "/gallery/placeholder.webp?height=200&width=300",
     skills: ["VEX IQ basics", "Robot construction", "Simple programming", "Problem-solving"],
