@@ -86,7 +86,7 @@ export default function Teams() {
               </p>
               <p className="text-gray-700 leading-relaxed">
                 Our mission is to inspire students to pursue STEM careers through hands-on robotics experience,
-                competitive programming, and collaborative engineering challenges.
+                practical programming, and collaborative engineering challenges.
               </p>
             </CardContent>
           </Card>

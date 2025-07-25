@@ -98,12 +98,12 @@ export const teamsData = {
     {
       id: 1,
       name: "team1",
-      achievements: [
+      achievements: [ // awards, // place // data // location 
         { name: "Regional Championship", place: "1st", date: "March 2024", location: "" },
         { name: "State Tournament", place: "2nd", date: "April 2024", location: "" },
         { name: "National Qualifiers", place: "3rd", date: "May 2024", location: "" },
       ],
-      competitions: [
+      competitions: [ // awards, // place // data // location 
         { name: "Regional Championship", date: "March 10-15, 2024", location: "" },
         { name: "State Tournament", date: "April 18-22, 2024", location: "" },
         { name: "National Qualifiers", date: "May 5-8, 2024", location: "" },

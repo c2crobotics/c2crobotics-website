@@ -6,6 +6,16 @@ import Link from "next/link"
 const testimonials = [
   {
     name: "test",
+    role: "Student",
+    program: "Competition Team",
+    image: "gallery/placeholder.webp?height=300&width=300&text=jane+doe",
+    rating: 5,
+    quote:
+      "test",
+    highlight: "test",
+  },
+  {
+    name: "test",
     role: "test",
     program: "Competition Team",
     image: "gallery/placeholder.webp?height=300&width=300&text=jane+doe",
@@ -98,7 +108,7 @@ export default function StoriesSection() {
           <div className="bg-blue-50 rounded-lg p-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Start Your Journey?</h3>
             <p className="text-gray-600 mb-6 max-w-3xl mx-auto">
-              Join hundreds of students who have discovered their passion for robotics and engineering at Coast 2 Coast.
+              Join hundreds of students who have discovered their passion for robotics and engineering at Coast 2 Coast Robotics.
             </p>
             <Link href={siteConfig.siteURLs.courses}>
               <button className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-lg transition-colors duration-200">

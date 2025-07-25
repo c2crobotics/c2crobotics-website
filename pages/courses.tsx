@@ -211,7 +211,7 @@ function CompactCourseCard({ course, index }: { course: any; index: number }) {
                         <div className="text-muted-foreground">{session.dates}</div>
                       </div>
                       {session.available === false && (
-                        <Badge variant="destructive" className="text-xs ml-2">
+                        <Badge variant="destructive" className="text-xs">
                           Full
                         </Badge>
                       )}
@@ -516,7 +516,7 @@ export default function CoursesPage() {
             </TabsList>
           </motion.div>
 
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="sync">
             <TabsContent value="jan-april">
               <motion.div variants={containerVariants} initial="hidden" animate="visible" exit="hidden">
                 <motion.div variants={itemVariants}>

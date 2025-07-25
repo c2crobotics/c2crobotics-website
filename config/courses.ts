@@ -340,8 +340,8 @@ export const summerCourses = [
     category: "Competition Bootcamp",
     tags: ["competition", "bootcamp", "vex-v5", "intensive"],
     imageUrl: "/gallery/placeholder.webp?height=200&width=300",
-    skills: ["V5 programming", "Competition design", "Leadership", "Public speaking"],
-    projects: ["Competition robot", "Autonomous routines", "Strategy playbook", "Tournament prep"],
+    skills: ["Programming", "Building and Designing", "Teamwork", "Public speaking"],
+    projects: [""],
   },
   {
     title: "VEX IQ Competition Bootcamp",
@@ -352,8 +352,8 @@ export const summerCourses = [
     category: "Competition Bootcamp",
     tags: ["competition", "bootcamp", "vex-iq", "intensive"],
     imageUrl: "/gallery/placeholder.webp?height=200&width=300",
-    skills: ["IQ programming", "Mechanical design", "Teamwork", "Presentation"],
-    projects: ["IQ robot", "Autonomous solutions", "Design journal", "Tournament participation"],
+    skills: ["Programming", "Building and Designing", "Teamwork", "Public speaking"],
+    projects: [""],
   },
   {
     title: "Weekly STEM Camps",

@@ -436,7 +436,7 @@ export default function Gallery() {
                         variants={itemVariants}
                       >
                         <img
-                          src={src || "/placeholder.svg"}
+                          src={src}
                           alt={currentAlbum ? `${currentAlbum.name} image ${index + 1}` : `Album image ${index + 1}`}
                           className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
                         />
