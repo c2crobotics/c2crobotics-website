@@ -32,6 +32,9 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  env: {
+    ROBOTEVENTS_API_TOKEN: process.env.ROBOTEVENTS_API_TOKEN,
+  }
 }
 
 module.exports = nextConfig

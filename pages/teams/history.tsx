@@ -1,56 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Trophy, Calendar, MapPin, Menu, X, Camera, ArrowLeft } from 'lucide-react'
-import Link from "next/link"
+import { Trophy, Calendar, MapPin, Menu, X, Camera, ArrowLeft, Loader2 } from "lucide-react"
 import { motion, AnimatePresence, cubicBezier } from "framer-motion"
+import { DataGenerator } from "@/history-config/data-generator"
 import { siteConfig } from "@/config/site"
-
-const placeColors = {
-  "1st": "bg-[#d4af37] text-white font-bold",
-  "2nd": "bg-[#c0c0c0] text-white font-bold",
-  "3rd": "bg-[#cd7f32] text-white font-bold",
-  Xth: "bg-[#D9D9D9] text-white font-bold",
-}
-
-const scrollVariants = {
-  left: {
-    hidden: { opacity: 0, x: -50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.7,
-        ease: cubicBezier(0.25, 0.46, 0.45, 0.94),
-      },
-    },
-  },
-  right: {
-    hidden: { opacity: 0, x: 50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.7,
-        ease: cubicBezier(0.25, 0.46, 0.45, 0.94),
-      },
-    },
-  },
-  up: {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.7,
-        ease: cubicBezier(0.25, 0.46, 0.45, 0.94),
-      },
-    },
-  },
-}
+import Link from "next/link"
 
 const contentVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -114,31 +71,152 @@ const mobileSidebarVariants = {
   },
 } as const
 
-const teamsData = siteConfig.teams
+interface TeamData {
+  id: number
+  name: string
+  achievements: Array<{
+    name: string
+    place: string
+    date: string
+    location: string
+  }>
+  competitions: Array<{
+    name: string
+    date: string
+    location: string
+  }>
+  photos: Array<{
+    url: string
+    caption: string
+  }>
+}
+
+interface TeamsData {
+  [year: number]: TeamData[]
+}
 
 export default function History() {
   const [selectedYear, setSelectedYear] = useState(2024)
   const [selectedTeam, setSelectedTeam] = useState<number | null>(null)
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [teamsData, setTeamsData] = useState<TeamsData>({})
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function fetchTeamsData() {
+      try {
+        setLoading(true)
+        setError(null)
+
+        const generator = new DataGenerator()
+        const { teamsData: apiTeamsData } = await generator.generateTeamsData()
+
+        setTeamsData(apiTeamsData)
+
+        const years = Object.keys(apiTeamsData)
+          .map(Number)
+          .sort((a, b) => b - a)
+        if (years.length > 0) {
+          setSelectedYear(years[0])
+        }
+      } catch (err) {
+        console.error("Error fetching teams data:", err)
+        setError(err instanceof Error ? err.message : "Failed to load team data")
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchTeamsData()
+  }, [])
 
   const years = Object.keys(teamsData)
     .map(Number)
     .sort((a, b) => b - a)
 
-  const currentTeams = teamsData[selectedYear as keyof typeof teamsData] || []
+  const currentTeams = teamsData[selectedYear] || []
   const displayTeam = selectedTeam ? currentTeams.find((t) => t.id === selectedTeam) : currentTeams[0]
 
   const contentKey = `${selectedYear}-${selectedTeam || displayTeam?.id || "none"}`
 
   const handleYearSelect = (year: number) => {
     setSelectedYear(year)
-    setSelectedTeam(null)
+
+    const newYearTeams = teamsData[year] || []
+
+    if (selectedTeam && newYearTeams.length > 0) {
+      const currentTeam = currentTeams.find((t) => t.id === selectedTeam)
+      if (currentTeam) {
+        const matchingTeam = newYearTeams.find((t) => t.name === currentTeam.name)
+        if (matchingTeam) {
+          setSelectedTeam(matchingTeam.id)
+        } else {
+          setSelectedTeam(newYearTeams[0].id)
+        }
+      } else {
+        setSelectedTeam(newYearTeams.length > 0 ? newYearTeams[0].id : null)
+      }
+    } else {
+      setSelectedTeam(newYearTeams.length > 0 ? newYearTeams[0].id : null)
+    }
+
     setSidebarOpen(false)
   }
 
   const handleTeamSelect = (teamId: number) => {
     setSelectedTeam(teamId)
     setSidebarOpen(false)
+  }
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
+        <Card className="bg-white shadow-lg border-0 p-8">
+          <CardContent className="text-center">
+            <Loader2 className="w-12 h-12 mx-auto text-blue-500 animate-spin mb-4" />
+            <h3 className="text-xl font-bold text-[#1a1a1f] mb-2 uppercase tracking-wide">Loading Team Data</h3>
+            <p className="text-gray-600">Fetching data from RobotEvents API...</p>
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
+        <Card className="bg-white shadow-lg border-0 p-8">
+          <CardContent className="text-center">
+            <div className="w-12 h-12 mx-auto bg-red-100 rounded-full flex items-center justify-center mb-4">
+              <X className="w-6 h-6 text-red-500" />
+            </div>
+            <h3 className="text-xl font-bold text-[#1a1a1f] mb-2 uppercase tracking-wide">Error Loading Data</h3>
+            <p className="text-gray-600 mb-4">{error}</p>
+            <Button onClick={() => window.location.reload()} className="bg-blue-600 hover:bg-blue-700">
+              Try Again
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
+
+  // No data state
+  if (years.length === 0) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
+        <Card className="bg-white shadow-lg border-0 p-8">
+          <CardContent className="text-center">
+            <Trophy className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+            <h3 className="text-xl font-bold text-[#1a1a1f] mb-2 uppercase tracking-wide">No Team Data Found</h3>
+            <p className="text-gray-600">No team data was found. Please check your API configuration.</p>
+          </CardContent>
+        </Card>
+      </div>
+    )
   }
 
   return (
@@ -200,11 +278,10 @@ export default function History() {
                     key={year}
                     variants={itemVariants}
                     onClick={() => handleYearSelect(year)}
-                    className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ease-out font-bold uppercase tracking-wide hover:scale-[1.02] ${
-                      selectedYear === year
-                        ? "bg-[#1a1a1f] text-white shadow-lg"
-                        : "text-gray-700 hover:bg-gray-100 hover:shadow-md"
-                    }`}
+                    className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ease-out font-bold uppercase tracking-wide hover:scale-[1.02] ${selectedYear === year
+                      ? "bg-[#1a1a1f] text-white shadow-lg"
+                      : "text-gray-700 hover:bg-gray-100 hover:shadow-md"
+                      }`}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -224,11 +301,10 @@ export default function History() {
                       key={team.id}
                       variants={itemVariants}
                       onClick={() => handleTeamSelect(team.id)}
-                      className={`w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-300 ease-out font-bold uppercase tracking-wide hover:scale-[1.02] ${
-                        selectedTeam === team.id || (!selectedTeam && team === currentTeams[0])
-                          ? "bg-blue-600 text-white shadow-lg"
-                          : "text-gray-600 hover:bg-gray-50 hover:shadow-md"
-                      }`}
+                      className={`w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-300 ease-out font-bold uppercase tracking-wide hover:scale-[1.02] ${selectedTeam === team.id || (!selectedTeam && team === currentTeams[0])
+                        ? "bg-blue-600 text-white shadow-lg"
+                        : "text-gray-600 hover:bg-gray-50 hover:shadow-md"
+                        }`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -285,11 +361,10 @@ export default function History() {
                         <button
                           key={year}
                           onClick={() => handleYearSelect(year)}
-                          className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ease-out font-bold uppercase tracking-wide ${
-                            selectedYear === year
-                              ? "bg-[#1a1a1f] text-white shadow-lg"
-                              : "text-gray-700 hover:bg-gray-100 hover:shadow-md"
-                          }`}
+                          className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ease-out font-bold uppercase tracking-wide ${selectedYear === year
+                            ? "bg-[#1a1a1f] text-white shadow-lg"
+                            : "text-gray-700 hover:bg-gray-100 hover:shadow-md"
+                            }`}
                         >
                           {year}
                         </button>
@@ -306,11 +381,10 @@ export default function History() {
                           <button
                             key={team.id}
                             onClick={() => handleTeamSelect(team.id)}
-                            className={`w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-300 ease-out font-bold uppercase tracking-wide ${
-                              selectedTeam === team.id || (!selectedTeam && team === currentTeams[0])
-                                ? "bg-blue-600 text-white shadow-lg"
-                                : "text-gray-600 hover:bg-gray-50 hover:shadow-md"
-                            }`}
+                            className={`w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-300 ease-out font-bold uppercase tracking-wide ${selectedTeam === team.id || (!selectedTeam && team === currentTeams[0])
+                              ? "bg-blue-600 text-white shadow-lg"
+                              : "text-gray-600 hover:bg-gray-50 hover:shadow-md"
+                              }`}
                           >
                             {team.name}
                           </button>
@@ -341,9 +415,15 @@ export default function History() {
                         <CardTitle className="text-3xl mb-2 sm:mb-0 uppercase tracking-wide font-bold">
                           {displayTeam.name}
                         </CardTitle>
-                        <div className="flex items-center space-x-2 bg-white/20 px-4 py-2 rounded-full">
-                          <Trophy className="w-5 h-5" />
-                          <span className="text-lg font-bold">{displayTeam.achievements.length} Awards</span>
+                        <div className="flex items-center space-x-4">
+                          <div className="flex justify-end items-center space-x-2 bg-white/20 px-4 py-2 rounded-full">
+                            <Trophy className="w-5 h-5" />
+                            <span className="text-lg font-bold">{displayTeam.achievements.length} Awards</span>
+                          </div>
+                          <div className="flex justify-end items-center space-x-2 bg-white/20 px-4 py-2 rounded-full">
+                            <Calendar className="w-5 h-5" />
+                            <span className="text-lg font-bold">{displayTeam.competitions.length} Competitions</span>
+                          </div>
                         </div>
                       </div>
                     </CardHeader>
@@ -351,12 +431,7 @@ export default function History() {
                 </motion.div>
 
                 {/* Achievements */}
-                <motion.div
-                  variants={scrollVariants.left}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: false, amount: 0.3 }}
-                >
+                <div>
                   <Card className="bg-white shadow-lg border-0">
                     <CardHeader>
                       <CardTitle className="text-2xl font-bold text-[#1a1a1f] flex items-center uppercase tracking-wide">
@@ -365,57 +440,54 @@ export default function History() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <motion.div
-                        key={`achievements-${contentKey}`}
-                        className="grid gap-4"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="visible"
-                      >
-                        {displayTeam.achievements.map((achievement, index) => (
-                          <motion.div
-                            key={index}
-                            variants={contentVariants}
-                            className="p-6 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-all duration-300"
-                            whileHover={{ scale: 1.02, y: -2 }}
-                          >
-                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                              <div className="flex-1 mb-3 sm:mb-0">
-                                <h4 className="font-bold text-lg text-[#1a1a1f] mb-2 uppercase tracking-wide">
-                                  {achievement.name}
-                                </h4>
-                                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 text-sm text-gray-600">
-                                  <div className="flex items-center mb-1 sm:mb-0 font-medium">
-                                    <Calendar className="w-4 h-4 mr-2 text-blue-500" />
-                                    <span>{achievement.date}</span>
-                                  </div>
-                                  <div className="flex items-center font-medium">
-                                    <MapPin className="w-4 h-4 mr-2 text-red-500" />
-                                    <span>{achievement.location}</span>
+                      {displayTeam.achievements.length === 0 ? (
+                        <div className="text-center py-8">
+                          <p className="text-gray-500 text-lg font-semibold">
+                            No achievements found for this team in {selectedYear}.
+                          </p>
+                        </div>
+                      ) : (
+                        <motion.div
+                          key={`achievements-${contentKey}`}
+                          className="grid gap-4"
+                          variants={containerVariants}
+                          initial="hidden"
+                          animate="visible"
+                        >
+                          {displayTeam.achievements.map((achievement, index) => (
+                            <motion.div
+                              key={index}
+                              variants={contentVariants}
+                              className="p-6 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-all duration-300"
+                              whileHover={{ scale: 1.02, y: -2 }}
+                            >
+                              <div className="flex flex-col">
+                                <div className="flex-1">
+                                  <h4 className="font-bold text-lg text-[#1a1a1f] mb-2 uppercase tracking-wide">
+                                    {achievement.name}
+                                  </h4>
+                                  <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 text-sm text-gray-600">
+                                    <div className="flex items-center mb-1 sm:mb-0 font-medium">
+                                      <Calendar className="w-4 h-4 mr-2 text-blue-500" />
+                                      <span>{achievement.date}</span>
+                                    </div>
+                                    <div className="flex items-center font-medium">
+                                      <MapPin className="w-4 h-4 mr-2 text-red-500" />
+                                      <span>{achievement.location}</span>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                              <Badge
-                                className={`${placeColors[achievement.place as keyof typeof placeColors]} px-4 py-2 text-lg transition-all duration-300`}
-                                variant="outline"
-                              >
-                                {achievement.place}
-                              </Badge>
-                            </div>
-                          </motion.div>
-                        ))}
-                      </motion.div>
+                            </motion.div>
+                          ))}
+                        </motion.div>
+                      )}
                     </CardContent>
                   </Card>
-                </motion.div>
+                </div>
 
                 {/* Competitions */}
-                <motion.div
-                  variants={scrollVariants.right}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: false, amount: 0.3 }}
-                >
+                <div>
                   <Card className="bg-white shadow-lg border-0">
                     <CardHeader>
                       <CardTitle className="text-2xl font-bold text-[#1a1a1f] flex items-center uppercase tracking-wide">
@@ -424,47 +496,50 @@ export default function History() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <motion.div
-                        key={`competitions-${contentKey}`}
-                        className="grid gap-4"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="visible"
-                      >
-                        {displayTeam.competitions.map((competition, index) => (
-                          <motion.div
-                            key={index}
-                            variants={contentVariants}
-                            className="p-6 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-all duration-300"
-                            whileHover={{ scale: 1.02, y: -2 }}
-                          >
-                            <h4 className="font-bold text-lg text-[#1a1a1f] mb-3 uppercase tracking-wide">
-                              {competition.name}
-                            </h4>
-                            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 text-sm text-gray-600">
-                              <div className="flex items-center mb-1 sm:mb-0 font-medium">
-                                <Calendar className="w-4 h-4 mr-2 text-blue-500" />
-                                <span>{competition.date}</span>
+                      {displayTeam.competitions.length === 0 ? (
+                        <div className="text-center py-8">
+                          <p className="text-gray-500 text-lg font-semibold">
+                            No competitions found for this team in {selectedYear}.
+                          </p>
+                        </div>
+                      ) : (
+                        <motion.div
+                          key={`competitions-${contentKey}`}
+                          className="grid gap-4"
+                          variants={containerVariants}
+                          initial="hidden"
+                          animate="visible"
+                        >
+                          {displayTeam.competitions.map((competition, index) => (
+                            <motion.div
+                              key={index}
+                              variants={contentVariants}
+                              className="p-6 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-all duration-300"
+                              whileHover={{ scale: 1.02, y: -2 }}
+                            >
+                              <h4 className="font-bold text-lg text-[#1a1a1f] mb-3 uppercase tracking-wide">
+                                {competition.name}
+                              </h4>
+                              <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 text-sm text-gray-600">
+                                <div className="flex items-center mb-1 sm:mb-0 font-medium">
+                                  <Calendar className="w-4 h-4 mr-2 text-blue-500" />
+                                  <span>{competition.date}</span>
+                                </div>
+                                <div className="flex items-center font-medium">
+                                  <MapPin className="w-4 h-4 mr-2 text-red-500" />
+                                  <span>{competition.location}</span>
+                                </div>
                               </div>
-                              <div className="flex items-center font-medium">
-                                <MapPin className="w-4 h-4 mr-2 text-red-500" />
-                                <span>{competition.location}</span>
-                              </div>
-                            </div>
-                          </motion.div>
-                        ))}
-                      </motion.div>
+                            </motion.div>
+                          ))}
+                        </motion.div>
+                      )}
                     </CardContent>
                   </Card>
-                </motion.div>
+                </div>
 
                 {/* Photos */}
-                <motion.div
-                  variants={scrollVariants.up}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: false, amount: 0.3 }}
-                >
+                <div>
                   <Card className="bg-white shadow-lg border-0">
                     <CardHeader>
                       <CardTitle className="text-2xl font-bold text-[#1a1a1f] flex items-center uppercase tracking-wide">
@@ -473,34 +548,40 @@ export default function History() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <motion.div
-                        key={`photos-${contentKey}`}
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="visible"
-                      >
-                        {displayTeam.photos.map((photo, index) => (
-                          <motion.div
-                            key={index}
-                            variants={contentVariants}
-                            className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-500"
-                            whileHover={{ scale: 1.05, y: -5 }}
-                          >
-                            <img
-                              src={photo.url}
-                              alt={photo.caption}
-                              className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                            />
-                            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                              <p className="font-medium text-sm uppercase tracking-wide">{photo.caption}</p>
-                            </div>
-                          </motion.div>
-                        ))}
-                      </motion.div>
+                      {displayTeam.photos.length === 0 ? (
+                        <div className="text-center py-8">
+                          <p className="text-gray-500 text-lg font-semibold">No photos found for this team in {selectedYear}.</p>
+                        </div>
+                      ) : (
+                        <motion.div
+                          key={`photos-${contentKey}`}
+                          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                          variants={containerVariants}
+                          initial="hidden"
+                          animate="visible"
+                        >
+                          {displayTeam.photos.map((photo, index) => (
+                            <motion.div
+                              key={index}
+                              variants={contentVariants}
+                              className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-500"
+                              whileHover={{ scale: 1.05, y: -5 }}
+                            >
+                              <img
+                                src={photo.url}
+                                alt={photo.caption}
+                                className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                              />
+                              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <p className="font-medium text-sm uppercase tracking-wide">{photo.caption}</p>
+                              </div>
+                            </motion.div>
+                          ))}
+                        </motion.div>
+                      )}
                     </CardContent>
                   </Card>
-                </motion.div>
+                </div>
               </div>
             ) : (
               <motion.div

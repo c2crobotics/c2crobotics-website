@@ -38,36 +38,6 @@ export type Sponsor = {
   url: string
 }
 
-export type TeamAchievement = {
-  name: string
-  place: string
-  date: string
-  location: string
-}
-
-export type TeamCompetition = {
-  name: string
-  date: string
-  location: string
-}
-
-export type TeamPhoto = {
-  url: string
-  caption: string
-}
-
-export type Team = {
-  id: number
-  name: string
-  achievements: TeamAchievement[]
-  competitions: TeamCompetition[]
-  photos: TeamPhoto[]
-}
-
-export type TeamsData = {
-  [year: string]: Team[]
-}
-
 export type StatItem = {
   icon: any
   label: string
@@ -89,68 +59,7 @@ export type SiteConfig = {
   }
   gallery: GalleryData
   sponsors: Sponsor[]
-  teams: TeamsData
   stats: StatItem[]
-}
-
-export const teamsData = {
-  2024: [
-    {
-      id: 1,
-      name: "team1",
-      achievements: [ // awards, // place // data // location 
-        { name: "Regional Championship", place: "1st", date: "March 2024", location: "" },
-        { name: "State Tournament", place: "2nd", date: "April 2024", location: "" },
-        { name: "National Qualifiers", place: "3rd", date: "May 2024", location: "" },
-      ],
-      competitions: [ // awards, // place // data // location 
-        { name: "Regional Championship", date: "March 10-15, 2024", location: "" },
-        { name: "State Tournament", date: "April 18-22, 2024", location: "" },
-        { name: "National Qualifiers", date: "May 5-8, 2024", location: "" },
-      ],
-      photos: [
-        { url: "/gallery/placeholder.webp?height=200&width=300", caption: "Team Photo 2024" },
-        { url: "/gallery/placeholder.webp?height=200&width=300", caption: "Regional Championship Victory" },
-        { url: "/gallery/placeholder.webp?height=200&width=300", caption: "State Tournament Action" },
-        { url: "/gallery/placeholder.webp?height=200&width=300", caption: "" },
-        { url: "/gallery/placeholder.webp?height=200&width=300", caption: "" },
-        { url: "/gallery/placeholder.webp?height=200&width=300", caption: "" },
-      ],
-    },
-    {
-      id: 2,
-      name: "team2",
-      achievements: [
-        { name: "City Championship", place: "1st", date: "February 2024", location: "" },
-        { name: "Inter-School Tournament", place: "1st", date: "March 2024", location: "" },
-        { name: "Summer Cup", place: "2nd", date: "July 2024", location: "" },
-      ],
-      competitions: [
-        { name: "City Championship", date: "February 25-28, 2024", location: "City Hall Arena" },
-        { name: "Inter-School Tournament", date: "March 25-30, 2024", location: "University Stadium" },
-        { name: "Summer Cup", date: "July 15-18, 2024", location: "Beachside Recreation Center" },
-      ],
-      photos: [
-        { url: "/gallery/placeholder.webp?height=200&width=300", caption: "Lightning Bolts Team 2024" },
-        { url: "/gallery/placeholder.webp?height=200&width=300", caption: "City Championship Win" },
-      ],
-    },
-  ],
-  2023: [
-    {
-      id: 4,
-      name: "team1",
-      achievements: [{ name: "National Championship", place: "1st", date: "November 2023", location: "Washington DC" }],
-      competitions: [
-        { name: "National Championship", date: "November 8-12, 2023", location: "Washington DC Arena" },
-        { name: "Regional Finals", date: "October 5-8, 2023", location: "Central Valley Sports Hub" },
-      ],
-      photos: [
-        { url: "/gallery/placeholder.webp?height=200&width=300", caption: "Fire Dragons 2023" },
-        { url: "/gallery/placeholder.webp?height=200&width=300", caption: "National Champions" },
-      ],
-    },
-  ],
 }
 
 export const navItemsData = [
@@ -350,7 +259,6 @@ export const siteConfig: SiteConfig = {
   links: linksData,
   gallery: galleryData,
   sponsors: sponsorsData,
-  teams: teamsData,
   stats: statsData,
   siteURLs: siteURLsData,
 }
