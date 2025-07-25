@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Trophy, Calendar, MapPin, Menu, X, Camera, ArrowLeft, Loader2, Clock } from "lucide-react"
+import { Trophy, Calendar, MapPin, Menu, X, Camera, ArrowLeft, Loader2 } from "lucide-react"
 import { motion, AnimatePresence, cubicBezier } from "framer-motion"
 import { DataGenerator } from "@/history-config/data-generator"
+import { siteConfig } from "@/config/site"
+import Link from "next/link";
 
 const contentVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -181,9 +183,7 @@ export default function History() {
             {loadingProgress && (
               <div className="bg-gray-100 rounded-lg p-3 text-sm text-gray-700 font-mono">{loadingProgress}</div>
             )}
-            <p className="text-gray-500 text-sm mt-4">
-              Fetching data from RobotEvents API
-            </p>
+            <p className="text-gray-500 text-sm mt-4">Fetching data from RobotEvents API</p>
           </CardContent>
         </Card>
       </div>
@@ -253,13 +253,12 @@ export default function History() {
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <Button
-              variant="ghost"
-              size="sm"
+            <Link
+              href={siteConfig.siteURLs.teams}
               className="mr-2 inline-flex items-center px-2 py-1 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-            </Button>
+            </Link>
             <h1 className="text-xl font-bold text-[#1a1a1f] uppercase tracking-wide">Team History</h1>
           </div>
           <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(!sidebarOpen)} className="relative z-50">
@@ -277,17 +276,42 @@ export default function History() {
           transition={{ duration: 0.5, ease: cubicBezier(0.25, 0.46, 0.45, 0.94) }}
         >
           <div className="p-6 border-b border-gray-200">
-            <Button
-              variant="outline"
+            <Link
+              href={siteConfig.siteURLs.teams}
               className="mb-4 w-full justify-start inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Overview
-            </Button>
+            </Link>
             <h1 className="text-xl font-bold text-[#1a1a1f] uppercase tracking-wide">Team History</h1>
           </div>
 
           <div className="p-6 overflow-y-auto h-[calc(100vh-120px)]">
+            {/* Team Selection */}
+            {currentTeams.length > 0 && (
+              <div className="mb-8">
+                <h3 className="font-bold text-[#1a1a1f] mb-4 uppercase tracking-wide">Teams</h3>
+                <motion.div className="space-y-2" variants={sidebarVariants} initial="hidden" animate="visible">
+                  {currentTeams.map((team) => (
+                    <motion.button
+                      key={team.id}
+                      variants={itemVariants}
+                      onClick={() => handleTeamSelect(team.id)}
+                      className={`w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-300 ease-out font-bold uppercase tracking-wide hover:scale-[1.02] ${
+                        selectedTeam === team.id || (!selectedTeam && team === currentTeams[0])
+                          ? "bg-blue-600 text-white shadow-lg"
+                          : "text-gray-600 hover:bg-gray-50 hover:shadow-md"
+                      }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {team.name}
+                    </motion.button>
+                  ))}
+                </motion.div>
+              </div>
+            )}
+
             {/* Year Selection */}
             <div className="mb-8">
               <h3 className="font-bold text-[#1a1a1f] mb-4 uppercase tracking-wide">Select Year</h3>
@@ -310,31 +334,6 @@ export default function History() {
                 ))}
               </motion.div>
             </div>
-
-            {/* Team Selection */}
-            {currentTeams.length > 0 && (
-              <div>
-                <h3 className="font-bold text-[#1a1a1f] mb-4 uppercase tracking-wide">Teams</h3>
-                <motion.div className="space-y-2" variants={sidebarVariants} initial="hidden" animate="visible">
-                  {currentTeams.map((team) => (
-                    <motion.button
-                      key={team.id}
-                      variants={itemVariants}
-                      onClick={() => handleTeamSelect(team.id)}
-                      className={`w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-300 ease-out font-bold uppercase tracking-wide hover:scale-[1.02] ${
-                        selectedTeam === team.id || (!selectedTeam && team === currentTeams[0])
-                          ? "bg-blue-600 text-white shadow-lg"
-                          : "text-gray-600 hover:bg-gray-50 hover:shadow-md"
-                      }`}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      {team.name}
-                    </motion.button>
-                  ))}
-                </motion.div>
-              </div>
-            )}
           </div>
         </motion.div>
 
@@ -354,7 +353,7 @@ export default function History() {
 
               {/* Mobile Sidebar */}
               <motion.div
-                className="fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-white shadow-xl z-50 lg:hidden"
+                className="fixed top-0 left-0 h-full w-72 max-w-[90vw] bg-white shadow-xl z-50 lg:hidden"
                 variants={mobileSidebarVariants}
                 initial="hidden"
                 animate="visible"
@@ -364,16 +363,38 @@ export default function History() {
                   <div className="flex items-center justify-between mb-4">
                     <h1 className="text-xl font-bold text-[#1a1a1f] uppercase tracking-wide">Team History</h1>
                   </div>
-                  <Button
-                    variant="outline"
+                  <Link
+                    href={siteConfig.siteURLs.teams}
                     className="w-full justify-start inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to Overview
-                  </Button>
+                  </Link>
                 </div>
 
                 <div className="p-6 overflow-y-auto h-[calc(100vh-140px)]">
+                  {/* Team Selection - moved to top */}
+                  {currentTeams.length > 0 && (
+                    <div className="mb-8">
+                      <h3 className="font-bold text-[#1a1a1f] mb-4 uppercase tracking-wide">Teams</h3>
+                      <div className="space-y-2">
+                        {currentTeams.map((team) => (
+                          <button
+                            key={team.id}
+                            onClick={() => handleTeamSelect(team.id)}
+                            className={`w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-300 ease-out font-bold uppercase tracking-wide ${
+                              selectedTeam === team.id || (!selectedTeam && team === currentTeams[0])
+                                ? "bg-blue-600 text-white shadow-lg"
+                                : "text-gray-600 hover:bg-gray-50 hover:shadow-md"
+                            }`}
+                          >
+                            {team.name}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Year Selection */}
                   <div className="mb-8">
                     <h3 className="font-bold text-[#1a1a1f] mb-4 uppercase tracking-wide">Select Year</h3>
@@ -393,28 +414,6 @@ export default function History() {
                       ))}
                     </div>
                   </div>
-
-                  {/* Team Selection */}
-                  {currentTeams.length > 0 && (
-                    <div>
-                      <h3 className="font-bold text-[#1a1a1f] mb-4 uppercase tracking-wide">Teams</h3>
-                      <div className="space-y-2">
-                        {currentTeams.map((team) => (
-                          <button
-                            key={team.id}
-                            onClick={() => handleTeamSelect(team.id)}
-                            className={`w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-300 ease-out font-bold uppercase tracking-wide ${
-                              selectedTeam === team.id || (!selectedTeam && team === currentTeams[0])
-                                ? "bg-blue-600 text-white shadow-lg"
-                                : "text-gray-600 hover:bg-gray-50 hover:shadow-md"
-                            }`}
-                          >
-                            {team.name}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
               </motion.div>
             </>
@@ -423,7 +422,7 @@ export default function History() {
 
         {/* Main Content */}
         <div className="flex-1 min-h-screen">
-          <div className="p-6 lg:p-8">
+          <div className="p-4 sm:p-6 lg:p-8">
             {displayTeam ? (
               <div className="space-y-8">
                 {/* Team Header */}
@@ -573,15 +572,12 @@ export default function History() {
                     <CardContent>
                       {displayTeam.photos.length === 0 ? (
                         <div className="text-center py-8">
-                          <p className="text-gray-500 text-lg">No photos available for this team in {selectedYear}.</p>
-                          <p className="text-gray-400 text-sm mt-2">
-                            Add custom photos in photo-config.ts to display real team photos.
-                          </p>
+                          <p className="text-gray-500 text-lg">No photos found for this team in {selectedYear}.</p>
                         </div>
                       ) : (
                         <motion.div
                           key={`photos-${contentKey}`}
-                          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
                           variants={containerVariants}
                           initial="hidden"
                           animate="visible"

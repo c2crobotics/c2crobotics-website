@@ -171,18 +171,15 @@
   
   body {
     @apply bg-background text-foreground;
-    /* Ensure body takes full height and handles overflow properly */
     min-height: 100vh;
     overflow-x: hidden;
   }
   
-  /* Responsive image and media defaults */
   img, video, iframe, embed, object {
     max-width: 100%;
-    height: auto;
+    height: 100%;
   }
   
-  /* Responsive table handling */
   table {
     width: 100%;
     border-collapse: collapse;
@@ -196,7 +193,6 @@
     }
   }
   
-  /* Responsive container utilities */
   .container-responsive {
     width: 100%;
     max-width: 1200px;
@@ -204,7 +200,6 @@
     padding: 0 var(--container-padding);
   }
   
-  /* Responsive grid utilities */
   .grid-responsive {
     display: grid;
     gap: var(--element-spacing);
@@ -217,7 +212,6 @@
     }
   }
   
-  /* Responsive flex utilities */
   .flex-responsive {
     display: flex;
     flex-wrap: wrap;
@@ -238,7 +232,6 @@
     }
   }
   
-  /* Responsive text utilities */
   .text-responsive-sm {
     font-size: clamp(0.75rem, 2vw, 0.875rem);
   }
@@ -271,7 +264,6 @@
     font-size: clamp(2.25rem, 7vw, 3rem);
   }
   
-  /* Responsive spacing utilities */
   .section-spacing {
     padding: var(--section-spacing) 0;
   }
@@ -280,7 +272,6 @@
     margin-bottom: var(--element-spacing);
   }
   
-  /* Responsive sidebar adjustments */
   @media (max-width: 768px) {
     [data-sidebar="sidebar"] {
       transform: translateX(-100%);
@@ -293,7 +284,6 @@
   }
 }
 
-/* Additional responsive utilities for common patterns */
 @layer utilities {
   .hide-mobile {
     @media (max-width: 640px) {

@@ -1,6 +1,5 @@
 import { MapPin, Phone, Mail, Clock } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/shadcn/ui/card"
-// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function ContactInfo() {
   const hoursOfOperation = [
