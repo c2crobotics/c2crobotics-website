@@ -4,6 +4,7 @@ import type { Team, Award, Event, ApiResponse, TeamStats, SeasonStats, AwardDeta
 export class RobotEventsAnalyzer {
   private apiToken: string
   private baseUrl: string
+  private cache: Map<string, any> = new Map()
 
   constructor() {
     const validation = validateConfig()
@@ -16,6 +17,15 @@ export class RobotEventsAnalyzer {
   }
 
   private async makeRequest<T>(endpoint: string, params: Record<string, string> = {}): Promise<ApiResponse<T>> {
+    // Create cache key
+    const cacheKey = `${endpoint}?${new URLSearchParams(params).toString()}`
+
+    // Check cache first
+    if (this.cache.has(cacheKey)) {
+      console.log(`Cache hit for: ${endpoint}`)
+      return this.cache.get(cacheKey)
+    }
+
     const url = new URL(`${this.baseUrl}${endpoint}`)
 
     Object.entries(params).forEach(([key, value]) => {
@@ -24,6 +34,7 @@ export class RobotEventsAnalyzer {
       }
     })
 
+    console.log(`API request: ${endpoint}`)
     const response = await fetch(url.toString(), {
       headers: {
         Authorization: `Bearer ${this.apiToken}`,
@@ -36,49 +47,87 @@ export class RobotEventsAnalyzer {
       throw new Error(`API request failed: ${response.status} ${response.statusText} - ${errorText}`)
     }
 
-    return await response.json()
+    const data = await response.json()
+
+    // Cache the response
+    this.cache.set(cacheKey, data)
+
+    return data
   }
 
-  private async getAllPages<T>(endpoint: string, params: Record<string, string> = {}): Promise<T[]> {
-    let allData: T[] = []
-    let currentPage = 1
-    let hasMorePages = true
+  private async getAllPagesOptimized<T>(endpoint: string, params: Record<string, string> = {}): Promise<T[]> {
+    // First request to get total pages
+    const firstResponse = await this.makeRequest<T>(endpoint, {
+      ...params,
+      page: "1",
+      per_page: "250", // Maximum per page
+    })
 
-    while (hasMorePages) {
-      const response = await this.makeRequest<T>(endpoint, {
-        ...params,
-        page: currentPage.toString(),
-        per_page: "250",
-      })
+    let allData: T[] = [...firstResponse.data]
+    const totalPages = firstResponse.meta.last_page
 
-      allData = allData.concat(response.data)
-      hasMorePages = currentPage < response.meta.last_page
-      currentPage++
+    if (totalPages <= 1) {
+      return allData
+    }
 
-      if (hasMorePages) {
-        await new Promise((resolve) => setTimeout(resolve, 100))
+    console.log(`Fetching ${totalPages} pages for ${endpoint}...`)
+
+    // Create promises for remaining pages (parallel requests)
+    const pagePromises: Promise<ApiResponse<T>>[] = []
+    const maxConcurrent = 5 // Limit concurrent requests to avoid rate limiting
+
+    for (let page = 2; page <= totalPages; page++) {
+      pagePromises.push(
+        this.makeRequest<T>(endpoint, {
+          ...params,
+          page: page.toString(),
+          per_page: "250",
+        }),
+      )
+
+      // Process in batches to avoid overwhelming the API
+      if (pagePromises.length >= maxConcurrent || page === totalPages) {
+        const batchResults = await Promise.all(pagePromises)
+        batchResults.forEach((response) => {
+          allData = allData.concat(response.data)
+        })
+        pagePromises.length = 0 // Clear the array
+
+        // Small delay between batches to be respectful to the API
+        if (page < totalPages) {
+          await new Promise((resolve) => setTimeout(resolve, 100))
+        }
       }
     }
 
+    console.log(`Fetched ${allData.length} items from ${totalPages} pages`)
     return allData
   }
 
   async findTeamByNumber(teamNumber: string): Promise<Team | null> {
-    const teams = await this.getAllPages<Team>("/teams", {
+    const cacheKey = `team-${teamNumber}`
+    if (this.cache.has(cacheKey)) {
+      return this.cache.get(cacheKey)
+    }
+
+    const teams = await this.getAllPagesOptimized<Team>("/teams", {
       number: teamNumber,
     })
 
     if (teams.length === 0) {
+      this.cache.set(cacheKey, null)
       return null
     }
 
-    // Filter for teams based on organization name
+    // Filter for teams with the configured organization
     const orgTeams = teams.filter(
       (team) =>
         team.organization && team.organization.toLowerCase().includes(ROBOTEVENTS_CONFIG.ORGANIZATION.toLowerCase()),
     )
 
-    return orgTeams.length > 0 ? orgTeams[0] : null
+    const result = orgTeams.length > 0 ? orgTeams[0] : null
+    this.cache.set(cacheKey, result)
+    return result
   }
 
   private formatLocation(location: any): string {
@@ -114,10 +163,15 @@ export class RobotEventsAnalyzer {
 
     console.log(`Analyzing team: ${team.team_name} (${team.number})`)
 
-    // Get all events
-    const events = await this.getAllPages<Event>(`/teams/${team.id}/events`)
+    // Fetch events and awards in parallel for better performance
+    const [events, allAwards] = await Promise.all([
+      this.getAllPagesOptimized<Event>(`/teams/${team.id}/events`),
+      this.getAllPagesOptimized<Award>(`/teams/${team.id}/awards`),
+    ])
 
-    // Extract seasons
+    console.log(`Found ${events.length} events and ${allAwards.length} awards`)
+
+    // Extract unique seasons
     const seasonsSet = new Set<number>()
     const seasonNames = new Map<number, string>()
 
@@ -131,10 +185,7 @@ export class RobotEventsAnalyzer {
     const seasonIds = Array.from(seasonsSet)
     console.log(`Found ${seasonIds.length} seasons`)
 
-    // Fetch awards for the team
-    const allAwards: Award[] = await this.getAllPages<Award>(`/teams/${team.id}/awards`)
-
-    // Create event map
+    // Create event map for cross-referencing
     const eventMap = new Map<number, Event>()
     events.forEach((event) => {
       eventMap.set(event.id, event)
@@ -213,7 +264,7 @@ export class RobotEventsAnalyzer {
     return {
       teamNumber: team.number,
       teamName: team.team_name,
-      organization: team.organization,
+      organization: team.organization || "Unknown Organization",
       totalAwards: allAwards.length,
       totalCompetitions: events.length,
       seasonStats,

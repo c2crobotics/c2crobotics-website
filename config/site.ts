@@ -189,7 +189,7 @@ const galleryData: GalleryData = {
 const sponsorsData: Sponsor[] = [
   {
     title: "Vex Robotics Competition",
-    link: "/sponsors/Vex.webp",
+    link: "/sponsors/VEX.webp",
     url: "https://www.vexrobotics.com/competition",
   },
   {
@@ -208,7 +208,7 @@ const statsData: StatItem[] = [
   {
     icon: Trophy,
     label: "Awards Won",
-    value: 0,
+    value: 80,
     suffix: "+",
     color: "text-yellow-500",
     bgColor: "bg-yellow-50",
@@ -216,7 +216,7 @@ const statsData: StatItem[] = [
   {
     icon: Calendar,
     label: "Robotics Competitions",
-    value: 0,
+    value: 190,
     suffix: "+",
     color: "text-blue-500",
     bgColor: "bg-blue-50",
@@ -232,7 +232,7 @@ const statsData: StatItem[] = [
   {
     icon: Award,
     label: "Years of Innovation",
-    value: 6,
+    value: 10,
     suffix: "+",
     color: "text-purple-500",
     bgColor: "bg-purple-50",

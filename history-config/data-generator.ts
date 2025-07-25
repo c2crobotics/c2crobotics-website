@@ -34,6 +34,7 @@ export class DataGenerator {
   }
 
   private getTeamPhotos(teamName: string, year: number): Array<{ url: string; caption: string }> {
+    // Only return custom photos if they exist, otherwise return empty array
     return getCustomPhotos(teamName, year)
   }
 
@@ -57,17 +58,38 @@ export class DataGenerator {
     let totalCompetitions = 0
 
     console.log("Generating teams data from RobotEvents API...")
+    console.log(`Processing ${ROBOTEVENTS_CONFIG.TEAMS.length} teams in parallel...`)
 
-    for (const teamNumber of ROBOTEVENTS_CONFIG.TEAMS) {
-      console.log(`\nProcessing team: ${teamNumber}`)
+    // Process all teams in parallel for much faster loading
+    const teamPromises = ROBOTEVENTS_CONFIG.TEAMS.map(async (teamNumber) => {
+      console.log(`Starting analysis for team: ${teamNumber}`)
 
-      const stats = await this.analyzer.analyzeTeam(teamNumber)
+      try {
+        const stats = await this.analyzer.analyzeTeam(teamNumber)
 
-      if (!stats) {
-        console.log(`No data found for team ${teamNumber}`)
-        continue
+        if (!stats) {
+          console.log(`No data found for team ${teamNumber}`)
+          return null
+        }
+
+        console.log(
+          `Completed analysis for team: ${teamNumber} (${stats.totalAwards} awards, ${stats.totalCompetitions} competitions)`,
+        )
+        return { teamNumber, stats }
+      } catch (error) {
+        console.error(`Error processing team ${teamNumber}:`, error)
+        return null
       }
+    })
 
+    // Wait for all teams to complete
+    const teamResults = await Promise.all(teamPromises)
+
+    // Process results
+    for (const result of teamResults) {
+      if (!result) continue
+
+      const { stats } = result
       totalAwards += stats.totalAwards
       totalCompetitions += stats.totalCompetitions
 
@@ -83,7 +105,7 @@ export class DataGenerator {
         let existingTeam = teamsData[year].find((t) => t.name === stats.teamName)
 
         if (!existingTeam) {
-          // Create new team entry with photos
+          // Create new team entry
           existingTeam = {
             id: teamIdCounter++,
             name: stats.teamName,
@@ -94,7 +116,7 @@ export class DataGenerator {
           teamsData[year].push(existingTeam)
         }
 
-        // Add achievements
+        // Add achievements 
         const achievements = season.awards.map((award) => ({
           name: award.name,
           place: "Award",

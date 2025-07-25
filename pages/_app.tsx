@@ -6,10 +6,9 @@ import Navbar from "@/components/navbar";
 import { siteConfig } from "@/config/site";
 import { InstagramIcon, FacebookIcon, TwitterIcon, YoutubeIcon, GithubIcon } from "@/components/icons";
 import { useRouter } from "next/router";
-import React from 'react';
 
 const SocialLinks = ({ className = "" }: { className?: string }) => (
-  <div className={`flex gap-6 ${className}`}>
+  <div className={`flex gap-4 sm:gap-6 ${className}`}>
     <a href={siteConfig.links.instagram} aria-label="Instagram" className="hover:scale-110 transition" target="_blank" rel="noopener noreferrer">
       <InstagramIcon />
     </a>
@@ -30,11 +29,19 @@ const SocialLinks = ({ className = "" }: { className?: string }) => (
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
+
   const handleFooterNavClick = (e: React.MouseEvent, href: string) => {
+    // Check if we're clicking on the same page
     if (router.asPath === href) {
+      // Same page - prevent default and scroll to top with animation
       e.preventDefault();
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     }
+    // For different pages, let the default Link behavior handle navigation
+    // (no preventDefault, no scroll animation)
   };
 
   return (
@@ -65,36 +72,48 @@ export default function App({ Component, pageProps }: AppProps) {
 
         {/* Footer */}
         <footer className="bg-[#222228] mt-0">
-          <div className="w-full max-w-2xl mx-auto py-8 flex flex-col items-center gap-4">
-            <h2 className="uppercase font-bold text-gray-200 text-center text-base tracking-wide mb-2">
+          <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col items-center gap-3 sm:gap-4">
+            <h2 className="uppercase font-bold text-gray-200 text-center text-sm sm:text-base tracking-wide mb-1 sm:mb-2">
               Check out our socials
             </h2>
             {/* Social Icons */}
-            <div className="flex gap-6 mt-0">
+            <div className="flex mt-0">
               <SocialLinks className="lg:flex" />
             </div>
           </div>
           {/* Nav Links */}
-          <div className="py-10 bg-[#1a1a1f]">
-            <nav className="flex justify-center gap-8 mb-2">
+          <div className="py-6 sm:py-10 bg-[#1a1a1f] px-4 sm:px-6">
+            <nav className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 mb-4 sm:mb-2">
               {siteConfig.navItems.map((item) => (
-                <Link
+                <Link 
                   key={item.href}
-                  href={item.href}
-                  className="uppercase font-semibold tracking-wide text-gray-300 hover:text-[#ffb347] transition"
+                  href={item.href} 
+                  className="uppercase font-semibold tracking-wide text-gray-300 hover:text-[#ffb347] transition text-sm sm:text-base"
                   onClick={(e) => handleFooterNavClick(e, item.href)}
                 >
                   {item.label}
                 </Link>
               ))}
             </nav>
-            <div className="text-center text-gray-400 text-base mt-8">
+            <div className="text-center text-gray-400 text-sm sm:text-base mt-6 sm:mt-8 px-2">
               © 2025 Coast 2 Coast Robotics. All rights reserved.
             </div>
-            <nav className="flex justify-center gap-2 text-center text-gray-400 text-base mt-2">
-              <Link href={siteConfig.siteURLs.tos} onClick={(e) => handleFooterNavClick(e, siteConfig.siteURLs.tos)} className="tracking-wide hover:text-[#ffb347] transition" >Terms of Service</Link>
-              |
-              <Link href={siteConfig.siteURLs.pp} onClick={(e) => handleFooterNavClick(e, siteConfig.siteURLs.pp)} className="tracking-wide hover:text-[#ffb347] transition ">Privacy Policy</Link>
+            <nav className="flex flex-wrap justify-center items-center gap-1 sm:gap-2 text-center text-gray-400 text-sm sm:text-base mt-3 sm:mt-2 px-2">
+              <Link 
+                href={siteConfig.siteURLs.tos} 
+                className="tracking-wide hover:text-[#ffb347] transition whitespace-nowrap"
+                onClick={(e) => handleFooterNavClick(e, siteConfig.siteURLs.tos)}
+              >
+                Terms of Service
+              </Link>
+              <span className="text-gray-500">|</span>
+              <Link 
+                href={siteConfig.siteURLs.pp} 
+                className="tracking-wide hover:text-[#ffb347] transition whitespace-nowrap"
+                onClick={(e) => handleFooterNavClick(e, siteConfig.siteURLs.pp)}
+              >
+                Privacy Policy
+              </Link>
             </nav>
           </div>
         </footer>

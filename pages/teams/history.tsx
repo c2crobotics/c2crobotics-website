@@ -3,11 +3,9 @@
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Trophy, Calendar, MapPin, Menu, X, Camera, ArrowLeft, Loader2 } from "lucide-react"
+import { Trophy, Calendar, MapPin, Menu, X, Camera, ArrowLeft, Loader2, Clock } from "lucide-react"
 import { motion, AnimatePresence, cubicBezier } from "framer-motion"
 import { DataGenerator } from "@/history-config/data-generator"
-import { siteConfig } from "@/config/site"
-import Link from "next/link"
 
 const contentVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -102,6 +100,7 @@ export default function History() {
   const [teamsData, setTeamsData] = useState<TeamsData>({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [loadingProgress, setLoadingProgress] = useState("")
 
   useEffect(() => {
     async function fetchTeamsData() {
@@ -120,6 +119,8 @@ export default function History() {
         if (years.length > 0) {
           setSelectedYear(years[0])
         }
+
+        setTimeout(() => setLoadingProgress(""), 2000)
       } catch (err) {
         console.error("Error fetching teams data:", err)
         setError(err instanceof Error ? err.message : "Failed to load team data")
@@ -169,15 +170,20 @@ export default function History() {
     setSidebarOpen(false)
   }
 
-  // Loading state
+  // Loading state with progress
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
-        <Card className="bg-white shadow-lg border-0 p-8">
+        <Card className="bg-white shadow-lg border-0 p-8 max-w-md w-full mx-4">
           <CardContent className="text-center">
             <Loader2 className="w-12 h-12 mx-auto text-blue-500 animate-spin mb-4" />
             <h3 className="text-xl font-bold text-[#1a1a1f] mb-2 uppercase tracking-wide">Loading Team Data</h3>
-            <p className="text-gray-600">Fetching data from RobotEvents API...</p>
+            {loadingProgress && (
+              <div className="bg-gray-100 rounded-lg p-3 text-sm text-gray-700 font-mono">{loadingProgress}</div>
+            )}
+            <p className="text-gray-500 text-sm mt-4">
+              Fetching data from RobotEvents API
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -226,6 +232,18 @@ export default function History() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
+      {/* Success message */}
+      {loadingProgress && !loading && (
+        <motion.div
+          className="fixed top-4 right-4 z-50 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
+        >
+          {loadingProgress}
+        </motion.div>
+      )}
+
       {/* Mobile Header */}
       <motion.div
         className="lg:hidden bg-white shadow-sm border-b border-gray-200 p-4 relative z-30"
@@ -235,12 +253,13 @@ export default function History() {
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <Link
-              href={siteConfig.siteURLs.teams}
+            <Button
+              variant="ghost"
+              size="sm"
               className="mr-2 inline-flex items-center px-2 py-1 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-            </Link>
+            </Button>
             <h1 className="text-xl font-bold text-[#1a1a1f] uppercase tracking-wide">Team History</h1>
           </div>
           <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(!sidebarOpen)} className="relative z-50">
@@ -258,13 +277,13 @@ export default function History() {
           transition={{ duration: 0.5, ease: cubicBezier(0.25, 0.46, 0.45, 0.94) }}
         >
           <div className="p-6 border-b border-gray-200">
-            <Link
-              href={siteConfig.siteURLs.teams}
+            <Button
+              variant="outline"
               className="mb-4 w-full justify-start inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Overview
-            </Link>
+            </Button>
             <h1 className="text-xl font-bold text-[#1a1a1f] uppercase tracking-wide">Team History</h1>
           </div>
 
@@ -278,10 +297,11 @@ export default function History() {
                     key={year}
                     variants={itemVariants}
                     onClick={() => handleYearSelect(year)}
-                    className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ease-out font-bold uppercase tracking-wide hover:scale-[1.02] ${selectedYear === year
-                      ? "bg-[#1a1a1f] text-white shadow-lg"
-                      : "text-gray-700 hover:bg-gray-100 hover:shadow-md"
-                      }`}
+                    className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ease-out font-bold uppercase tracking-wide hover:scale-[1.02] ${
+                      selectedYear === year
+                        ? "bg-[#1a1a1f] text-white shadow-lg"
+                        : "text-gray-700 hover:bg-gray-100 hover:shadow-md"
+                    }`}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -301,10 +321,11 @@ export default function History() {
                       key={team.id}
                       variants={itemVariants}
                       onClick={() => handleTeamSelect(team.id)}
-                      className={`w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-300 ease-out font-bold uppercase tracking-wide hover:scale-[1.02] ${selectedTeam === team.id || (!selectedTeam && team === currentTeams[0])
-                        ? "bg-blue-600 text-white shadow-lg"
-                        : "text-gray-600 hover:bg-gray-50 hover:shadow-md"
-                        }`}
+                      className={`w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-300 ease-out font-bold uppercase tracking-wide hover:scale-[1.02] ${
+                        selectedTeam === team.id || (!selectedTeam && team === currentTeams[0])
+                          ? "bg-blue-600 text-white shadow-lg"
+                          : "text-gray-600 hover:bg-gray-50 hover:shadow-md"
+                      }`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -343,13 +364,13 @@ export default function History() {
                   <div className="flex items-center justify-between mb-4">
                     <h1 className="text-xl font-bold text-[#1a1a1f] uppercase tracking-wide">Team History</h1>
                   </div>
-                  <Link
-                    href={siteConfig.siteURLs.teams}
+                  <Button
+                    variant="outline"
                     className="w-full justify-start inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to Overview
-                  </Link>
+                  </Button>
                 </div>
 
                 <div className="p-6 overflow-y-auto h-[calc(100vh-140px)]">
@@ -361,10 +382,11 @@ export default function History() {
                         <button
                           key={year}
                           onClick={() => handleYearSelect(year)}
-                          className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ease-out font-bold uppercase tracking-wide ${selectedYear === year
-                            ? "bg-[#1a1a1f] text-white shadow-lg"
-                            : "text-gray-700 hover:bg-gray-100 hover:shadow-md"
-                            }`}
+                          className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ease-out font-bold uppercase tracking-wide ${
+                            selectedYear === year
+                              ? "bg-[#1a1a1f] text-white shadow-lg"
+                              : "text-gray-700 hover:bg-gray-100 hover:shadow-md"
+                          }`}
                         >
                           {year}
                         </button>
@@ -381,10 +403,11 @@ export default function History() {
                           <button
                             key={team.id}
                             onClick={() => handleTeamSelect(team.id)}
-                            className={`w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-300 ease-out font-bold uppercase tracking-wide ${selectedTeam === team.id || (!selectedTeam && team === currentTeams[0])
-                              ? "bg-blue-600 text-white shadow-lg"
-                              : "text-gray-600 hover:bg-gray-50 hover:shadow-md"
-                              }`}
+                            className={`w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-300 ease-out font-bold uppercase tracking-wide ${
+                              selectedTeam === team.id || (!selectedTeam && team === currentTeams[0])
+                                ? "bg-blue-600 text-white shadow-lg"
+                                : "text-gray-600 hover:bg-gray-50 hover:shadow-md"
+                            }`}
                           >
                             {team.name}
                           </button>
@@ -416,11 +439,11 @@ export default function History() {
                           {displayTeam.name}
                         </CardTitle>
                         <div className="flex items-center space-x-4">
-                          <div className="flex justify-end items-center space-x-2 bg-white/20 px-4 py-2 rounded-full">
+                          <div className="flex items-center space-x-2 bg-white/20 px-4 py-2 rounded-full">
                             <Trophy className="w-5 h-5" />
                             <span className="text-lg font-bold">{displayTeam.achievements.length} Awards</span>
                           </div>
-                          <div className="flex justify-end items-center space-x-2 bg-white/20 px-4 py-2 rounded-full">
+                          <div className="flex items-center space-x-2 bg-white/20 px-4 py-2 rounded-full">
                             <Calendar className="w-5 h-5" />
                             <span className="text-lg font-bold">{displayTeam.competitions.length} Competitions</span>
                           </div>
@@ -442,7 +465,7 @@ export default function History() {
                     <CardContent>
                       {displayTeam.achievements.length === 0 ? (
                         <div className="text-center py-8">
-                          <p className="text-gray-500 text-lg font-semibold">
+                          <p className="text-gray-500 text-lg">
                             No achievements found for this team in {selectedYear}.
                           </p>
                         </div>
@@ -498,7 +521,7 @@ export default function History() {
                     <CardContent>
                       {displayTeam.competitions.length === 0 ? (
                         <div className="text-center py-8">
-                          <p className="text-gray-500 text-lg font-semibold">
+                          <p className="text-gray-500 text-lg">
                             No competitions found for this team in {selectedYear}.
                           </p>
                         </div>
@@ -550,7 +573,10 @@ export default function History() {
                     <CardContent>
                       {displayTeam.photos.length === 0 ? (
                         <div className="text-center py-8">
-                          <p className="text-gray-500 text-lg font-semibold">No photos found for this team in {selectedYear}.</p>
+                          <p className="text-gray-500 text-lg">No photos available for this team in {selectedYear}.</p>
+                          <p className="text-gray-400 text-sm mt-2">
+                            Add custom photos in photo-config.ts to display real team photos.
+                          </p>
                         </div>
                       ) : (
                         <motion.div
@@ -568,7 +594,7 @@ export default function History() {
                               whileHover={{ scale: 1.05, y: -5 }}
                             >
                               <img
-                                src={photo.url}
+                                src={photo.url || "/placeholder.svg"}
                                 alt={photo.caption}
                                 className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                               />
