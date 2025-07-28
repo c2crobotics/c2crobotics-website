@@ -15,7 +15,6 @@
 * {
   scrollbar-width: thin;
   scroll-behavior: smooth;
-  /* Add responsive box-sizing */
   box-sizing: border-box;
 }
 

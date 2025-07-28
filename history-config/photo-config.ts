@@ -24,16 +24,11 @@ export const PHOTOS: Record<number, Record<string, Record<string, string>>> = {
 }
 
 // Helper function to get photos for a team and year
-export function getCustomPhotos(teamName: string, year: number): Array<{ url: string; caption: string }> {
+export function getPhotos(teamName: string, year: number): Array<{ url: string; caption: string }> {
   const teamPhotos = PHOTOS[year]?.[teamName] || {}
 
   return Object.entries(teamPhotos).map(([url, caption]) => ({
     url,
     caption,
   }))
-}
-
-// Helper function to check if photos exist for a team and year
-export function hasCustomPhotos(teamName: string, year: number): boolean {
-  return getCustomPhotos(teamName, year).length > 0
 }

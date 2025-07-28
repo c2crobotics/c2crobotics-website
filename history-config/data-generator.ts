@@ -1,6 +1,6 @@
 import { RobotEventsAnalyzer } from "@/history-config/robotevents-analyzer"
 import { ROBOTEVENTS_CONFIG } from "@/history-config/config"
-import { getCustomPhotos } from "@/history-config/photo-config"
+import { getPhotos } from "@/history-config/photo-config"
 
 interface WebsiteTeamData {
   id: number
@@ -35,7 +35,7 @@ export class DataGenerator {
 
   private getTeamPhotos(teamName: string, year: number): Array<{ url: string; caption: string }> {
     // Only return custom photos if they exist, otherwise return empty array
-    return getCustomPhotos(teamName, year)
+    return getPhotos(teamName, year)
   }
 
   private extractYearFromSeason(seasonName: string): number {
@@ -60,7 +60,7 @@ export class DataGenerator {
     console.log("Generating teams data from RobotEvents API...")
     console.log(`Processing ${ROBOTEVENTS_CONFIG.TEAMS.length} teams in parallel...`)
 
-    // Process all teams in parallel for much faster loading
+    // Process all teams
     const teamPromises = ROBOTEVENTS_CONFIG.TEAMS.map(async (teamNumber) => {
       console.log(`Starting analysis for team: ${teamNumber}`)
 
@@ -82,7 +82,7 @@ export class DataGenerator {
       }
     })
 
-    // Wait for all teams to complete
+    // Wait for all teams to finish
     const teamResults = await Promise.all(teamPromises)
 
     // Process results

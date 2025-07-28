@@ -77,16 +77,13 @@ export default function Teams() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-gray-700 leading-relaxed">
-                Since 2019, Coast 2 Coast Robotics teams have competed at regionals, state championships, and
-                international/Worlds competitions in VEX IQ Robotics, VEX Robotics, and various coding competitions.
+                Since 2019, Coast 2 Coast Robotics has proudly competed in regional, state, and international competitions, including the prestigious international VEX and VEX IQ World Championship, and various coding competitions.
               </p>
               <p>
-                We believe in developing skilled engineers, who embody the values of teamwork, creativity, and technical
-                prowess.
+                We are devoted to uplifting the next generation of engineers who will grow to exemplify teamwork, creativity, and technical excellence through our organization's mentoring programs.
               </p>
               <p className="text-gray-700 leading-relaxed">
-                Our mission is to inspire students to pursue STEM careers through hands-on robotics experience,
-                practical programming, and collaborative engineering challenges.
+                Our dream is to inspire students to pursue careers in STEM through hands-on robotics, real-world programming, and collaborative engineering challenges that build confident engineering skills and the drive to make a bigger impact on the world.
               </p>
             </CardContent>
           </Card>

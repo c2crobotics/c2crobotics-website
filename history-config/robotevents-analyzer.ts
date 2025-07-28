@@ -72,7 +72,7 @@ export class RobotEventsAnalyzer {
 
     console.log(`Fetching ${totalPages} pages for ${endpoint}...`)
 
-    // Create promises for remaining pages (parallel requests)
+    // Create promises for remaining pages
     const pagePromises: Promise<ApiResponse<T>>[] = []
     const maxConcurrent = 5 // Limit concurrent requests to avoid rate limiting
 
