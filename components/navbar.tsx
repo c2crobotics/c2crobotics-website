@@ -22,7 +22,6 @@ export default function Navbar() {
       document.body.style.overflow = "unset"
     }
 
-    // Cleanup on unmount
     return () => {
       document.body.style.overflow = "unset"
     }
@@ -125,18 +124,17 @@ export default function Navbar() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-orange-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
-              <div className="hidden sm:block text-white">
-                <div className="font-bold text-xl leading-none uppercase tracking-wider bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                  {siteConfig.name}
+              <div className="text-white">
+                <div className="font-bold text-3xl leading-none uppercase tracking-wider">
+                  <span className="text-white">C2C</span> <span className="text-blue-400">Robotics</span>
                 </div>
-                <div className="font-semibold text-sm tracking-widest uppercase text-blue-400 mt-1">Robotics</div>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-1">
               {siteConfig.navItems.map((link) => (
-                <div key={link.href} className="relative">
+                <div key={link.label} className="relative">
                   {link.dropdown ? (
                     <div
                       ref={(el) => {
@@ -173,7 +171,7 @@ export default function Navbar() {
                           <div className="py-2">
                             {link.dropdown.map((item) => (
                               <Link
-                                key={item.href}
+                                key={`${link.label}-${item.label}`}
                                 href={
                                   link.label === "Classes & Camps"
                                     ? `/courses?tab=${item.tabId || item.href.split("/").pop()}`
@@ -247,36 +245,18 @@ export default function Navbar() {
 
         {/* Menu Panel */}
         <div
-          className={`absolute top-0 right-0 h-full w-80 max-w-[90vw] bg-gradient-to-br from-[#1a1a1f] via-[#2a2a35] to-[#1a1a1f] shadow-2xl transform transition-all duration-300 ease-out ${
+          className={`absolute top-0 right-0 h-full w-72 max-w-[85vw] bg-gradient-to-br from-[#1a1a1f] via-[#2a2a35] to-[#1a1a1f] shadow-2xl transform transition-all duration-300 ease-out ${
             mobileOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
           {/* Scrollable Content */}
           <div className="h-full overflow-y-auto overscroll-contain">
             <div className="flex flex-col min-h-full">
-              {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-white/10 bg-[#1a1a1f]/80 backdrop-blur-sm sticky top-0 z-10">
-                <div className="flex items-center gap-3">
-                  <img src="/logo.png" alt={siteConfig.name} className="h-10 w-auto" />
-                  <div className="text-white">
-                    <div className="font-bold text-lg uppercase tracking-wide">{siteConfig.name}</div>
-                    <div className="text-sm text-orange-400 uppercase tracking-widest">Robotics</div>
-                  </div>
-                </div>
-                <button
-                  onClick={handleMobileMenuToggle}
-                  className="p-2 text-white hover:text-blue-400 transition-colors duration-200 rounded-lg"
-                  aria-label="Close menu"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
-
               {/* Navigation Links */}
-              <div className="flex-1 px-6 py-8">
-                <nav className="space-y-3">
+              <div className="flex-1 px-4 py-6 pt-24">
+                <nav className="space-y-2">
                   {siteConfig.navItems.map((link, index) => (
-                    <div key={link.href} className="space-y-2">
+                    <div key={link.label} className="space-y-2">
                       {link.dropdown ? (
                         <>
                           <div className="flex items-center rounded-xl overflow-hidden">
@@ -313,7 +293,7 @@ export default function Navbar() {
                             <div className="pl-6 pr-2 space-y-1">
                               {link.dropdown.map((item, subIndex) => (
                                 <Link
-                                  key={item.href}
+                                  key={`${link.label}-${item.label}`}
                                   href={
                                     link.label === "Classes & Camps"
                                       ? `/courses?tab=${item.tabId || item.href.split("/").pop()}`

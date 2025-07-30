@@ -516,7 +516,6 @@ export default function CoursesPage() {
             </TabsList>
           </motion.div>
 
-          <AnimatePresence mode="sync">
             <TabsContent value="jan-april">
               <motion.div variants={containerVariants} initial="hidden" animate="visible" exit="hidden">
                 <motion.div variants={itemVariants}>
@@ -601,7 +600,6 @@ export default function CoursesPage() {
                 </motion.div>
               </motion.div>
             </TabsContent>
-          </AnimatePresence>
         </Tabs>
       </div>
     </div>

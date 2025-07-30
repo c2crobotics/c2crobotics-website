@@ -1,6 +1,8 @@
+"use client"
+
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { BarChart3, Cog, Trophy, Clock, Users, Star } from "lucide-react"
+import { BarChart3, Cog, Trophy, Clock, Star } from "lucide-react"
 import Link from "next/link"
 import { siteConfig } from "@/config/site"
 
@@ -8,7 +10,7 @@ const courses = {
   learn: {
     icon: BarChart3,
     title: "Learn",
-    description: "Master robotics fundamentals through hands-on experience and mentorship.",
+    description: "Get an immersive, practical experience - where students learn by doing.",
     courses: [
       {
         title: "Robotics Foundations",
@@ -16,7 +18,12 @@ const courses = {
           "Build your first robot while learning core engineering principles, basic programming, and design thinking using the VEX IQ system.",
         duration: "8 weeks",
         level: "Beginner",
-        features: ["VEX IQ Robotics Platform", "Block-based programming", "Team collaboration", "Problem-solving skills"],
+        features: [
+          "VEX IQ Robotics Platform",
+          "Block-based programming",
+          "Team collaboration",
+          "Problem-solving skills",
+        ],
       },
       {
         title: "Programming Foundations",
@@ -27,7 +34,7 @@ const courses = {
       },
       {
         title: "Engineering Design Process",
-        description: "Learn industry-standard design methodologies used by professional engineers and roboticists.",
+        description: "Learn industry-standard design methodologies used by professional engineers and roboticists. ",
         duration: "6 weeks",
         level: "All levels",
         features: ["CAD design", "Prototyping methods", "Testing protocols", "Documentation skills"],
@@ -37,7 +44,7 @@ const courses = {
   create: {
     icon: Cog,
     title: "Create",
-    description: "Transform your ideas into reality through design and manufacturing.",
+    description: "Using various design and development processes, develop and create your ideas.",
     courses: [
       {
         title: "test",
@@ -48,31 +55,30 @@ const courses = {
       },
       {
         title: "Manufacturing & Prototyping",
-        description:
-          "test",
+        description: "test",
         duration: "8 weeks",
         level: "Advanced",
-        features: ["3D printing mastery", "CNC basics", "Quality control"],
+        features: ["3D printing", "CNC basics", "Quality control"],
       },
     ],
   },
   compete: {
     icon: Trophy,
     title: "Compete",
-    description: "Test your skills against the best teams from around the world in prestigious competitions.",
+    description: "Show off your creations in competitions at the States and World Championships.",
     courses: [
       {
-        title: "VEX Robotics Team",
+        title: "VEX V5 Competition Bootcamp",
         description:
-          "Join our elite competition teams and compete in VEX Robotics tournaments at regional, state, and world levels.",
-        duration: "Season-long",
-        level: "Intermediate",
+          "Join our 8-week long summer bootcamp to learn the ins-and-outs of being on a V5 competition team. Teams will learn about teamwork, public speaking, building, designing, mechanics, programming, and more.",
+        duration: "June 30, 2025 - August 24, 2025",
+        level: "Advanced",
         features: ["Tournament preparation", "Strategy development", "Team leadership", "Award pursuit"],
       },
       {
-        title: "VEXIQ Robotics Team",
-        description: "Participate in the world's premier middle school robotics competition with industry mentors.",
-        duration: "6 months",
+        title: "VEX IQ Competition Bootcamp",
+        description: "Join our 8-week long summer bootcamp to learn the ins-and-outs of being on a VEX IQ competition team. Teams will learn about teamwork, public speaking, building, designing, mechanics, programming, and more.",
+        duration: "June 30, 2025 - August 24, 2025",
         level: "Intermediate",
         features: ["Tournament preparation", "Strategy development", "Team leadership", "Award pursuit"],
       },
@@ -100,9 +106,9 @@ export default function CoursesSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Learn, Create, Compete</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">{courses[activeTab as keyof typeof courses].title}</h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-            Get an immersive, practical experience - where students learn by doing. <br /> Using various design and development processes, develop and create your ideas. <br /> Show off your creations in competitions at the States and World Championships.
+            {courses[activeTab as keyof typeof courses].description}
           </p>
         </motion.div>
 
@@ -113,10 +119,11 @@ export default function CoursesSection() {
               <button
                 key={key}
                 onClick={() => setActiveTab(key)}
-                className={`flex items-center justify-center gap-3 px-6 py-2 rounded-lg transition-all duration-200 ${activeTab === key
+                className={`flex items-center justify-center gap-3 px-6 py-2 rounded-lg transition-all duration-200 ${
+                  activeTab === key
                     ? "bg-blue-600 text-white shadow-lg transform scale-105"
                     : "bg-white text-gray-600 hover:bg-gray-50 shadow-md"
-                  }`}
+                }`}
               >
                 <section.icon className="w-5 h-5" />
                 <div className="text-center">
@@ -148,8 +155,9 @@ export default function CoursesSection() {
                 <div className="flex justify-between items-start gap-3 mb-3">
                   <h3 className="text-xl text-gray-900 flex-1 min-w-0">{course.title}</h3>
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 ${levelColors[course.level as keyof typeof levelColors]
-                      }`}
+                    className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 ${
+                      levelColors[course.level as keyof typeof levelColors]
+                    }`}
                   >
                     {course.level}
                   </span>
@@ -164,7 +172,6 @@ export default function CoursesSection() {
                     <Clock className="w-4 h-4" />
                     <span>{course.duration}</span>
                   </div>
-
                 </div>
 
                 <div className="space-y-2 mb-6 flex-grow">

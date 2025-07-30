@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Trophy, Calendar, MapPin, Menu, X, Camera, ArrowLeft, Loader2 } from "lucide-react"
 import { motion, AnimatePresence, cubicBezier } from "framer-motion"
-import { DataGenerator } from "@/history-config/data-generator"
+import { DataGenerator, WebsiteData } from "@/history-config/data-generator"
 import { siteConfig } from "@/config/site"
 import Link from "next/link"
 
@@ -71,35 +71,11 @@ const mobileSidebarVariants = {
   },
 } as const
 
-interface TeamData {
-  id: number
-  name: string
-  achievements: Array<{
-    name: string
-    place: string
-    date: string
-    location: string
-  }>
-  competitions: Array<{
-    name: string
-    date: string
-    location: string
-  }>
-  photos: Array<{
-    url: string
-    caption: string
-  }>
-}
-
-interface TeamsData {
-  [year: number]: TeamData[]
-}
-
 export default function History() {
   const [selectedYear, setSelectedYear] = useState(2024)
   const [selectedTeam, setSelectedTeam] = useState<number | null>(null)
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [teamsData, setTeamsData] = useState<TeamsData>({})
+  const [teamsData, setTeamsData] = useState<WebsiteData>({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [loadingProgress, setLoadingProgress] = useState("")
@@ -211,7 +187,7 @@ export default function History() {
           <CardContent className="text-center">
             <Trophy className="w-12 h-12 mx-auto text-gray-400 mb-4" />
             <h3 className="text-xl font-bold text-[#1a1a1f] mb-2 uppercase tracking-wide">No Team Data Found</h3>
-            <p className="text-gray-600">No team data was found. Please check your API configuration.</p>
+            <p className="text-gray-600">Please check your API configuration.</p>
           </CardContent>
         </Card>
       </div>
@@ -292,7 +268,7 @@ export default function History() {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      {team.name}
+                      {team.number}
                     </motion.button>
                   ))}
                 </motion.div>
@@ -359,7 +335,7 @@ export default function History() {
                   </Link>
                 </div>
                 <div className="p-4 sm:p-6 overflow-y-auto h-[calc(100vh-140px)]">
-                  {/* Team Selection - moved to top */}
+                  {/* Team Selection */}
                   {currentTeams.length > 0 && (
                     <div className="mb-8">
                       <h3 className="font-bold text-[#1a1a1f] mb-4 uppercase tracking-wide">Teams</h3>
@@ -374,7 +350,7 @@ export default function History() {
                                 : "text-gray-600 hover:bg-gray-50 hover:shadow-md"
                             }`}
                           >
-                            <span className="break-words">{team.name}</span>
+                            <span className="break-words">{team.number}</span>
                           </button>
                         ))}
                       </div>

@@ -5,7 +5,7 @@ import Link from "next/link"
 
 const testimonials = [
   {
-    name: "test",
+    name: "test1",
     role: "Student",
     program: "Competition Team",
     image: "gallery/placeholder.webp?height=300&width=300&text=jane+doe",
@@ -15,7 +15,7 @@ const testimonials = [
     highlight: "test",
   },
   {
-    name: "test",
+    name: "test2",
     role: "test",
     program: "Competition Team",
     image: "gallery/placeholder.webp?height=300&width=300&text=jane+doe",

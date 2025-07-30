@@ -14,8 +14,12 @@
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scroll-behavior: smooth;
   box-sizing: border-box;
+}
+
+/* Update smooth scrolling to use data attribute */
+html[data-scroll-behavior="smooth"] {
+  scroll-behavior: smooth;
 }
 
 :root {
@@ -54,7 +58,7 @@
   --sidebar-ring: oklch(0.708 0 0);
   --main-font: "MainFont", sans-serif;
   --secondary-font: "SecondaryFont", sans-serif;
-  
+
   /* Responsive spacing variables */
   --container-padding: 1rem;
   --section-spacing: 2rem;
@@ -167,23 +171,27 @@
   * {
     @apply border-border outline-ring/50;
   }
-  
+
   body {
     @apply bg-background text-foreground;
     min-height: 100vh;
     overflow-x: hidden;
   }
-  
-  img, video, iframe, embed, object {
+
+  img,
+  video,
+  iframe,
+  embed,
+  object {
     max-width: 100%;
     height: 100%;
   }
-  
+
   table {
     width: 100%;
     border-collapse: collapse;
   }
-  
+
   @media (max-width: 768px) {
     table {
       display: block;
@@ -191,92 +199,92 @@
       white-space: nowrap;
     }
   }
-  
+
   .container-responsive {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--container-padding);
   }
-  
+
   .grid-responsive {
     display: grid;
     gap: var(--element-spacing);
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
-  
+
   @media (max-width: 640px) {
     .grid-responsive {
       grid-template-columns: 1fr;
     }
   }
-  
+
   .flex-responsive {
     display: flex;
     flex-wrap: wrap;
     gap: var(--element-spacing);
   }
-  
+
   .flex-responsive > * {
     flex: 1 1 280px;
   }
-  
+
   @media (max-width: 640px) {
     .flex-responsive {
       flex-direction: column;
     }
-    
+
     .flex-responsive > * {
       flex: 1 1 auto;
     }
   }
-  
+
   .text-responsive-sm {
     font-size: clamp(0.75rem, 2vw, 0.875rem);
   }
-  
+
   .text-responsive-base {
     font-size: clamp(0.875rem, 2.5vw, 1rem);
   }
-  
+
   .text-responsive-lg {
     font-size: clamp(1rem, 3vw, 1.125rem);
   }
-  
+
   .text-responsive-xl {
     font-size: clamp(1.125rem, 3.5vw, 1.25rem);
   }
-  
+
   .text-responsive-2xl {
     font-size: clamp(1.25rem, 4vw, 1.5rem);
   }
-  
+
   .text-responsive-3xl {
     font-size: clamp(1.5rem, 5vw, 1.875rem);
   }
-  
+
   .text-responsive-4xl {
     font-size: clamp(1.875rem, 6vw, 2.25rem);
   }
-  
+
   .text-responsive-5xl {
     font-size: clamp(2.25rem, 7vw, 3rem);
   }
-  
+
   .section-spacing {
     padding: var(--section-spacing) 0;
   }
-  
+
   .element-spacing {
     margin-bottom: var(--element-spacing);
   }
-  
+
   @media (max-width: 768px) {
     [data-sidebar="sidebar"] {
       transform: translateX(-100%);
       transition: transform 0.3s ease;
     }
-    
+
     [data-sidebar="sidebar"][data-state="open"] {
       transform: translateX(0);
     }
@@ -289,33 +297,33 @@
       display: none !important;
     }
   }
-  
+
   .hide-tablet {
     @media (min-width: 641px) and (max-width: 1024px) {
       display: none !important;
     }
   }
-  
+
   .hide-desktop {
     @media (min-width: 1025px) {
       display: none !important;
     }
   }
-  
+
   .show-mobile {
     display: none !important;
     @media (max-width: 640px) {
       display: block !important;
     }
   }
-  
+
   .show-tablet {
     display: none !important;
     @media (min-width: 641px) and (max-width: 1024px) {
       display: block !important;
     }
   }
-  
+
   .show-desktop {
     display: none !important;
     @media (min-width: 1025px) {

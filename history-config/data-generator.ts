@@ -5,6 +5,7 @@ import { getPhotos } from "@/history-config/photo-config"
 interface WebsiteTeamData {
   id: number
   name: string
+  number: string
   achievements: Array<{
     name: string
     place: string
@@ -22,7 +23,7 @@ interface WebsiteTeamData {
   }>
 }
 
-interface WebsiteData {
+export interface WebsiteData {
   [year: number]: WebsiteTeamData[]
 }
 
@@ -58,7 +59,7 @@ export class DataGenerator {
     let totalCompetitions = 0
 
     console.log("Generating teams data from RobotEvents API...")
-    console.log(`Processing ${ROBOTEVENTS_CONFIG.TEAMS.length} teams in parallel...`)
+    console.log(`Processing ${ROBOTEVENTS_CONFIG.TEAMS.length} teams`)
 
     // Process all teams
     const teamPromises = ROBOTEVENTS_CONFIG.TEAMS.map(async (teamNumber) => {
@@ -109,6 +110,7 @@ export class DataGenerator {
           existingTeam = {
             id: teamIdCounter++,
             name: stats.teamName,
+            number: stats.teamNumber,
             achievements: [],
             competitions: [],
             photos: this.getTeamPhotos(stats.teamName, year),
