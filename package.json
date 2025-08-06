@@ -62,7 +62,7 @@
     "robotevents": "^6.0.4",
     "sonner": "^2.0.6",
     "tailwind-scrollbar": "^4.0.2",
-    "tailwind-variants": "^1.0.0",
+    "tailwind-variants": "^2.1.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.178.0",
     "three-globe": "^2.43.0",
