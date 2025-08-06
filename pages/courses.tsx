@@ -128,9 +128,13 @@ function ScheduleImage({ category }: { category: string }) {
         </CardHeader>
         <CardContent>
           <img
-            src={`${imageConfig.src}?height=${imageConfig.height}&width=${imageConfig.width}`}
+            src={imageConfig.src}
+            height={imageConfig.height}
+            width={imageConfig.width}
             alt={imageConfig.alt}
             className="w-full h-auto rounded-lg border object-contain"
+            loading="eager"
+            decoding="auto"
           />
         </CardContent>
       </Card>
@@ -148,9 +152,11 @@ function CompactCourseCard({ course, index }: { course: any; index: number }) {
           <motion.img
             src={course.imageUrl}
             alt={course.title}
-            className="w-full h-32 object-cover rounded-t-lg"
+            className="w-full h-48 object-cover rounded-t-lg"
             variants={imageVariants}
             whileHover="hover"
+            loading="eager"
+            decoding="auto"
           />
           <div className="absolute top-2 right-2 flex flex-wrap gap-1">
             <Badge variant="secondary" className="text-xs">
