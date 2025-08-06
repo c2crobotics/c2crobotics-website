@@ -117,9 +117,11 @@ export default function Gallery() {
                         alt={`Featured gallery image ${index + 1}`}
                         fill
                         className="object-cover rounded-lg shadow-lg"
+                        quality={75}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        priority={index === 0}
-                        quality={85}
+                        loading="eager"
+                        priority={true}
+                        decoding="auto"
                       />
                     </div>
                   </CarouselItem>
@@ -193,9 +195,12 @@ export default function Gallery() {
                       src={src}
                       alt={`${currentAlbum?.name} image ${index + 1}`}
                       fill
-                      className="object-cover hover:scale-110 transition-transform duration-300"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      quality={80}
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      quality={75}
+                      priority={true}
+                      loading="eager"
+                      decoding="auto"
                     />
                   </motion.div>
                 ))}

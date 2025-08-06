@@ -557,9 +557,11 @@ export default function History() {
                               whileHover={{ scale: 1.05, y: -5 }}
                             >
                               <img
-                                src={photo.url || "/placeholder.svg"}
+                                src={photo.url}
                                 alt={photo.caption}
                                 className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                                loading="eager"
+                                decoding="auto"
                               />
                               <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p className="font-medium text-sm uppercase tracking-wide break-words">

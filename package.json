@@ -60,6 +60,7 @@
     "remark-stringify": "^11.0.0",
     "resend": "^4.8.0",
     "robotevents": "^6.0.4",
+    "sharp": "^0.34.3",
     "sonner": "^2.0.7",
     "tailwind-scrollbar": "^4.0.2",
     "tailwind-variants": "^2.1.0",
