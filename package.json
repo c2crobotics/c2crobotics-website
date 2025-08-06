@@ -20,11 +20,7 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tabs": "^1.1.12",
     "@radix-ui/react-toast": "^1.2.14",
-<<<<<<< HEAD
     "@react-three/drei": "^10.6.1",
-=======
-    "@react-three/drei": "^10.6.0",
->>>>>>> b606d16b76433816a59d623de1c2c6ea8bf5d8eb
     "@react-three/fiber": "^9.3.0",
     "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/typography": "^0.5.16",
@@ -44,11 +40,7 @@
     "plaiceholder": "^3.0.0",
     "radix-ui": "^1.4.2",
     "react": "^19.1.1",
-<<<<<<< HEAD
     "react-dom": "^19.1.1",
-=======
-    "react-dom": "^19.1.0",
->>>>>>> b606d16b76433816a59d623de1c2c6ea8bf5d8eb
     "react-fast-marquee": "^1.6.5",
     "react-hook-form": "^7.62.0",
     "react-icons": "^5.5.0",
@@ -82,11 +74,7 @@
     "@next/eslint-plugin-next": "^15.4.5",
     "@types/node": "^24",
     "@types/react": "^19.1.9",
-<<<<<<< HEAD
     "@types/react-dom": "^19.1.7",
-=======
-    "@types/react-dom": "^19.1.6",
->>>>>>> b606d16b76433816a59d623de1c2c6ea8bf5d8eb
     "eslint": "^9.32.0",
     "eslint-config-next": "15.4.5",
     "eslint-plugin-react": "^7.37.5",
