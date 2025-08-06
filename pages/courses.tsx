@@ -130,7 +130,7 @@ function ScheduleImage({ category }: { category: string }) {
           <img
             src={`${imageConfig.src}?height=${imageConfig.height}&width=${imageConfig.width}`}
             alt={imageConfig.alt}
-            className="w-full h-auto max-h-48 rounded-lg border object-contain"
+            className="w-full h-auto rounded-lg border object-contain"
           />
         </CardContent>
       </Card>

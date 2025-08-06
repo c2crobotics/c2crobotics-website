@@ -111,9 +111,9 @@ export default function Gallery() {
               <CarouselContent className="-ml-2 md:-ml-4">
                 {carouselImages.map((src, index) => (
                   <CarouselItem key={index} className="pl-2 md:pl-4">
-                    <div className="relative h-48 sm:h-64 md:h-80">
+                    <div className="relative h-128">
                       <Image
-                        src={src || "/placeholder.svg"}
+                        src={src}
                         alt={`Featured gallery image ${index + 1}`}
                         fill
                         className="object-cover rounded-lg shadow-lg"
@@ -190,7 +190,7 @@ export default function Gallery() {
                     transition={{ duration: 0.4, delay: index * 0.05 }}
                   >
                     <Image
-                      src={src || "/placeholder.svg"}
+                      src={src}
                       alt={`${currentAlbum?.name} image ${index + 1}`}
                       fill
                       className="object-cover hover:scale-110 transition-transform duration-300"

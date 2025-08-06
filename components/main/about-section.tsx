@@ -28,7 +28,7 @@ export default function AboutSection() {
                 programmers, and innovators. We offer numerous of STEM programs along with mentorship designed for students grades K-12.
               </p>
               <p className="text-lg text-gray-600 mb-8">
-                From begininners takg their first steps into robotics to veterans competing at the highest levels, we
+                From begininners taking their first steps into robotics to veterans competing at the highest levels, we
                 provide the tools, mentorship, and opportunities needed to succeed in STEM fields.
               </p>
 

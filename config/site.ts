@@ -133,7 +133,7 @@ export const linksData = {
 }
 
 const galleryData: GalleryData = {
-  carouselImages: ["/gallery/placeholder.webp", "/gallery/placeholder.webp", "/gallery/placeholder.webp"],
+  carouselImages: ["/gallery/NJIT2024/NJIT2024_September21_JHO [IMG_5185].jpg", "/gallery/2024-2025 Rapid_Relay/Worlds2025_May12_JHO [IMG_2320].jpg", "/gallery/2024-2025 Rapid_Relay/Worlds2025_May12_JHO [IMG_2312].jpg", "/gallery/NJIT2024/NJIT2024_September21_JHO [IMG_5392].jpg", "/gallery/NJIT2024/NJIT2024_September22_JHO [IMG_6063].jpg"],
   albums: {
     "2024-2025": {
       name: "Rapid Relay",
@@ -167,10 +167,10 @@ const galleryData: GalleryData = {
         team_photos: {
           name: "Team Photos",
           images: [
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
-            "/gallery/placeholder.webp",
+            "/gallery/NJIT2024/NJIT2024_September21_JHO [IMG_5267].jpg",
+            "/gallery/NJIT2024/NJIT2024_September21_JHO [IMG_5185].jpg",
+            "/gallery/NJIT2024/NJIT2024_September21_JHO [IMG_5042].jpg",
+            "/gallery/NJIT2024/NJIT2024_September22_JHO [IMG_5843].jpg",
           ],
         },
         competitions: {
