@@ -557,7 +557,7 @@ export default function History() {
                               className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-500"
                               whileHover={{ scale: 1.05, y: -5 }}
                             >
-                              <div className="relative w-full h-48">
+                              <div className="relative w-full h-81">
                                 <Image
                                   src={photo.url}
                                   alt={photo.caption}
