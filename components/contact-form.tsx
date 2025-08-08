@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import type { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -10,10 +10,12 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 import { formSchema } from "@/lib/schemas"
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 export default function ContactFormSimple() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
+  const captchaRef = useRef<HCaptcha>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -23,8 +25,13 @@ export default function ContactFormSimple() {
       email: "",
       phone: "",
       message: "",
+      "h-captcha-response": "",
     },
   })
+
+  const onHCaptchaChange = (token: string) => {
+    form.setValue("h-captcha-response", token);
+  };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true)
@@ -38,6 +45,7 @@ export default function ContactFormSimple() {
       formData.append("email", values.email)
       formData.append("phone", values.phone)
       formData.append("message", values.message)
+      formData.append("h-captcha-response", values["h-captcha-response"]);
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -51,6 +59,7 @@ export default function ContactFormSimple() {
           variant: "default",
         })
         form.reset()
+        captchaRef.current?.resetCaptcha();
       } else {
       }
     } catch (error) {
@@ -144,6 +153,15 @@ export default function ContactFormSimple() {
               </FormItem>
             )}
           />
+
+          <div className="flex justify-center">
+            <HCaptcha
+              ref={captchaRef}
+              sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
+              reCaptchaCompat={false}
+              onVerify={onHCaptchaChange}
+            />
+          </div>
 
           <Button
             type="submit"

@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Trophy, Calendar, MapPin, Menu, X, Camera, ArrowLeft, Loader2 } from "lucide-react"
+import { Trophy, Calendar, MapPin, Menu, X, Camera, ArrowLeft, Loader2 } from 'lucide-react'
 import { motion, AnimatePresence, cubicBezier } from "framer-motion"
 import { DataGenerator, WebsiteData } from "@/history-config/data-generator"
 import { siteConfig } from "@/config/site"
 import Link from "next/link"
+import Image from "next/image"
 
 const contentVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -556,13 +557,17 @@ export default function History() {
                               className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-500"
                               whileHover={{ scale: 1.05, y: -5 }}
                             >
-                              <img
-                                src={photo.url}
-                                alt={photo.caption}
-                                className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                                loading="eager"
-                                decoding="auto"
-                              />
+                              <div className="relative w-full h-48">
+                                <Image
+                                  src={photo.url}
+                                  alt={photo.caption}
+                                  fill
+                                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                                  quality={80}
+                                  loading={index < 8 ? "eager" : "lazy"}
+                                />
+                              </div>
                               <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <p className="font-medium text-sm uppercase tracking-wide break-words">
                                   {photo.caption}

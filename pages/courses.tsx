@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Calendar, Clock, Users, Filter } from "lucide-react"
+import { Calendar, Clock, Users, Filter } from 'lucide-react'
 import { motion, AnimatePresence, type Variants } from "framer-motion"
 import {
   siteConfig,
@@ -20,6 +20,7 @@ import {
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
+import Image from "next/image"
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -127,15 +128,17 @@ function ScheduleImage({ category }: { category: string }) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <img
-            src={imageConfig.src}
-            height={imageConfig.height}
-            width={imageConfig.width}
-            alt={imageConfig.alt}
-            className="w-full h-auto rounded-lg border object-contain"
-            loading="eager"
-            decoding="auto"
-          />
+          <div className="relative w-full" style={{ aspectRatio: `${imageConfig.width}/${imageConfig.height}` }}>
+            <Image
+              src={imageConfig.src}
+              alt={imageConfig.alt}
+              fill
+              className="rounded-lg border object-contain"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 672px"
+              quality={85}
+              priority
+            />
+          </div>
         </CardContent>
       </Card>
     </motion.div>
@@ -149,15 +152,21 @@ function CompactCourseCard({ course, index }: { course: any; index: number }) {
     <motion.div variants={cardVariants} initial="hidden" animate="visible" whileHover="hover" custom={index}>
       <Card className="h-full flex flex-col overflow-hidden" style={{ contain: "layout" }}>
         <div className="relative overflow-hidden">
-          <motion.img
-            src={course.imageUrl}
-            alt={course.title}
-            className="w-full h-48 object-cover rounded-t-lg"
+          <motion.div
+            className="relative w-full h-48"
             variants={imageVariants}
             whileHover="hover"
-            loading="eager"
-            decoding="auto"
-          />
+          >
+            <Image
+              src={course.imageUrl}
+              alt={course.title}
+              fill
+              className="object-cover rounded-t-lg"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+              quality={80}
+              loading={index < 8 ? "eager" : "lazy"}
+            />
+          </motion.div>
           <div className="absolute top-2 right-2 flex flex-wrap gap-1">
             <Badge variant="secondary" className="text-xs">
               {course.category}

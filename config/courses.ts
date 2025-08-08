@@ -213,7 +213,7 @@ export const holidayCourses = [
       { name: "Session 1", dates: "Dec 26-28", available: true },
       { name: "Session 2", dates: "Dec 30, Jan 2-3", available: true },
       { name: "Session 3", dates: "February 20-22", available: true },
-      { name: "Session 4", dates: "April 17-19 or 18-20", available: false },
+      { name: "Session 4", dates: "April 17-19 or 18-20", available: true },
     ],
     imageUrl: "/courses/3dprinting2.webp?height=200&width=300",
     skills: ["Robot design", "3D modeling", "Programming", "Gift design", "Manufacturing"],
