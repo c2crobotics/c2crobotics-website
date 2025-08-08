@@ -111,7 +111,7 @@ export default function Home() {
         <CoursesSection />
 
         {/* Stories Section */}
-        <StoriesSection />
+        {/* <StoriesSection /> */}
 
         {/* Sponsors Section */}
         <Suspense fallback={<div>Loading sponsors...</div>}>
