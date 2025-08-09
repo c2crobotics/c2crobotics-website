@@ -59,6 +59,3 @@ npm run build
 - Facebook: [@c2crobotics](https://www.facebook.com/profile.php?id=100063715805638)
 - Twitter: [@c2crobotics](https://x.com/c2c_robotics)
 - YouTube: [C2C Robotics](https://www.youtube.com/channel/UCgZzPysyfr9m7b-pOD_6Yng)
-
-## Special Thanks
-**Huge thanks to [Techknights Team 334](https://github.com/team334) for providing the website template and inspiration that made this project possible!** 
